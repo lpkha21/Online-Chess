@@ -12,7 +12,7 @@ public class Square {
         this.y = y;
     }
 
-    public int getCol(){
+    public int getColor(){
         return COL;
     }
     public int getType(){
