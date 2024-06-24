@@ -29,4 +29,9 @@ public class King implements Piece{
     public Coordinate getCoordinate() {
         return coord;
     }
+
+    @Override
+    public void updateCoordinate(Coordinate c) {
+        coord = c;
+    }
 }
