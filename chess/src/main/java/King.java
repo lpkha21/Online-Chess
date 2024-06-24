@@ -20,22 +20,49 @@ public class King implements Piece{
         if(p != null && p.color() == this.color)
             return false;
 
-       // if(!moved && )
+       if(c.j - cord.j == 2){
+           if(moved)
+               return false;
+           Piece rook = board.getPiece(this.cord.i,this.cord.j + 4);
+           if(rook.getType() == pieceEnum.ROOK && ((Rook)(rook)).moved())
+               return false;
+           if(!board.isEmpty(this.cord.i,this.cord.j + 1) || !board.isEmpty(this.cord.i,this.cord.j + 2) || !board.isEmpty(this.cord.i,this.cord.j + 3))
+               return false;
+           if(check(new Coordinate(this.cord.i,this.cord.j + 1)) && check(new Coordinate(this.cord.i,this.cord.j + 2)))
+               return false;
+       }
+       else if(c.j - cord.j == -2){
+           if(moved)
+               return false;
+           Piece rook = board.getPiece(this.cord.i,this.cord.j - 3);
+           if(rook.getType() == pieceEnum.ROOK && ((Rook)(rook)).moved())
+               return false;
+           if(!board.isEmpty(this.cord.i,this.cord.j - 1) || !board.isEmpty(this.cord.i,this.cord.j - 2))
+               return false;
+           if(check(new Coordinate(this.cord.i,this.cord.j - 1)) && check(new Coordinate(this.cord.i,this.cord.j - 2)))
+               return false;
+       }
 
         if(c.i - cord.i < 2 && c.i - cord.i > -2 && c.j - cord.j < 2 && c.j - cord.j < 2){
-            for (int i = 0; i < board.SIZE; i++) {
-                for (int j = 0; j < board.SIZE; j++) {
-                    Piece curr = board.getPiece(i,j);
-                    if(curr != null && curr.color() != this.color && curr.canMove(c)){
-                        return false;
-                    }
-                }
-            }
+            if(check(c))
+                return false;
         }else{
             return false;
         }
 
         return true;
+    }
+
+    private boolean check(Coordinate c){
+        for (int i = 0; i < board.SIZE; i++) {
+            for (int j = 0; j < board.SIZE; j++) {
+                Piece curr = board.getPiece(i,j);
+                if(curr != null && curr.color() != this.color && curr.canMove(c)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override

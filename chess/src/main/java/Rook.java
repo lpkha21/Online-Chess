@@ -72,5 +72,8 @@ public class Rook implements Piece{
         cord = c;
         moved = true;
     }
+    public boolean moved(){
+        return moved;
+    }
 
 }
