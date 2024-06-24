@@ -12,6 +12,8 @@ public class Rook implements Piece{
     }
     @Override
     public boolean canMove(Coordinate c) {
+        if(c.equals(cord)) return false;
+
         if(cord.i != c.i && cord.j != c.j) return false;
 
         if(!board.isEmpty(c) && board.getPiece(c).color() == this.color) return false;
