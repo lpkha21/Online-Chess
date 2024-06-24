@@ -5,15 +5,28 @@ public class Rook implements Piece{
     Board board;
 
 
-    public Rook(Coordinate coord, Board board, int color){
+    public Rook(Coordinate cord, Board board, int color){
         this.board = board;
         this.color = color;
-        this.cord = coord;
+        this.cord = cord;
     }
     @Override
     public boolean canMove(Coordinate c) {
+        if(cord.i != c.i && cord.j != c.j) return false;
 
-        return false;
+        boolean can = false;
+        if(cord.i == c.i) {
+            if (cord.j > c.j) {
+                for(int j = c.j; j <= cord.j; j++){
+                    if(!board.isEmpty(c.i, j)){
+
+                    }
+                }
+            }else{
+
+            }
+        }
+        return can;
     }
 
     @Override
