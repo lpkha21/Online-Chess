@@ -14,19 +14,40 @@ public class Rook implements Piece{
     public boolean canMove(Coordinate c) {
         if(cord.i != c.i && cord.j != c.j) return false;
 
-        boolean can = true;
+        if(!board.isEmpty(c) && board.getPiece(c).color() == this.color) return false;
+
         if(cord.i == c.i) {
             if (cord.j > c.j) {
                 for(int j = c.j; j <= cord.j; j++){
                     if(!board.isEmpty(c.i, j)){
-                        can = false;
+                        return false;
                     }
                 }
             }else{
-
+                for(int j = cord.j; j <= c.j; j++){
+                    if(!board.isEmpty(c.i, j)){
+                        return false;
+                    }
+                }
             }
         }
-        return can;
+
+        if(cord.j == c.j){
+            if(cord.i > c.i){
+                for (int i = c.i; i < cord.i; i++) {
+                    if(!board.isEmpty(i, c.j)){
+                        return false;
+                    }
+                }
+            }else{
+                for(int i = cord.i; i < c.i; i++){
+                    if(!board.isEmpty(i, c.j)){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     @Override
