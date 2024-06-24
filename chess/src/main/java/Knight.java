@@ -14,7 +14,7 @@ public class Knight implements Piece{
     public boolean canMove(Coordinate c) {
         if(cord.i == c.i || cord.j == c.j)return false;
         if(abs(cord.i - c.i) + abs(cord.j - c.j) != 3)return false;
-        if(board.getPiece(c) != null && board.getPiece(c).color() == color)return false;
+        if(!board.isEmpty(c) && board.getPiece(c).color() == color)return false;
         return true;
     }
 

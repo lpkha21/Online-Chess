@@ -1,17 +1,28 @@
+import static java.lang.Math.abs;
+
 public class Pawn implements Piece {
     int color;
     final int type = pieceEnum.PAWN;
-    Coordinate coord;
+    Coordinate cord;
     Board board;
 
 
-    public Pawn(Coordinate coord, Board board, int color){
+    public Pawn(Coordinate cord, Board board, int color){
         this.color = color;
         this.board = board;
-        this.coord = coord;
+        this.cord = cord;
     }
     @Override
     public boolean canMove(Coordinate c) {
+        if(this.color == pieceEnum.BLACK){
+            if(c.i <= this.cord.i)return false;
+        }else{
+            if(c.i >= this.cord.i)return false;
+        }
+        if(abs(c.i - this.cord.i) != 1 || abs(c.j - this.cord.j) > 1)return false;
+        if(abs(c.j - this.cord.j) == 1 && (board.getPiece(c) == null || board.getPiece(c).color() == this.color))return false;
+        if(abs(c.j - this.cord.j) == 0 && board.getPiece(c) != null)return false;
+
         return false;
     }
 
@@ -27,11 +38,11 @@ public class Pawn implements Piece {
 
     @Override
     public Coordinate getCoordinate() {
-        return this.coord;
+        return this.cord;
     }
 
     @Override
     public void updateCoordinate(Coordinate c) {
-        
+        this.cord = c;
     }
 }
