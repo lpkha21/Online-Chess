@@ -1,4 +1,3 @@
-
 import static com.sun.org.apache.xalan.internal.lib.ExsltMath.abs;
 
 public class Bishop implements Piece{
@@ -17,16 +16,19 @@ public class Bishop implements Piece{
         int dx = this.coord.j - c.j;
         int dy = this.coord.i - c.i;
 
-        if( dx == 0 && dy == 0){  // on the same square
+        if( dx == 0 && dy == 0 ){  // on the same square
             return false;
         } else if ( abs(dx) != abs(dy) ) { // not on the diagonal
             return false;
-        } else { // check the path to c
-            for(int row=this.coord.i; row<=this.coord.i+dx; row++) {
-                for(int col=this.coord.j; col<=this.coord.j+dy; col++) {
-                    if (!board.isEmpty(new Coordinate(row, col))) {
-                        return false;
-                    }
+        } else if( !board.isEmpty(c.i,c.j) && board.getPiece(c.i, c.j).color() == this.color ){
+            return false;
+        }
+
+        // check the path to c
+        for(int row=this.coord.i; row<this.coord.i+dx; row++) {
+            for(int col=this.coord.j; col<this.coord.j+dy; col++) {
+                if ( !board.isEmpty(row,col) ) {
+                    return false;
                 }
             }
         }
