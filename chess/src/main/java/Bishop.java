@@ -4,17 +4,17 @@ public class Bishop implements Piece{
 
     int color;
     final int type = pieceEnum.BISHOP;
-    Coordinate coord;
+    Coordinate cord;
     Board board;
-    public Bishop(Coordinate coord, Board board, int color){
-        this.coord = coord;
+    public Bishop(Coordinate cord, Board board, int color){
+        this.cord = cord;
         this.color = color;
         this.board = board;
     }
     @Override
     public boolean canMove(Coordinate c) {
-        int dx = c.j - this.coord.j;
-        int dy = c.i - this.coord.i;
+        int dx = c.j - this.cord.j;
+        int dy = c.i - this.cord.i;
 
         if( dx == 0 && dy == 0 ) // move to same block
             return false;
@@ -29,32 +29,32 @@ public class Bishop implements Piece{
 
         // check the paths to c
         if(dx > 0 && dy > 0) { // 1. bottom right
-            for (int row = this.coord.i; row < this.coord.i + dy; row++) {
-                for (int col = this.coord.j; col < this.coord.j + dx; col++) {
+            for (int row = this.cord.i; row < this.cord.i + dy; row++) {
+                for (int col = this.cord.j; col < this.cord.j + dx; col++) {
                     if (!board.isEmpty(row, col)) {
                         return false;
                     }
                 }
             }
         } else if(dx > 0 && dy < 0) { // 2. top right
-            for (int row = this.coord.i; row > this.coord.i + dy; row--) {
-                for (int col = this.coord.j; col < this.coord.j + dx; col++) {
+            for (int row = this.cord.i; row > this.cord.i + dy; row--) {
+                for (int col = this.cord.j; col < this.cord.j + dx; col++) {
                     if (!board.isEmpty(row, col)) {
                         return false;
                     }
                 }
             }
         } else if(dx < 0 && dy > 0) { // 3. bottom left
-            for (int row = this.coord.i; row < this.coord.i + dy; row++) {
-                for (int col = this.coord.j; col > this.coord.j + dx; col--) {
+            for (int row = this.cord.i; row < this.cord.i + dy; row++) {
+                for (int col = this.cord.j; col > this.cord.j + dx; col--) {
                     if (!board.isEmpty(row, col)) {
                         return false;
                     }
                 }
             }
         } else { // 4. top left
-            for (int row = this.coord.i; row > this.coord.i + dy; row--) {
-                for (int col = this.coord.j; col > this.coord.j + dx; col--) {
+            for (int row = this.cord.i; row > this.cord.i + dy; row--) {
+                for (int col = this.cord.j; col > this.cord.j + dx; col--) {
                     if (!board.isEmpty(row, col)) {
                         return false;
                     }
@@ -77,11 +77,11 @@ public class Bishop implements Piece{
 
     @Override
     public Coordinate getCoordinate() {
-        return this.coord;
+        return this.cord;
     }
 
     @Override
     public void updateCoordinate(Coordinate c) {
-        this.coord = c;
+        this.cord = c;
     }
 }
