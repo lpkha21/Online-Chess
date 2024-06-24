@@ -15,6 +15,9 @@ public class King implements Piece{
     public boolean canMove(Coordinate c) {
         boolean ans = true;
 
+        if(c.i - coord.i < 2 && c.i - coord.i > -2 && c.j - coord.j < 2 && c.j - coord.j < 2){
+
+        }
         return false;
     }
 
