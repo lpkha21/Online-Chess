@@ -5,7 +5,7 @@ public class Board {
     Piece[][] board;
     //dasaweria bordis sheqmna 8X8 nalebit shevseba da 32 figuris sheqmna da ganlageba
     public Board(){
-        board = new Piece[8][8];
+        board = new Piece[SIZE][SIZE];
     }
 
     public boolean isEmpty(Coordinate cord){

@@ -1,6 +1,4 @@
 public class Pawn implements Piece {
-
-
     int color;
     final int type = pieceEnum.PAWN;
     Coordinate coord;
