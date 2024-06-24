@@ -8,10 +8,13 @@ public class King implements Piece{
     public King(Coordinate coord, Board board, int color){
         this.coord = coord;
         this.board = board;
+        this.color = color;
     }
 
     @Override
     public boolean canMove(Coordinate c) {
+        boolean ans = true;
+
         return false;
     }
 
