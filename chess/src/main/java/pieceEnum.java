@@ -1,7 +1,6 @@
 public class pieceEnum {
     public static int BLACK = 0;
     public static int WHITE = 1;
-    public static int EMPTY = -1;
     public static int PAWN = 1;
     public static int KNIGHT = 2;
     public static int BISHOP = 3;
