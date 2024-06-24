@@ -7,6 +7,12 @@ public class Queen implements Piece{
 
     Board board;
 
+    public Queen(Coordinate coordinate, Board board, int col) {
+        cord = coordinate;
+        this.board = board;
+        this.color = col;
+    }
+
     @Override
     public boolean canMove(Coordinate c) {
 
