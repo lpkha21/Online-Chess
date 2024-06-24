@@ -6,6 +6,8 @@ public class Pawn implements Piece {
     Coordinate cord;
     Board board;
 
+    boolean moved = false;
+
 
     public Pawn(Coordinate cord, Board board, int color){
         this.color = color;
@@ -19,6 +21,8 @@ public class Pawn implements Piece {
         }else{
             if(c.i >= this.cord.i)return false;
         }
+        if(!moved && abs(c.i-this.cord.i) == 2 && abs(c.j - this.cord.j) == 0 && board.isEmpty(c))return true;
+
         if(abs(c.i - this.cord.i) != 1 || abs(c.j - this.cord.j) > 1)return false;
         if(abs(c.j - this.cord.j) == 1 && (board.getPiece(c) == null || board.getPiece(c).color() == this.color))return false;
         if(abs(c.j - this.cord.j) == 0 && board.getPiece(c) != null)return false;
@@ -44,5 +48,6 @@ public class Pawn implements Piece {
     @Override
     public void updateCoordinate(Coordinate c) {
         this.cord = c;
+        moved = true;
     }
 }
