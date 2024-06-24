@@ -31,4 +31,9 @@ public class Pawn implements Piece {
     public Coordinate getCoordinate() {
         return this.coord;
     }
+
+    @Override
+    public void updateCoordinate(Coordinate c) {
+        
+    }
 }
