@@ -3,4 +3,5 @@ public interface Piece {
     public int color();
     public int getType();
     public Coordinate getCoordinate();
+    public void updateCoordinate(Coordinate c);
 }
