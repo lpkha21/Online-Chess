@@ -12,7 +12,7 @@ public class Knight implements Piece{
     }
     @Override
     public boolean canMove(Coordinate c) {
-
+        
         return false;
     }
 
@@ -29,5 +29,10 @@ public class Knight implements Piece{
     @Override
     public Coordinate getCoordinate() {
         return this.cord;
+    }
+
+    @Override
+    public void updateCoordinate(Coordinate c) {
+        cord = c;
     }
 }
