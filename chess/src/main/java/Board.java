@@ -1,5 +1,5 @@
 public class Board {
-    static final int SIZE = 8;
+    public final int SIZE = 8;
     private final Piece[][] board;
 
     public Board(){

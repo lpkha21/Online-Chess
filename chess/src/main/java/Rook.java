@@ -3,7 +3,7 @@ public class Rook implements Piece{
     final int type = pieceEnum.ROOK;
     Coordinate cord;
     Board board;
-
+    boolean moved = false;
 
     public Rook(Coordinate cord, Board board, int color){
         this.board = board;
@@ -70,6 +70,7 @@ public class Rook implements Piece{
     @Override
     public void updateCoordinate(Coordinate c) {
         cord = c;
+        moved = true;
     }
 
 }
