@@ -1,20 +1,18 @@
+package javaClasses;
+
 import static com.sun.org.apache.xalan.internal.lib.ExsltMath.abs;
 
-public class Queen implements Piece{
+public class Bishop implements Piece{
+
     int color;
-
-    final int type = pieceEnum.QUEEN;
-
+    final int type = pieceEnum.BISHOP;
     Coordinate cord;
-
     Board board;
-
-    public Queen(Coordinate coordinate, Board board, int col) {
-        cord = coordinate;
+    public Bishop(Coordinate cord, Board board, int color){
+        this.cord = cord;
+        this.color = color;
         this.board = board;
-        this.color = col;
     }
-
     @Override
     public boolean canMove(Coordinate c) {
         int dx = c.j - this.cord.j;
@@ -26,15 +24,12 @@ public class Queen implements Piece{
         if ( abs(dx) != abs(dy) ) // move is not diagonal
             return false;
 
-        if(cord.i != c.i && cord.j != c.j) // move is not horizontal nor vertical
-            return false;
-
         // moving to a same colored piece
         if( !board.isEmpty(c.i,c.j) && board.getPiece(c.i, c.j).color() == this.color )
             return false;
 
-        // Check diagonals paths
 
+        // check the paths to c
         if(dx > 0 && dy > 0) { // 1. bottom right
             for (int row = this.cord.i; row < this.cord.i + dy; row++) {
                 for (int col = this.cord.j; col < this.cord.j + dx; col++) {
@@ -69,61 +64,26 @@ public class Queen implements Piece{
             }
         }
 
-        // Check vertical path
-        if(cord.j == c.j){
-            if(cord.i > c.i){
-                for (int i = c.i; i < cord.i; i++) {
-                    if(!board.isEmpty(i, c.j)){
-                        return false;
-                    }
-                }
-            }else{
-                for(int i = cord.i; i < c.i; i++){
-                    if(!board.isEmpty(i, c.j)){
-                        return false;
-                    }
-                }
-            }
-        }
-
-        // Check horizontal path
-        if(cord.i == c.i) {
-            if (cord.j > c.j) {
-                for(int j = c.j; j <= cord.j; j++){
-                    if(!board.isEmpty(c.i, j)){
-                        return false;
-                    }
-                }
-            }else{
-                for(int j = cord.j; j <= c.j; j++){
-                    if(!board.isEmpty(c.i, j)){
-                        return false;
-                    }
-                }
-            }
-        }
-
-
         return true;
     }
 
     @Override
     public int color() {
-        return color;
+        return this.color;
     }
 
     @Override
     public int getType() {
-        return type;
+        return this.type;
     }
 
     @Override
     public Coordinate getCoordinate() {
-        return cord;
+        return this.cord;
     }
 
     @Override
     public void updateCoordinate(Coordinate c) {
-        cord = c;
+        this.cord = c;
     }
 }

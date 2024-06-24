@@ -1,3 +1,5 @@
+package javaClasses;
+
 public interface Piece {
     public boolean canMove(Coordinate c);
     public int color();

@@ -1,3 +1,5 @@
+package javaClasses;
+
 public class Board {
     public final int SIZE = 8;
     private final Piece[][] board;

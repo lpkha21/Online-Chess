@@ -1,3 +1,5 @@
+package javaClasses;
+
 public class Coordinate {
     public int i;
     public int j;

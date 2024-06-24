@@ -1,3 +1,5 @@
+package javaClasses;
+
 public class Rook implements Piece{
     int color;
     final int type = pieceEnum.ROOK;

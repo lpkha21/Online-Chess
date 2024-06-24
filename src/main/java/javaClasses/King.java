@@ -1,3 +1,5 @@
+package javaClasses;
+
 public class King implements Piece{
     int color;
     final int type = pieceEnum.KING;
