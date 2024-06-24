@@ -1,6 +1,6 @@
 public interface Piece {
-    boolean canMove(Coordinate c);
-    int color();
-    int type();
-
+    public boolean canMove(Coordinate c);
+    public int color();
+    public int getType();
+    public Coordinate getCoordinate();
 }
