@@ -28,7 +28,6 @@ public class Bishop implements Piece{
 
 
         // check the paths to c
-
         if(dx > 0 && dy > 0) { // 1. bottom right
             for (int row = this.coord.i; row < this.coord.i + dy; row++) {
                 for (int col = this.coord.j; col < this.coord.j + dx; col++) {
