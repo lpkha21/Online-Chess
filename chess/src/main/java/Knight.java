@@ -1,9 +1,7 @@
 public class Knight implements Piece{
     int color;
     final int type = pieceEnum.KNIGHT;
-
     Coordinate cord;
-
     Board board;
     public Knight(Coordinate cord, Board board, int color){
         this.cord = cord;
