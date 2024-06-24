@@ -1,3 +1,5 @@
+import static java.lang.Math.abs;
+
 public class Knight implements Piece{
     int color;
     final int type = pieceEnum.KNIGHT;
@@ -10,8 +12,10 @@ public class Knight implements Piece{
     }
     @Override
     public boolean canMove(Coordinate c) {
-        
-        return false;
+        if(cord.i == c.i || cord.j == c.j)return false;
+        if(abs(cord.i - c.i) + abs(cord.j - c.j) != 3)return false;
+        if(board.getPiece(c) != null && board.getPiece(c).color() == color)return false;
+        return true;
     }
 
     @Override
