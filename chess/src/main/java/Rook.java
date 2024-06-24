@@ -14,12 +14,12 @@ public class Rook implements Piece{
     public boolean canMove(Coordinate c) {
         if(cord.i != c.i && cord.j != c.j) return false;
 
-        boolean can = false;
+        boolean can = true;
         if(cord.i == c.i) {
             if (cord.j > c.j) {
                 for(int j = c.j; j <= cord.j; j++){
                     if(!board.isEmpty(c.i, j)){
-
+                        can = false;
                     }
                 }
             }else{
