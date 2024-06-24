@@ -12,4 +12,7 @@ public class Board {
         return board[cord.i][cord.j] == null;
     }
 
+    public boolean isEmpty(int i, int j){
+        return board[i][j] == null;
+    }
 }
