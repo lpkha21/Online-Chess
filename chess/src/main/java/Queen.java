@@ -27,4 +27,9 @@ public class Queen implements Piece{
     public Coordinate getCoordinate() {
         return cord;
     }
+
+    @Override
+    public void updateCoordinate(Coordinate c) {
+        cord = c;
+    }
 }

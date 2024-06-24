@@ -1,17 +1,18 @@
 public class Rook implements Piece{
     int color;
     final int type = pieceEnum.ROOK;
-    Coordinate coord;
+    Coordinate cord;
     Board board;
 
 
     public Rook(Coordinate coord, Board board, int color){
         this.board = board;
         this.color = color;
-        this.coord = coord;
+        this.cord = coord;
     }
     @Override
     public boolean canMove(Coordinate c) {
+
         return false;
     }
 
@@ -27,11 +28,12 @@ public class Rook implements Piece{
 
     @Override
     public Coordinate getCoordinate() {
-        return this.coord;
+        return this.cord;
     }
 
     @Override
     public void updateCoordinate(Coordinate c) {
-
+        cord = c;
     }
+
 }

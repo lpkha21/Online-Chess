@@ -6,10 +6,10 @@ public class Board {
     //dasaweria bordis sheqmna 8X8 nalebit shevseba da 32 figuris sheqmna da ganlageba
     public Board(){
         board = new Piece[8][8];
-
     }
 
-    public boolean isEmpty(int i, int j){
-        return board[i][j] == null;
+    public boolean isEmpty(Coordinate cord){
+        return board[cord.i][cord.j] == null;
     }
+
 }
