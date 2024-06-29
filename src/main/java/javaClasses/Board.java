@@ -4,6 +4,9 @@ public class Board {
     public final int SIZE = 8;
     private final Piece[][] board;
 
+    Coordinate whiteKing;
+    Coordinate blackKing;
+
     public Board(){
         board = new Piece[SIZE][SIZE];
         init();
@@ -28,7 +31,8 @@ public class Board {
         board[0][2] = new Bishop(new Coordinate(0,2), this, pieceEnum.BLACK);
         board[0][5] = new Bishop(new Coordinate(0,5), this, pieceEnum.BLACK);
 
-        board[0][3] = new King(new Coordinate(0,3), this, pieceEnum.BLACK);
+        blackKing = new Coordinate(0,3);
+        board[0][3] = new King(blackKing, this, pieceEnum.BLACK);
         board[0][4] = new Queen(new Coordinate(0,4), this, pieceEnum.BLACK);
 
         // WHITE
@@ -41,7 +45,8 @@ public class Board {
         board[7][2] = new Bishop(new Coordinate(7,2), this, pieceEnum.WHITE);
         board[7][5] = new Bishop(new Coordinate(7,5), this, pieceEnum.WHITE);
 
-        board[7][3] = new King(new Coordinate(7,3), this, pieceEnum.WHITE);
+        whiteKing = new Coordinate(7,3);
+        board[7][3] = new King(whiteKing, this, pieceEnum.WHITE);
         board[7][4] = new Queen(new Coordinate(7,4), this, pieceEnum.WHITE);
     }
 
@@ -58,6 +63,15 @@ public class Board {
 
     public Piece getPiece(int i, int j){
         return board[i][j];
+    }
+
+    void makeMove(Coordinate from, Coordinate to){
+        Piece curr = board[from.i][from.j];
+        if(curr.canMove(to)){
+            // logikaa dasaweri
+        }else{
+            //
+        }
     }
 
 }
