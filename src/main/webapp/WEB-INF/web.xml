@@ -4,4 +4,29 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
+  <listener>
+    <listener-class>javaClasses.ContextListener</listener-class>
+  </listener>
+
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>javaClasses.LoginServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>CreateAccountServlet</servlet-name>
+    <servlet-class>javaClasses.CreateAccountServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>CreateAccountServlet</servlet-name>
+    <url-pattern>/CreateAccountServlet</url-pattern>
+  </servlet-mapping>
+
 </web-app>
