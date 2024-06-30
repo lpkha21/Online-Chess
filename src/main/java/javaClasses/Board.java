@@ -65,13 +65,69 @@ public class Board {
         return board[i][j];
     }
 
-    void makeMove(Coordinate from, Coordinate to){
-        Piece curr = board[from.i][from.j];
-        if(curr.canMove(to)){
-            // logikaa dasaweri
+    //tu shedzlo moqmedeba true, tu ver shedzlo moqmedeba false
+    // gadaecema saidan sad unda gadavides figura da ra feris motamashe cdilobs svlis gaketebas
+    public boolean makeMove(Coordinate from, Coordinate to, int color){
+        Piece curr = getPiece(from);
+
+        if(curr == null)
+            return false;
+
+        if(curr.color() == color && curr.canMove(to)){
+
+            Piece temp = board[to.i][to.j];
+            board[to.i][to.j] = curr;
+            board[from.i][from.j] = null;
+
+            if(curr.getType() == pieceEnum.KING){
+                if(color == pieceEnum.BLACK)
+                    blackKing = to;
+                else
+                    whiteKing = to;
+            }
+
+            curr.updateCoordinate(to);
+
+            if(isCheck(color)){
+
+                board[from.i][from.j] = curr;
+                board[to.i][to.j] = temp;
+
+                if(curr.getType() == pieceEnum.KING){
+                    if(color == pieceEnum.BLACK)
+                        blackKing = from;
+                    else
+                        whiteKing = from;
+                }
+
+                curr.updateCoordinate(from);
+
+                return false;
+            }
+
+            return true;
         }else{
-            //
+            return false;
         }
+    }
+
+    private boolean isCheck(int color){
+        Coordinate king;
+
+        if(color == pieceEnum.WHITE)
+            king = whiteKing;
+        else
+            king = blackKing;
+
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                Piece curr = getPiece(i,j);
+                if(curr != null && curr.color() != color && curr.canMove(king)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }
