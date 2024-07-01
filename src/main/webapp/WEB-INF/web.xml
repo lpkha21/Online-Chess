@@ -15,6 +15,11 @@
   </servlet>
 
   <servlet>
+    <servlet-name>GameServlet</servlet-name>
+    <servlet-class>javaClasses.GameServlet</servlet-class>
+  </servlet>
+
+  <servlet>
     <servlet-name>CreateAccountServlet</servlet-name>
     <servlet-class>javaClasses.CreateAccountServlet</servlet-class>
   </servlet>
@@ -22,6 +27,11 @@
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>GameServlet</servlet-name>
+    <url-pattern>/Game</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
