@@ -60,54 +60,59 @@
     <%
         Board b = (Board) request.getAttribute("board");
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                Piece p = b.getPiece(i, j);
-                String id = p != null ? Integer.toString(p.color() * 10 + p.getType()) : null;
-                String imgSrc = id != null ? "pieceImages/" + id + ".png" : null;
-                String squareClass = ((i + j) % 2 == 0) ? "light" : "dark";
+
     %>
-    <div class="<%= squareClass %>" onclick="squareClicked(this, <%= i %>, <%= j %>)">
-        <% if (imgSrc != null) { %>
-        <img src="<%= imgSrc %>" alt="<%= id %>" class="img">
-        <% } %>
-    </div>
+
+
+    <% for (int i = 0; i < 8; i++) { %>
+    <% for (int j = 0; j < 8; j++) { %>
     <%
-            }
-        }
+        Piece p = b.getPiece(i, j);
+        String id = p != null ? Integer.toString(p.color() * 10 + p.getType()) : null;
+        String imgSrc = id != null ? "pieceImages/" + id + ".png" : null;
+        String squareClass = ((i + j) % 2 == 0) ? "light" : "dark";
     %>
+            <div class="<%= squareClass %>" onclick="clicked( <%= i%>, <%= j%>)">
+                <div class="square">
+                    <% if (imgSrc != null) { %>
+                    <img src="<%= imgSrc %>" alt="<%= id %>" class="img">
+                    <% } %>
+                </div>
+            </div>
+
+            <% }
+         } %>
+
+
 </div>
-
+<form id="form" action="Game" method="POST">
+    <input type="hidden" name="fromi" id="fromi" value="">
+    <input type="hidden" name="fromj" id="fromj" value="">
+    <input type="hidden" name="toi" id="toi" value="">
+    <input type="hidden" name="toj" id="toj" value="">
+    <input type="hidden" name="col" id="col" value="">
+</form>
 <script>
-    var selectedPiece = null;
-    var selectedSquare = null;
 
-    function squareClicked(square, row, col) {
-        if (selectedPiece === null) {
-            if (square.querySelector('img')) {
-                selectedPiece = square.querySelector('img');
-                selectedSquare = { row: row, col: col };
-                square.classList.add('selected');
-            }
-        } else {
-            var fromRow = selectedSquare.row;
-            var fromCol = selectedSquare.col;
+    var flag = false;
 
-            if (square.querySelector('img')) {
-                var originalSquare = document.querySelector('.chessboard').childNodes[fromRow * 8 + fromCol];
-                originalSquare.appendChild(selectedPiece);
-                originalSquare.classList.remove('selected');
-            } else {
-                square.appendChild(selectedPiece);
-            }
-
-            selectedPiece = null;
-            selectedSquare = null;
+    function clicked(i, j){
+        if(!flag){
+            document.getElementById("fromi").value = i;
+            document.getElementById("fromj").value = j;
+            flag = !flag;
         }
+        else{
+            flag = !flag;
 
-        var initialClass = square.classList.contains('light') ? 'selectedLight' : 'selectedDark';
-        square.classList.toggle(initialClass);
+            document.getElementById("toi").value = i;
+            document.getElementById("toj").value = j;
+            document.getElementById("col").value = 1;
+            document.getElementById("form").submit();
+
+        }
     }
+
 </script>
 
 </body>
