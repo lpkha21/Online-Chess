@@ -19,9 +19,13 @@ public class Knight implements Piece{
     }
     @Override
     public boolean canMove(Coordinate c) {
-        if(cord.i == c.i || cord.j == c.j)return false;
-        if(abs(cord.i - c.i) + abs(cord.j - c.j) != 3)return false;
-        if(!board.isEmpty(c) && board.getPiece(c).color() == color)return false;
+        if(cord.i == c.i || cord.j == c.j)
+            return false;
+        if(abs(cord.i - c.i) + abs(cord.j - c.j) != 3)
+            return false;
+        if(!board.isEmpty(c) &&
+                (board.getPiece(c.i, c.j).color() == this.color || board.getPiece(c.i,c.j).getType() == pieceEnum.KING ))
+            return false;
         return true;
     }
 
