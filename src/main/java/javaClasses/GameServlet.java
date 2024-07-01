@@ -27,11 +27,20 @@ public class GameServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        if(board.makeMove((Coordinate) httpServletRequest.getAttribute("from"),(Coordinate) httpServletRequest.getAttribute("to"),(int)httpServletRequest.getAttribute("color"))){
+        int fi = Integer.parseInt(httpServletRequest.getParameter("fromi"));
+        int fj = Integer.parseInt(httpServletRequest.getParameter("fromj"));
 
-        }else{
+        System.out.println(fi);
+        int ti = Integer.parseInt(httpServletRequest.getParameter("toi"));
+        int tj = Integer.parseInt(httpServletRequest.getParameter("toj"));
+        Coordinate from = new Coordinate(fi, fj);
+        Coordinate to = new Coordinate(ti, tj);
 
+        int col = Integer.parseInt(httpServletRequest.getParameter("col"));
+
+        if(board.makeMove(from ,to, col)){
+            httpServletRequest.setAttribute("board", board);
+            httpServletRequest.getRequestDispatcher("game.jsp").forward(httpServletRequest, httpServletResponse);
         }
-
     }
 }
