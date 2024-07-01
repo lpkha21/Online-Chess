@@ -72,7 +72,7 @@
         String imgSrc = id != null ? "pieceImages/" + id + ".png" : null;
         String squareClass = ((i + j) % 2 == 0) ? "light" : "dark";
     %>
-            <div class="<%= squareClass %>" onclick="clicked( <%= i%>, <%= j%>)">
+            <div class="<%= squareClass %>" onclick="clicked(this, <%= i%>, <%= j%>)">
                 <div class="square">
                     <% if (imgSrc != null) { %>
                     <img src="<%= imgSrc %>" alt="<%= id %>" class="img">
@@ -94,13 +94,17 @@
 </form>
 <script>
 
-    var flag = false;
+    let flag = false;
 
-    function clicked(i, j){
+    function clicked(square, i, j){
+
+        let img = square.querySelector('img');
         if(!flag){
-            document.getElementById("fromi").value = i;
-            document.getElementById("fromj").value = j;
-            flag = !flag;
+            if(img !== null) {
+                document.getElementById("fromi").value = i;
+                document.getElementById("fromj").value = j;
+                flag = !flag;
+            }
         }
         else{
             flag = !flag;
