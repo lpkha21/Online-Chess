@@ -1,6 +1,6 @@
 package javaClasses;
 
-import static java.lang.Math.abs;
+import static com.sun.org.apache.xalan.internal.lib.ExsltMath.abs;
 
 public class Queen implements Piece{
     int color;

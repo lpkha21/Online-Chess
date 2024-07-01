@@ -30,7 +30,6 @@ public class GameServlet extends HttpServlet {
         int fi = Integer.parseInt(httpServletRequest.getParameter("fromi"));
         int fj = Integer.parseInt(httpServletRequest.getParameter("fromj"));
 
-        System.out.println(fi);
         int ti = Integer.parseInt(httpServletRequest.getParameter("toi"));
         int tj = Integer.parseInt(httpServletRequest.getParameter("toj"));
         Coordinate from = new Coordinate(fi, fj);
