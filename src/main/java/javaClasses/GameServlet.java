@@ -38,10 +38,8 @@ public class GameServlet extends HttpServlet {
 
         int col = Integer.parseInt(httpServletRequest.getParameter("col"));
 
-        if(board.makeMove(from ,to, col)){
-            httpServletRequest.setAttribute("board", board);
-        }
-
+        board.makeMove(from ,to, col);
+        httpServletRequest.setAttribute("board", board);
         httpServletRequest.getRequestDispatcher("game.jsp").forward(httpServletRequest, httpServletResponse);
 
     }
