@@ -46,15 +46,78 @@
             height: auto;
         }
 
-        .selectedLight {
-            background-color: #eaf0b5;
-        }
-
-        .selectedDark {
+        .selected {
             background-color: #b5b163;
         }
+
     </style>
+
+    <script type="text/javascript">
+        var timer1, timer2;
+        var count1 = 600, count2 = 600; // Example countdown times in seconds
+
+        function formatTime(count) {
+            var minutes = Math.floor(count / 60);
+            var seconds = count % 60;
+            return `${minutes} : ${seconds}`;
+        }
+
+        function updateTimerDisplay(timerNum) {
+            var displayId = (timerNum === 1) ? 'timerDisplay1' : 'timerDisplay2';
+            document.getElementById(displayId).innerText = formatTime(window['count' + timerNum]);
+        }
+
+        function startTimer(timerNum) {
+            if (timerNum === 1 && !timer1) {
+                timer1 = setInterval(function() {
+                    if (count1 > 0) {
+                        count1--;
+                        updateTimerDisplay(1);
+                    } else {
+                        clearInterval(timer1);
+                        timer1 = null;
+                    }
+                }, 1000);
+            } else if (timerNum === 2 && !timer2) {
+                timer2 = setInterval(function() {
+                    if (count2 > 0) {
+                        count2--;
+                        updateTimerDisplay(2);
+                    } else {
+                        clearInterval(timer2);
+                        timer2 = null;
+                    }
+                }, 1000);
+            }
+        }
+
+        function stopTimer(timerNum) {
+            if (timerNum === 1 && timer1) {
+                clearInterval(timer1);
+                timer1 = null;
+            } else if (timerNum === 2 && timer2) {
+                clearInterval(timer2);
+                timer2 = null;
+            }
+        }
+
+        function resetTimer(timerNum) {
+            if (timerNum === 1) {
+                clearInterval(timer1);
+                timer1 = null;
+                count1 = 300; // Reset countdown time in seconds
+                updateTimerDisplay(1);
+            } else if (timerNum === 2) {
+                clearInterval(timer2);
+                timer2 = null;
+                count2 = 180; // Reset countdown time in seconds
+                updateTimerDisplay(2);
+            }
+        }
+    </script>
+
 </head>
+
 <body>
 <div class="chessboard">
     <%
@@ -94,7 +157,7 @@
 </form>
 <script>
 
-    let flag = false;
+    var flag = false;
 
     function clicked(square, i, j){
 
@@ -104,6 +167,7 @@
                 document.getElementById("fromi").value = i;
                 document.getElementById("fromj").value = j;
                 flag = !flag;
+                square.classList.add('selected');
             }
         }
         else{
@@ -112,12 +176,28 @@
             document.getElementById("toi").value = i;
             document.getElementById("toj").value = j;
             document.getElementById("col").value = 1;
+
+            var squares = document.querySelectorAll('.square');
+            squares.forEach(function (square){
+                square.classList.remove('selected');
+            });
+
             document.getElementById("form").submit();
 
         }
     }
 
 </script>
+
+<div>
+    <h2>Black Player</h2>
+    <p>time:  <span id="timerDisplay2">10 : 0</span></p>
+</div>
+
+<div>
+    <h2>White Player</h2>
+    <p>time:  <span id="timerDisplay1">10 : 0</span></p>
+</div>
 
 </body>
 </html>
