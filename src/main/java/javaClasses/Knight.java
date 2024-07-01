@@ -11,6 +11,11 @@ public class Knight implements Piece{
         this.cord = cord;
         this.board = board;
         this.color = color;
+        board.setPiece(getCoordinate().i, getCoordinate().j,this);
+    }
+
+    public Knight(int i, int j, Board board, int color){
+        this(new Coordinate(i,j), board, color );
     }
     @Override
     public boolean canMove(Coordinate c) {

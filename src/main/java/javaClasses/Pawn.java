@@ -15,6 +15,10 @@ public class Pawn implements Piece {
         this.color = color;
         this.board = board;
         this.cord = cord;
+        board.setPiece(getCoordinate().i, getCoordinate().j,this);
+    }
+    public Pawn(int i, int j, Board board, int color){
+        this(new Coordinate(i,j), board, color);
     }
     @Override
     public boolean canMove(Coordinate c) {

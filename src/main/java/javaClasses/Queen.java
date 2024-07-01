@@ -1,6 +1,6 @@
 package javaClasses;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltMath.abs;
+import static java.lang.Math.abs;
 
 public class Queen implements Piece{
     int color;
@@ -15,6 +15,10 @@ public class Queen implements Piece{
         cord = coordinate;
         this.board = board;
         this.color = col;
+        board.setPiece(getCoordinate().i, getCoordinate().j,this);
+    }
+    public Queen(int i, int j, Board board, int col){
+        this(new Coordinate(i,j), board, col);
     }
 
     @Override

@@ -11,7 +11,12 @@ public class Rook implements Piece{
         this.board = board;
         this.color = color;
         this.cord = cord;
+        board.setPiece(getCoordinate().i, getCoordinate().j,this);
     }
+    public Rook(int i, int j, Board board, int color){
+        this(new Coordinate(i,j), board, color);
+    }
+
     @Override
     public boolean canMove(Coordinate c) {
         if(c.equals(cord)) return false;

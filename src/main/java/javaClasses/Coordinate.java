@@ -8,10 +8,10 @@ public class Coordinate {
         this.j = j;
     }
     public boolean equals(Coordinate c2){
-        if(this.i == c2.i && this.j == c2.j){
-            return true;
-        }else{
-            return false;
-        }
+        return this.i == c2.i && this.j == c2.j;
     }
+    public boolean equals(int i, int j){
+        return this.equals(new Coordinate(i,j));
+    }
+
 }

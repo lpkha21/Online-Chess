@@ -11,6 +11,11 @@ public class King implements Piece{
         this.cord = cord;
         this.board = board;
         this.color = color;
+        board.setPiece(getCoordinate().i, getCoordinate().j,this);
+    }
+
+    public King(int i, int j, Board board, int color){
+        this(new Coordinate(i,j), board, color);
     }
 
     @Override
