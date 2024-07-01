@@ -25,7 +25,8 @@ public class Rook implements Piece{
         if(cord.i != c.i && cord.j != c.j)
             return false;
 
-        if(!board.isEmpty(c) && board.getPiece(c).color() == this.color)
+        if(!board.isEmpty(c) &&
+                (board.getPiece(c.i, c.j).color() == this.color || board.getPiece(c.i,c.j).getType() == pieceEnum.KING ))
             return false;
 
 
