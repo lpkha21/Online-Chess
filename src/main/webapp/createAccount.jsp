@@ -94,7 +94,7 @@
         <input type="password" id="password" name="password"><br>
         <input type="submit" value="Create Account">
     </form>
-    <a href="login.jsp">Back to Login</a>
+    <a href="index.jsp">Back to Login</a>
 </div>
 </body>
 </html>

@@ -93,6 +93,7 @@
     <div class="actions">
         <a href="addFriends.jsp?username=<%= request.getAttribute("username") %>">Add Friends</a>
         <a href="/RequestServlet?username=<%= request.getAttribute("username")%>"> Requests</a>
+        <a href="index.jsp">Log Out</a>
     </div>
 </div>
 </body>
