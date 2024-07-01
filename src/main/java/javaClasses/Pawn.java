@@ -23,17 +23,28 @@ public class Pawn implements Piece {
     @Override
     public boolean canMove(Coordinate c) {
         if(this.color == pieceEnum.BLACK){
-            if(c.i <= this.cord.i)return false;
+            if(c.i <= this.cord.i)
+                return false;
         }else{
-            if(c.i >= this.cord.i)return false;
+            if(c.i >= this.cord.i)
+                return false;
         }
-        if(!moved && abs(c.i-this.cord.i) == 2 && abs(c.j - this.cord.j) == 0 && board.isEmpty(c))return true;
+        if(!moved && abs(c.i-this.cord.i) == 2 && abs(c.j - this.cord.j) == 0 && board.isEmpty(c))
+            return true;
 
-        if(abs(c.i - this.cord.i) != 1 || abs(c.j - this.cord.j) > 1)return false;
-        if(abs(c.j - this.cord.j) == 1 && (board.getPiece(c) == null || board.getPiece(c).color() == this.color))return false;
-        if(abs(c.j - this.cord.j) == 0 && board.getPiece(c) != null)return false;
+        if(abs(c.i - this.cord.i) != 1 || abs(c.j - this.cord.j) > 1)
+            return false;
+        if(abs(c.j - this.cord.j) == 1 &&
+                (board.getPiece(c) == null || board.getPiece(c).color() == this.color))
+            return false;
+        if(abs(c.j - this.cord.j) == 0 && board.getPiece(c) != null)
+            return false;
 
         return false;
+    }
+
+    public boolean canMove(int i, int j){
+        return this.canMove(new Coordinate(i,j));
     }
 
     @Override

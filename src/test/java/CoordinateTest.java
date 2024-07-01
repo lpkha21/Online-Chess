@@ -1,6 +1,5 @@
-import javaClasses.Coordinate;
 import junit.framework.TestCase;
-
+import javaClasses.*;
 public class CoordinateTest extends TestCase {
 
     public void testEquals(){
