@@ -7,9 +7,10 @@ public class Board {
     Coordinate whiteKing;
     Coordinate blackKing;
 
-    public Board(){
+    public Board(boolean doInit){
         board = new Piece[SIZE][SIZE];
-        init();
+        if(doInit)
+            init();
     }
 
     private void init(){
@@ -129,5 +130,8 @@ public class Board {
         }
         return false;
     }
+
+    public void setPiece(int i, int j, Piece piece) { board[i][j] = piece; }
+    public void setPiece(Piece piece) { board[piece.getCoordinate().i][piece.getCoordinate().j] = piece; }
 
 }
