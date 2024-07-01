@@ -40,7 +40,9 @@ public class GameServlet extends HttpServlet {
 
         if(board.makeMove(from ,to, col)){
             httpServletRequest.setAttribute("board", board);
-            httpServletRequest.getRequestDispatcher("game.jsp").forward(httpServletRequest, httpServletResponse);
         }
+
+        httpServletRequest.getRequestDispatcher("game.jsp").forward(httpServletRequest, httpServletResponse);
+
     }
 }
