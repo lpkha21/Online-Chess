@@ -19,21 +19,24 @@ public class Rook implements Piece{
 
     @Override
     public boolean canMove(Coordinate c) {
-        if(c.equals(cord)) return false;
+        if(c.equals(cord))
+            return false;
 
-        if(cord.i != c.i && cord.j != c.j) return false;
+        if(cord.i != c.i && cord.j != c.j)
+            return false;
 
-        if(!board.isEmpty(c) && board.getPiece(c).color() == this.color) return false;
+        if(!board.isEmpty(c) && board.getPiece(c).color() == this.color)
+            return false;
 
         if(cord.i == c.i) {
             if (cord.j > c.j) {
-                for(int j = c.j; j <= cord.j; j++){
+                for(int j = c.j; j < cord.j; j++){
                     if(!board.isEmpty(c.i, j)){
                         return false;
                     }
                 }
             }else{
-                for(int j = cord.j; j <= c.j; j++){
+                for(int j = cord.j+1; j <= c.j; j++){
                     if(!board.isEmpty(c.i, j)){
                         return false;
                     }
@@ -49,7 +52,7 @@ public class Rook implements Piece{
                     }
                 }
             }else{
-                for(int i = cord.i; i < c.i; i++){
+                for(int i = cord.i+1; i < c.i; i++){
                     if(!board.isEmpty(i, c.j)){
                         return false;
                     }
@@ -57,6 +60,10 @@ public class Rook implements Piece{
             }
         }
         return true;
+    }
+
+    public boolean canMove(int i, int j){
+        return this.canMove(new Coordinate(i,j));
     }
 
     @Override
