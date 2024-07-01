@@ -20,6 +20,8 @@ public class CreateAccountServlet extends HttpServlet {
         try {
             if (dataBase.createAccount(username, password)) {
                 request.setAttribute("username", username);
+                String friends = dataBase.getFriends(username);
+                request.setAttribute("friends",friends);
                 dispatcher = request.getRequestDispatcher("profile.jsp");
             } else {
                 request.setAttribute("username", username);

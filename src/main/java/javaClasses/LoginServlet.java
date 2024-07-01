@@ -21,6 +21,8 @@ public class LoginServlet extends HttpServlet {
         try {
             if (dataBase.validLogin(username, password)) {
                 request.setAttribute("username", username);
+                String friends = dataBase.getFriends(username);
+                request.setAttribute("friends",friends);
                 dispatcher = request.getRequestDispatcher("profile.jsp");
             } else {
                 dispatcher = request.getRequestDispatcher("informationIncorrect.jsp");

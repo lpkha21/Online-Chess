@@ -1,6 +1,6 @@
 <!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
@@ -15,13 +15,33 @@
   </servlet>
 
   <servlet>
-    <servlet-name>GameServlet</servlet-name>
-    <servlet-class>javaClasses.GameServlet</servlet-class>
+    <servlet-name>CreateAccountServlet</servlet-name>
+    <servlet-class>javaClasses.CreateAccountServlet</servlet-class>
   </servlet>
 
   <servlet>
-    <servlet-name>CreateAccountServlet</servlet-name>
-    <servlet-class>javaClasses.CreateAccountServlet</servlet-class>
+    <servlet-name>PlayWithFriendServlet</servlet-name>
+    <servlet-class>javaClasses.PlayWithFriendServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>AddFriendServlet</servlet-name>
+    <servlet-class>javaClasses.AddFriendServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>RequestServlet</servlet-name>
+    <servlet-class>javaClasses.RequestServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>BackToProfileServlet</servlet-name>
+    <servlet-class>javaClasses.BackToProfileServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>GameServlet</servlet-name>
+    <servlet-class>javaClasses.GameServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -30,13 +50,33 @@
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>GameServlet</servlet-name>
-    <url-pattern>/Game</url-pattern>
+    <servlet-name>CreateAccountServlet</servlet-name>
+    <url-pattern>/CreateAccountServlet</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>CreateAccountServlet</servlet-name>
-    <url-pattern>/CreateAccountServlet</url-pattern>
+    <servlet-name>PlayWithFriendServlet</servlet-name>
+    <url-pattern>/PlayWithFriendServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>AddFriendServlet</servlet-name>
+    <url-pattern>/AddFriendServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>RequestServlet</servlet-name>
+    <url-pattern>/RequestServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>BackToProfileServlet</servlet-name>
+    <url-pattern>/BackToProfileServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>GameServlet</servlet-name>
+    <url-pattern>/Game</url-pattern>
   </servlet-mapping>
 
 </web-app>

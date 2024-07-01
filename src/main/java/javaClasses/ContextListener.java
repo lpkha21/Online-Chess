@@ -2,6 +2,7 @@ package javaClasses;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.http.HttpSession;
 import javax.xml.crypto.Data;
 import java.sql.SQLException;
 
