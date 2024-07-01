@@ -28,15 +28,16 @@ public class Rook implements Piece{
         if(!board.isEmpty(c) && board.getPiece(c).color() == this.color)
             return false;
 
+
         if(cord.i == c.i) {
             if (cord.j > c.j) {
-                for(int j = c.j; j < cord.j; j++){
+                for(int j = cord.j-1; j > c.j; j--){
                     if(!board.isEmpty(c.i, j)){
                         return false;
                     }
                 }
             }else{
-                for(int j = cord.j+1; j <= c.j; j++){
+                for(int j = cord.j+1; j < c.j; j++){
                     if(!board.isEmpty(c.i, j)){
                         return false;
                     }
@@ -46,7 +47,7 @@ public class Rook implements Piece{
 
         if(cord.j == c.j){
             if(cord.i > c.i){
-                for (int i = c.i; i < cord.i; i++) {
+                for (int i = cord.i-1; i > c.i; i--) {
                     if(!board.isEmpty(i, c.j)){
                         return false;
                     }
