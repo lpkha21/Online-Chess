@@ -37,7 +37,7 @@
 
         input[type="text"],
         input[type="password"] {
-            width: 100%;
+            width: calc(100% - 22px); /* Full width minus padding and border */
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
@@ -74,6 +74,18 @@
             flex-direction: column;
             align-items: center;
         }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -81,10 +93,14 @@
     <h1>Welcome to Chess</h1>
     <p>Please log in.</p>
     <form action="LoginServlet" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username"><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password"><br>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+        </div>
         <input type="submit" value="Login">
     </form>
     <a href="createAccount.jsp">Create New Account</a>
