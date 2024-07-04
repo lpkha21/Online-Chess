@@ -37,35 +37,27 @@ public class Bishop implements Piece{
 
         // check the paths to c
         if(dx > 0 && dy > 0) { // 1. bottom right
-            for (int row = this.cord.i+1; row < this.cord.i + dy; row++) {
-                for (int col = this.cord.j+1; col < this.cord.j + dx; col++) {
-                    if (!board.isEmpty(row, col)) {
-                        return false;
-                    }
+            for (int i = 1; i < abs(dx); i++) {
+                if (!board.isEmpty(cord.i + i, cord.j + i)) {
+                    return false;
                 }
             }
         } else if(dx > 0 && dy < 0) { // 2. top right
-            for (int row = this.cord.i-1; row > this.cord.i + dy; row--) {
-                for (int col = this.cord.j+1; col < this.cord.j + dx; col++) {
-                    if (!board.isEmpty(row, col)) {
-                        return false;
-                    }
+            for (int i = 1; i < abs(dx); i++) {
+                if (!board.isEmpty(cord.i - i, cord.j + i)) {
+                    return false;
                 }
             }
         } else if(dx < 0 && dy > 0) { // 3. bottom left
-            for (int row = this.cord.i+1; row < this.cord.i + dy; row++) {
-                for (int col = this.cord.j-1; col > this.cord.j + dx; col--) {
-                    if (!board.isEmpty(row, col)) {
-                        return false;
-                    }
+            for (int i = 1; i < abs(dx); i++) {
+                if (!board.isEmpty(cord.i + i, cord.j - i)) {
+                    return false;
                 }
             }
         } else { // 4. top left
-            for (int row = this.cord.i-1; row > this.cord.i + dy; row--) {
-                for (int col = this.cord.j-1; col > this.cord.j + dx; col--) {
-                    if (!board.isEmpty(row, col)) {
-                        return false;
-                    }
+            for (int i = 1; i < abs(dx); i++) {
+                if (!board.isEmpty(cord.i - i, cord.j - i)) {
+                    return false;
                 }
             }
         }

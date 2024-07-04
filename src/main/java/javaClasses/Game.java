@@ -7,8 +7,8 @@ public class Game {
     Player blackPlayer;
 
     public Game(){
-        board = new Board();
-        whitePlayer = new Player(pieceEnum.WHITE);
-        blackPlayer = new Player(pieceEnum.BLACK);
+//        board = new Board();
+//        whitePlayer = new Player(pieceEnum.WHITE);
+//        blackPlayer = new Player(pieceEnum.BLACK);
     }
 }

@@ -124,18 +124,13 @@
 <div class="chessboard">
     <%
         Board b = (Board) request.getAttribute("board");
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
 
-
-    %>
-
-
-    <% for (int i = 0; i < 8; i++) { %>
-    <% for (int j = 0; j < 8; j++) { %>
-    <%
-        Piece p = b.getPiece(i, j);
-        String id = p != null ? Integer.toString(p.color() * 10 + p.getType()) : null;
-        String imgSrc = id != null ? "pieceImages/" + id + ".png" : null;
-        String squareClass = ((i + j) % 2 == 0) ? "light" : "dark";
+                Piece p = b.getPiece(i, j);
+                String id = p != null ? Integer.toString(p.color() * 10 + p.getType()) : null;
+                String imgSrc = id != null ? "pieceImages/" + id + ".png" : null;
+                String squareClass = ((i + j) % 2 == 0) ? "light" : "dark";
     %>
             <div class="<%= squareClass %>" onclick="clicked(this, <%= i%>, <%= j%>)">
                 <div class="square">
@@ -202,19 +197,19 @@
 
 <div>
     <%
-        String massage = "";
+        String message = "";
         if(((Player) request.getAttribute("currTurn")).getColor() == pieceEnum.END){
             int winner = ((Integer) request.getAttribute("winner"));
             if(winner == pieceEnum.BLACK)
-                massage = "WHITE WINS!!!";
+                message = "BLACK WINS!!!";
             else if(winner == pieceEnum.WHITE)
-                massage = "BLACK WINS!!!";
+                message = "WHITE WINS!!!";
             else
-                massage = "DROW";
+                message = "DRAW";
         }
 
     %>
-    <h1><%= massage %></h1>
+    <h1><%= message %></h1>
 </div>
 
 </body>

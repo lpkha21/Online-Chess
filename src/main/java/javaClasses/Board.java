@@ -56,6 +56,9 @@ public class Board {
         board[7][3] = new Queen(new Coordinate(7,3), this, pieceEnum.WHITE);
     }
 
+    public void removePiece(int i, int j){
+        board[i][j] = null;
+    }
     public boolean isEmpty(Coordinate cord){
         return board[cord.i][cord.j] == null;
     }
