@@ -4,9 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class GameServlet extends HttpServlet {
 
@@ -32,11 +30,6 @@ public class GameServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        HttpSession session = httpServletRequest.getSession();
-        ArrayList<String> queue = (ArrayList<String>) session.getAttribute("queue");
-        String username = (String) session.getAttribute("username");
-        queue.remove(username);
-
         int fi = Integer.parseInt(httpServletRequest.getParameter("fromi"));
         int fj = Integer.parseInt(httpServletRequest.getParameter("fromj"));
 
