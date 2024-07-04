@@ -2,11 +2,11 @@ package javaClasses;
 
 public class Player {
 
+    String name;
     int color;
-
     long timer;
 
-    public Player(int color){
+    public Player(String name, int color){
         this.color = color;
     }
 

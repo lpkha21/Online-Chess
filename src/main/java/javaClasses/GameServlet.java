@@ -11,12 +11,14 @@ public class GameServlet extends HttpServlet {
     Board board;
     Player whitePlayer;
     Player blackPlayer;
+    Player gameOver;
     int currTurn;
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
         board = new Board();
-        whitePlayer = new Player(pieceEnum.WHITE);
-        blackPlayer = new Player(pieceEnum.BLACK);
+        whitePlayer = new Player("luka", pieceEnum.WHITE);
+        blackPlayer = new Player("george", pieceEnum.BLACK);
+        gameOver = new Player("", pieceEnum.END);
 
         currTurn = pieceEnum.WHITE;
 
@@ -41,11 +43,32 @@ public class GameServlet extends HttpServlet {
 
         if (board.makeMove(from, to, col)) {
             if (currTurn == pieceEnum.WHITE) {
-                currTurn = pieceEnum.BLACK;
-                httpServletRequest.setAttribute("currTurn", blackPlayer);
+                if(board.isCheckMate(pieceEnum.BLACK)){
+                    currTurn = pieceEnum.END;
+                    httpServletRequest.setAttribute("currTurn", gameOver);
+                    httpServletRequest.setAttribute("winner", pieceEnum.WHITE);
+                }else if (board.isDraw(pieceEnum.BLACK)) {
+                    currTurn = pieceEnum.END;
+                    httpServletRequest.setAttribute("currTurn", gameOver);
+                    httpServletRequest.setAttribute("winner", pieceEnum.END);
+
+                }else {
+                    currTurn = pieceEnum.BLACK;
+                    httpServletRequest.setAttribute("currTurn", blackPlayer);
+                }
             } else {
-                currTurn = pieceEnum.WHITE;
-                httpServletRequest.setAttribute("currTurn", whitePlayer);
+                if(board.isCheckMate(pieceEnum.WHITE)){
+                    currTurn = pieceEnum.END;
+                    httpServletRequest.setAttribute("currTurn", gameOver);
+                    httpServletRequest.setAttribute("winner", pieceEnum.BLACK);
+                }else if (board.isDraw(pieceEnum.WHITE)) {
+                    currTurn = pieceEnum.END;
+                    httpServletRequest.setAttribute("currTurn", gameOver);
+                    httpServletRequest.setAttribute("winner", pieceEnum.END);
+                }else {
+                    currTurn = pieceEnum.WHITE;
+                    httpServletRequest.setAttribute("currTurn", whitePlayer);
+                }
             }
         }else{
             if (currTurn == pieceEnum.WHITE) {
