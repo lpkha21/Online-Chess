@@ -9,4 +9,8 @@ public class Player {
     public Player(int color){
         this.color = color;
     }
+
+    public int getColor() {
+        return color;
+    }
 }

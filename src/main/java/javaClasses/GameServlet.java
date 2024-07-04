@@ -11,16 +11,17 @@ public class GameServlet extends HttpServlet {
     Board board;
     Player whitePlayer;
     Player blackPlayer;
-
+    int currTurn;
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
         board = new Board();
         whitePlayer = new Player(pieceEnum.WHITE);
         blackPlayer = new Player(pieceEnum.BLACK);
 
+        currTurn = pieceEnum.WHITE;
+
         httpServletRequest.setAttribute("board", board);
-        httpServletRequest.setAttribute("whitePlayer", whitePlayer);
-        httpServletRequest.setAttribute("blackPlayer", blackPlayer);
+        httpServletRequest.setAttribute("currTurn", whitePlayer);
 
         httpServletRequest.getRequestDispatcher("game.jsp").forward(httpServletRequest, httpServletResponse);
     }
@@ -37,7 +38,23 @@ public class GameServlet extends HttpServlet {
 
         int col = Integer.parseInt(httpServletRequest.getParameter("col"));
 
-        board.makeMove(from ,to, col);
+
+        if (board.makeMove(from, to, col)) {
+            if (currTurn == pieceEnum.WHITE) {
+                currTurn = pieceEnum.BLACK;
+                httpServletRequest.setAttribute("currTurn", blackPlayer);
+            } else {
+                currTurn = pieceEnum.WHITE;
+                httpServletRequest.setAttribute("currTurn", whitePlayer);
+            }
+        }else{
+            if (currTurn == pieceEnum.WHITE) {
+                httpServletRequest.setAttribute("currTurn", whitePlayer);
+            } else {
+                httpServletRequest.setAttribute("currTurn", blackPlayer);
+            }
+        }
+
         httpServletRequest.setAttribute("board", board);
         httpServletRequest.getRequestDispatcher("game.jsp").forward(httpServletRequest, httpServletResponse);
 

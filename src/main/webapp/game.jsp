@@ -1,5 +1,6 @@
 <%@ page import="javaClasses.Board" %>
 <%@ page import="javaClasses.Piece" %>
+<%@ page import="javaClasses.Player" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -175,7 +176,7 @@
 
             document.getElementById("toi").value = i;
             document.getElementById("toj").value = j;
-            document.getElementById("col").value = 1;
+            document.getElementById("col").value = <%=((Player) request.getAttribute("currTurn")).getColor() %>;
 
             var squares = document.querySelectorAll('.square');
             squares.forEach(function (square){
