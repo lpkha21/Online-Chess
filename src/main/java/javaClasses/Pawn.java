@@ -29,6 +29,7 @@ public class Pawn implements Piece {
             if(c.i >= this.cord.i)
                 return false;
         }
+
         if(!moved && abs(c.i-this.cord.i) == 2 && abs(c.j - this.cord.j) == 0 && board.isEmpty(c))
             return true;
 
@@ -40,7 +41,7 @@ public class Pawn implements Piece {
         if(abs(c.j - this.cord.j) == 0 && board.getPiece(c) != null)
             return false;
 
-        return false;
+        return true;
     }
 
     public boolean canMove(int i, int j){
