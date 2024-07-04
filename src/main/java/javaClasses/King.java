@@ -1,4 +1,5 @@
 package javaClasses;
+import static java.lang.Math.abs;
 
 public class King implements Piece{
     int color;
@@ -20,17 +21,25 @@ public class King implements Piece{
 
     @Override
     public boolean canMove(Coordinate c) {
-        if(c.equals(cord))
+        if(c.equals(cord)) // move to same cord
             return false;
 
         Piece p = board.getPiece(c);
-        if(p != null && p.color() == this.color)
+        if(p != null && p.color() == this.color) // move to same colored piece
             return false;
 
-       if(c.j - cord.j == 2){
+
+        if( ( abs(c.i-cord.i) > 2 || abs(c.j-cord.j) > 2 ) && this.moved ){ // moving too far and no check
+            return false;
+        }
+
+        if(check(c))
+            return false;
+
+        if(c.j - cord.j == 2){
            if(moved)
                return false;
-           Piece rook = board.getPiece(this.cord.i,this.cord.j + 4);
+           Piece rook = board.getPiece(this.cord.i,board.SIZE-1);
            if(rook.getType() == pieceEnum.ROOK && ((Rook)(rook)).moved())
                return false;
            if(!board.isEmpty(this.cord.i,this.cord.j + 1) || !board.isEmpty(this.cord.i,this.cord.j + 2) || !board.isEmpty(this.cord.i,this.cord.j + 3))
@@ -41,7 +50,7 @@ public class King implements Piece{
        else if(c.j - cord.j == -2){
            if(moved)
                return false;
-           Piece rook = board.getPiece(this.cord.i,this.cord.j - 3);
+           Piece rook = board.getPiece(this.cord.i,0);
            if(rook.getType() == pieceEnum.ROOK && ((Rook)(rook)).moved())
                return false;
            if(!board.isEmpty(this.cord.i,this.cord.j - 1) || !board.isEmpty(this.cord.i,this.cord.j - 2))
@@ -50,14 +59,18 @@ public class King implements Piece{
                return false;
        }
 
-        if(c.i - cord.i < 2 && c.i - cord.i > -2 && c.j - cord.j < 2 && c.j - cord.j < 2){
+    /*    if(c.i - cord.i < 2 && c.i - cord.i > -2 && c.j - cord.j < 2 && c.j - cord.j < 2){
             if(check(c))
                 return false;
         }else{
             return false;
         }
-
+    */
         return true;
+    }
+
+    public boolean canMove(int i, int j){
+        return this.canMove(new Coordinate(i,j));
     }
 
     private boolean check(Coordinate c){
@@ -76,6 +89,8 @@ public class King implements Piece{
         }
         return false;
     }
+
+    public boolean check(int i, int j){ return this.check(new Coordinate(i,j)); }
 
     @Override
     public int color() {
