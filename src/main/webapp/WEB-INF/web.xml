@@ -54,6 +54,16 @@
     <servlet-class>javaClasses.RejectRequestServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>StartGameServlet</servlet-name>
+    <servlet-class>javaClasses.StartGameServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>WaitingServlet</servlet-name>
+    <servlet-class>javaClasses.WaitingServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
@@ -97,6 +107,16 @@
   <servlet-mapping>
     <servlet-name>RejectRequestServlet</servlet-name>
     <url-pattern>/RejectRequestServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>StartGameServlet</servlet-name>
+    <url-pattern>/StartGameServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>WaitingServlet</servlet-name>
+    <url-pattern>/WaitingServlet</url-pattern>
   </servlet-mapping>
 
 </web-app>

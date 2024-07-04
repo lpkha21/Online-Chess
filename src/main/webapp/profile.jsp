@@ -23,6 +23,10 @@
             color: #2e8b57;
         }
 
+        p {
+            font-size: 1.2em;
+        }
+
         ul {
             list-style-type: none;
             padding: 0;
@@ -66,17 +70,50 @@
             margin: 10px;
             display: inline-block;
         }
-    </style>
-    <script type="text/javascript">
-        function postToRequestServlet() {
-            document.getElementById('requestForm').submit();
+
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            margin-top: 20px;
         }
-    </script>
+
+        .form-container input[type="submit"] {
+            background-color: #2e8b57;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #276c4b;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
     <h1>Welcome <%= request.getAttribute("username") %></h1>
-    <p>Friends list:</p>
+    <div class="form-container">
+        <div class="center">
+            <form action="StartGameServlet" method="post">
+                <input type="hidden" name="username" value="<%= request.getAttribute("username")%>">
+                <input type="submit" value="Start Game">
+            </form>
+        </div>
+    </div>
+
+    <p>Play with Friends:</p>
     <ul class="friends-list">
         <%
             String friends = (String) request.getAttribute("friends");
@@ -98,6 +135,3 @@
 </div>
 </body>
 </html>
-
-
-
