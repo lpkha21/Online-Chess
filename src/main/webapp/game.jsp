@@ -1,6 +1,7 @@
 <%@ page import="javaClasses.Board" %>
 <%@ page import="javaClasses.Piece" %>
 <%@ page import="javaClasses.Player" %>
+<%@ page import="javaClasses.pieceEnum" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -170,8 +171,7 @@
                 flag = !flag;
                 square.classList.add('selected');
             }
-        }
-        else{
+        }else{
             flag = !flag;
 
             document.getElementById("toi").value = i;
@@ -198,6 +198,23 @@
 <div>
     <h2>White Player</h2>
     <p>time:  <span id="timerDisplay1">10 : 0</span></p>
+</div>
+
+<div>
+    <%
+        String massage = "";
+        if(((Player) request.getAttribute("currTurn")).getColor() == pieceEnum.END){
+            int winner = ((Integer) request.getAttribute("winner"));
+            if(winner == pieceEnum.BLACK)
+                massage = "WHITE WINS!!!";
+            else if(winner == pieceEnum.WHITE)
+                massage = "BLACK WINS!!!";
+            else
+                massage = "DROW";
+        }
+
+    %>
+    <h1><%= massage %></h1>
 </div>
 
 </body>
