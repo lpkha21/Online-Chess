@@ -38,6 +38,23 @@
             margin-bottom: 20px;
         }
 
+        .leave-button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .leave-button:hover {
+            background-color: #c82333;
+        }
+
         @keyframes rotate {
             from {
                 transform: rotate(0deg); /* Start rotation from 0 degrees */
@@ -69,8 +86,29 @@
             });
         }
 
+        function leaveQueue() {
+            // Perform AJAX call to remove user from the queue
+            $.ajax({
+                url: '/LeaveQueueServlet',
+                type: 'POST', // Use POST for actions that modify data
+                success: function() {
+                    // Redirect or handle leaving the queue
+                    window.location.href = '/BackToProfileServlet'; // Redirect to home or another page
+                },
+                error: function() {
+                    // Handle error, if needed
+                    alert('Failed to leave the queue.');
+                }
+            });
+        }
+
         $(document).ready(function() {
-            checkQueue();
+            checkQueue(); // Initial call to start checking queue
+
+            // Bind click event to leave button
+            $('.leave-button').click(function() {
+                leaveQueue();
+            });
         });
     </script>
 </head>
@@ -79,6 +117,7 @@
     <img src="pieceImages/11.png" alt="Waiting Logo" class="logo">
     <h1>Please Wait</h1>
     <p>Waiting for another player...</p>
+    <button class="leave-button">Leave Queue</button>
 </div>
 </body>
 </html>
