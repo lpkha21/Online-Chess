@@ -28,7 +28,6 @@ public class King implements Piece{
         if(p != null && p.color() == this.color) // move to same colored piece
             return false;
 
-
         if( ( abs(c.i-cord.i) > 2 || abs(c.j-cord.j) > 2 ) && this.moved ){ // moving too far and no check
             return false;
         }
@@ -40,22 +39,26 @@ public class King implements Piece{
            if(moved)
                return false;
            Piece rook = board.getPiece(this.cord.i,board.SIZE-1);
-           if(rook.getType() == pieceEnum.ROOK && ((Rook)(rook)).moved())
+           if(rook.getType() != pieceEnum.ROOK)
                return false;
-           if(!board.isEmpty(this.cord.i,this.cord.j + 1) || !board.isEmpty(this.cord.i,this.cord.j + 2) || !board.isEmpty(this.cord.i,this.cord.j + 3))
+           if( ((Rook)(rook)).moved() )
                return false;
-           if(check(new Coordinate(this.cord.i,this.cord.j + 1)) && check(new Coordinate(this.cord.i,this.cord.j + 2)))
+           if(!board.isEmpty(this.cord.i,this.cord.j + 1) || !board.isEmpty(this.cord.i,this.cord.j + 2))
+               return false;
+           if(check(new Coordinate(this.cord.i,this.cord.j)) || check(new Coordinate(this.cord.i,this.cord.j + 1)) || check(new Coordinate(this.cord.i,this.cord.j + 2)))
                return false;
        }
        else if(c.j - cord.j == -2){
            if(moved)
                return false;
            Piece rook = board.getPiece(this.cord.i,0);
-           if(rook.getType() == pieceEnum.ROOK && ((Rook)(rook)).moved())
+           if(rook.getType() != pieceEnum.ROOK)
                return false;
-           if(!board.isEmpty(this.cord.i,this.cord.j - 1) || !board.isEmpty(this.cord.i,this.cord.j - 2))
+           if(((Rook)(rook)).moved())
                return false;
-           if(check(new Coordinate(this.cord.i,this.cord.j - 1)) && check(new Coordinate(this.cord.i,this.cord.j - 2)))
+           if(!board.isEmpty(this.cord.i,this.cord.j - 1) || !board.isEmpty(this.cord.i,this.cord.j - 2) || !board.isEmpty(this.cord.i,this.cord.j - 3))
+               return false;
+           if(check(new Coordinate(this.cord.i,this.cord.j)) || check(new Coordinate(this.cord.i,this.cord.j - 1)) && check(new Coordinate(this.cord.i,this.cord.j - 2)))
                return false;
        }
 

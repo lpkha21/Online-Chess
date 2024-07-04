@@ -61,6 +61,7 @@ public class KingTest extends TestCase {
 
     public void testCastle1(){
         assertTrue(castleKing.canMove(0,6));
+        assertTrue(castleKing.canMove(0,2));
 
         //assertTrue(castleKing.canMove(6,0));
         //assertTrue(castleKing.canMove(2,0));
