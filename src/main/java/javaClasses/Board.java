@@ -139,4 +139,46 @@ public class Board {
     public void setPiece(int i, int j, Piece piece) { board[i][j] = piece; }
     public void setPiece(Piece piece) { board[piece.getCoordinate().i][piece.getCoordinate().j] = piece; }
 
+    public boolean isCheckMate(int color){
+
+        Coordinate king;
+
+        if(color == pieceEnum.WHITE)
+            king = whiteKing;
+        else
+            king = blackKing;
+
+        if(isCheck(color)){
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    if(getPiece(king).canMove(new Coordinate(i,j))){
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isDraw(int color){
+        Coordinate king;
+
+        if(color == pieceEnum.WHITE)
+            king = whiteKing;
+        else
+            king = blackKing;
+
+        if(!isCheck(color)){
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    if(getPiece(king).canMove(new Coordinate(i,j))){
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
+    }
 }
