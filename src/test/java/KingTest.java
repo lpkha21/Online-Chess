@@ -1,6 +1,8 @@
 import junit.framework.TestCase;
 import javaClasses.*;
 
+import javax.management.QueryEval;
+
 public class KingTest extends TestCase {
 
     private Board emptyBoard;
@@ -13,13 +15,21 @@ public class KingTest extends TestCase {
     private King castleKing;
     private Rook castleRook1, castleRook2;
 
+    private Board startBoard;
+
+
 
     protected void setUp(){
         setupEmpty();
         setupCastle();
+        setupStartBoard();
 
         board = new Board(false);
         placePieces();
+    }
+
+    private void setupStartBoard() {
+        startBoard = new Board(true);
     }
 
     private void setupEmpty(){
@@ -63,8 +73,27 @@ public class KingTest extends TestCase {
         assertTrue(castleKing.canMove(0,6));
         assertTrue(castleKing.canMove(0,2));
 
-        //assertTrue(castleKing.canMove(6,0));
-        //assertTrue(castleKing.canMove(2,0));
+    //    assertFalse(castleKing.canMove(6,0));
+    //    assertFalse(castleKing.canMove(2,0));
+    }
+
+    public void testStartBoard(){
+        startBoard.setPiece(1,3,null);
+        startBoard.setPiece(1,4,null);
+        startBoard.setPiece(1,5,null);
+
+//        startBoard.setPiece(7,4,null);
+//        startBoard.setPiece(7,4,null);
+
+
+        King startKing = (King) startBoard.getPiece(0,4);
+
+        Queen q = (Queen) startBoard.getPiece(7,3);
+        assertFalse(q.canMove(1,4));
+
+        assertTrue(startKing.canMove(1,3));
+        assertTrue(startKing.canMove(1,4));
+        assertTrue(startKing.canMove(1,5));
     }
 
 }

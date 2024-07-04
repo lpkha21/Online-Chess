@@ -34,6 +34,8 @@ public class Queen implements Piece{
                 (board.getPiece(c.i, c.j).color() == this.color || board.getPiece(c.i,c.j).getType() == pieceEnum.KING ) )
             return false;
 
+        if ( ( abs(dx) != abs(dy) ) || ( cord.i != c.i && cord.j != c.j ) )
+            return false;
 
         // check the paths to c
         if(dx > 0 && dy > 0) { // 1. bottom right
@@ -104,6 +106,10 @@ public class Queen implements Piece{
             }
         }
         return true;
+    }
+
+    public boolean canMove(int i, int j){
+        return this.canMove(new Coordinate(i,j));
     }
 
     @Override

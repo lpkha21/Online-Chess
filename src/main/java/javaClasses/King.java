@@ -64,9 +64,6 @@ public class King implements Piece{
         return true;
     }
 
-    public boolean canMove(int i, int j){
-        return this.canMove(new Coordinate(i,j));
-    }
 
     private boolean check(Coordinate c){
         for (int i = 0; i < board.SIZE; i++) {
@@ -75,7 +72,7 @@ public class King implements Piece{
                 if(curr != null && curr.color() != this.color){
                     if(curr.getType() == pieceEnum.KING) {
                         Coordinate temp = curr.getCoordinate();
-                        if (temp.i - c.i == 1 || temp.i - c.i == -1 || temp.j - c.j == 1 || temp.j - c.j == -1)
+                        if ( abs(temp.i - c.i) <= 1  && abs(temp.j - c.j) <= 1)
                             return true;
                     }else if(curr.canMove(c))
                         return true;
@@ -84,6 +81,8 @@ public class King implements Piece{
         }
         return false;
     }
+
+    public boolean canMove(int i, int j){ return this.canMove(new Coordinate(i,j)); }
 
     public boolean check(int i, int j){ return this.check(new Coordinate(i,j)); }
 
