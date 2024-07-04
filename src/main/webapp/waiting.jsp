@@ -47,6 +47,32 @@
             }
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function checkQueue() {
+            $.ajax({
+                url: '/CheckQueueServlet',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    if (data.queueSize >= 2) {
+                        // Redirect to the game page or perform additional logic
+                        window.location.href = '/Game';
+                    } else {
+                        // Continue checking
+                        setTimeout(checkQueue, 1000); // Check again after 1 second
+                    }
+                },
+                error: function() {
+                    setTimeout(checkQueue, 1000); // Retry after 1 second on error
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            checkQueue();
+        });
+    </script>
 </head>
 <body>
 <div class="content">
@@ -54,16 +80,5 @@
     <h1>Please Wait</h1>
     <p>Waiting for another player...</p>
 </div>
-
-<%-- Example logic to handle waiting conditions --%>
-<%
-    ArrayList<String> queue = (ArrayList<String>) request.getAttribute("queue");
-    if (queue.size() >= 2) {
-        // Redirect logic or continue to game setup
-    } else {
-        // Display waiting message or additional logic
-    }
-%>
-
 </body>
 </html>

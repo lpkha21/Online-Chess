@@ -27,14 +27,15 @@ public class WaitingServlet extends HttpServlet {
         }else{
             queue = (ArrayList<String>) request.getServletContext().getAttribute("minute10");
         }
-
-        queue.add(username);
+        if(!queue.contains(username)){
+            queue.add(username);
+        }
         HttpSession session = request.getSession();
 
         request.setAttribute("time",time);
         request.setAttribute("username",username);
         request.setAttribute("queue",queue);
-
+        session.setAttribute("queue",queue);
         dispatcher = request.getRequestDispatcher("waiting.jsp");
         dispatcher.forward(request, response);
     }

@@ -64,6 +64,11 @@
     <servlet-class>javaClasses.WaitingServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>CheckQueueServlet</servlet-name>
+    <servlet-class>javaClasses.CheckQueueServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
@@ -117,6 +122,11 @@
   <servlet-mapping>
     <servlet-name>WaitingServlet</servlet-name>
     <url-pattern>/WaitingServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>CheckQueueServlet</servlet-name>
+    <url-pattern>/CheckQueueServlet</url-pattern>
   </servlet-mapping>
 
 </web-app>
