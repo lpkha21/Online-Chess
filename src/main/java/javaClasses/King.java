@@ -28,9 +28,7 @@ public class King implements Piece{
         if(p != null && p.color() == this.color) // move to same colored piece
             return false;
 
-        if( ( abs(c.i-cord.i) > 2 || abs(c.j-cord.j) > 2 ) && this.moved ){ // moving too far and no check
-            return false;
-        }
+
 
         if(check(c))
             return false;
@@ -47,8 +45,7 @@ public class King implements Piece{
                return false;
            if(check(new Coordinate(this.cord.i,this.cord.j)) || check(new Coordinate(this.cord.i,this.cord.j + 1)) || check(new Coordinate(this.cord.i,this.cord.j + 2)))
                return false;
-       }
-       else if(c.j - cord.j == -2){
+       }else if(c.j - cord.j == -2){
            if(moved)
                return false;
            Piece rook = board.getPiece(this.cord.i,0);
@@ -60,15 +57,10 @@ public class King implements Piece{
                return false;
            if(check(new Coordinate(this.cord.i,this.cord.j)) || check(new Coordinate(this.cord.i,this.cord.j - 1)) && check(new Coordinate(this.cord.i,this.cord.j - 2)))
                return false;
+       }else if(abs(c.i-cord.i) >= 2 || abs(c.j-cord.j) >= 2) { // moving too far
+           return false;
        }
 
-    /*    if(c.i - cord.i < 2 && c.i - cord.i > -2 && c.j - cord.j < 2 && c.j - cord.j < 2){
-            if(check(c))
-                return false;
-        }else{
-            return false;
-        }
-    */
         return true;
     }
 
