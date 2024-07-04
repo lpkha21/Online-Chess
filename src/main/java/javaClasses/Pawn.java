@@ -1,5 +1,7 @@
 package javaClasses;
 
+import javax.swing.*;
+
 import static java.lang.Math.abs;
 
 public class Pawn implements Piece {
@@ -8,7 +10,9 @@ public class Pawn implements Piece {
     Coordinate cord;
     Board board;
 
+
     boolean moved = false;
+    boolean promoted = false;
 
 
     public Pawn(Coordinate cord, Board board, int color){
@@ -70,7 +74,17 @@ public class Pawn implements Piece {
     }
     public void updateCoordinate(int i, int j){
         this.updateCoordinate(new Coordinate(i,j));
+
+        if(this.color == pieceEnum.BLACK){
+           if(this.cord.i == board.SIZE-1)
+               this.promoted = true;
+        } else {
+            if(this.cord.i == 0)
+                this.promoted = true;
+        }
     }
 
-
+    public boolean isPromoted(){
+        return this.promoted;
+    }
 }

@@ -44,8 +44,8 @@ public class PawnTest extends TestCase {
 
     public void testCanMove1(){ // empty board
         // Move to same place
-//        assertFalse(lonePawnB.canMove(loneiB,lonejB));
-//        assertFalse(lonePawnW.canMove(loneiW,lonejW));
+        assertFalse(lonePawnB.canMove(loneiB,lonejB));
+        assertFalse(lonePawnW.canMove(loneiW,lonejW));
 
         // make first move forward with 1 or 2 moves
         assertTrue(lonePawnB.canMove(loneiB+1,lonejB));
