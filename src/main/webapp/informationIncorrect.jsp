@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,6 +34,9 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         input[type="text"],
@@ -64,7 +66,6 @@
             color: #2e8b57;
             text-decoration: none;
             margin-top: 20px;
-            display: block;
         }
 
         a:hover {
