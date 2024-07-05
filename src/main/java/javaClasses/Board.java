@@ -115,9 +115,9 @@ public class Board {
             }
 
             return true;
-        }else{
-            return false;
         }
+
+        return false;
     }
 
     private boolean isCheck(int color){
@@ -139,7 +139,17 @@ public class Board {
         return false;
     }
 
-    public void setPiece(int i, int j, Piece piece) { board[i][j] = piece; }
+    public void setPiece(int i, int j, Piece piece) {
+        board[i][j] = piece;
+        if(piece.getType() == pieceEnum.KING){
+            if(piece.color() == pieceEnum.WHITE){
+                whiteKing = piece.getCoordinate();
+            }
+            else{
+                blackKing = piece.getCoordinate();
+            }
+        }
+    }
     public void setPiece(Piece piece) { board[piece.getCoordinate().i][piece.getCoordinate().j] = piece; }
 
     public boolean isCheckMate(int color){
