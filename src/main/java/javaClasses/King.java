@@ -28,8 +28,6 @@ public class King implements Piece{
         if(p != null && p.color() == this.color) // move to same colored piece
             return false;
 
-
-
         if(check(c))
             return false;
 

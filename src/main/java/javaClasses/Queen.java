@@ -30,8 +30,7 @@ public class Queen implements Piece{
             return false;
 
         // moving to a same colored piece
-        if( !board.isEmpty(c.i,c.j) &&
-                (board.getPiece(c.i, c.j).color() == this.color || board.getPiece(c.i,c.j).getType() == pieceEnum.KING ) )
+        if( !board.isEmpty(c.i,c.j) && board.getPiece(c.i, c.j).color() == this.color )
             return false;
 
         if ( !(abs(dx) == abs(dy) || c.i == cord.i || c.j == cord.j) )

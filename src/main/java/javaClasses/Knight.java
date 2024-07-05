@@ -23,8 +23,7 @@ public class Knight implements Piece{
             return false;
         if(abs(cord.i - c.i) + abs(cord.j - c.j) != 3)
             return false;
-        if(!board.isEmpty(c) &&
-                (board.getPiece(c.i, c.j).color() == this.color || board.getPiece(c.i,c.j).getType() == pieceEnum.KING ))
+        if(!board.isEmpty(c) && board.getPiece(c.i, c.j).color() == this.color)
             return false;
         return true;
     }
