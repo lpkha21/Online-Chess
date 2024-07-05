@@ -197,6 +197,7 @@ public class BoardTest extends TestCase {
         Board brd = new Board(true);
 
         // pawn
+        assertFalse(brd.makeMove(new Coordinate(4, 4), new Coordinate(4, 4), pieceEnum.WHITE));
         assertTrue(brd.makeMove(new Coordinate(6, 4), new Coordinate(4, 4), pieceEnum.WHITE));
         assertTrue(brd.getPiece(4, 4) instanceof Pawn);
         assertTrue(brd.isEmpty(6, 4));
@@ -255,4 +256,23 @@ public class BoardTest extends TestCase {
 
     }
 
+    public void testCheckMate(){
+        Board b = new Board(false);
+
+
+        // set board
+        b.setPiece(0,6,new King(0,6,b,pieceEnum.BLACK)); b.getPiece(0,6).setMoved(true);
+        b.setPiece(1,3,new Rook(1,3,b,pieceEnum.BLACK)); b.getPiece(1,3).setMoved(true);
+        b.setPiece(2,7,new Pawn(2,7,b,pieceEnum.WHITE)); b.getPiece(2,7).setMoved(true);
+        b.setPiece(2,4,new Rook(2,4,b,pieceEnum.WHITE)); b.getPiece(2,4).setMoved(true);
+        b.setPiece(2,5,new King(2,5,b,pieceEnum.WHITE)); b.getPiece(2,5).setMoved(true);
+        b.setPiece(2,6,new Pawn(2,6,b,pieceEnum.WHITE)); b.getPiece(2,6).setMoved(true);
+
+        assertFalse(b.isCheckMate(pieceEnum.BLACK));
+        assertFalse(b.isCheckMate(pieceEnum.WHITE));
+
+        assertTrue(b.makeMove(new Coordinate(2,4),new Coordinate(0,4),pieceEnum.WHITE));
+        assertTrue(b.isCheckMate(pieceEnum.BLACK));
+        assertFalse(b.isCheckMate(pieceEnum.WHITE));
+    }
 }
