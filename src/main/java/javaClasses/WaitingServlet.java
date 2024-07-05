@@ -16,26 +16,30 @@ public class WaitingServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String time = request.getParameter("time");
+        HttpSession session = request.getSession();
+
         RequestDispatcher dispatcher;
 
 
-        ArrayList<String> queue;
+        ArrayList<HttpSession> queue;
         if(time.equals("3")){
-            queue = (ArrayList<String>) request.getServletContext().getAttribute("minute3");
+            queue = (ArrayList<HttpSession>) request.getServletContext().getAttribute("minute3");
         }else if(time.equals("5")){
-            queue = (ArrayList<String>) request.getServletContext().getAttribute("minute5");
+            queue = (ArrayList<HttpSession>) request.getServletContext().getAttribute("minute5");
         }else{
-            queue = (ArrayList<String>) request.getServletContext().getAttribute("minute10");
+            queue = (ArrayList<HttpSession>) request.getServletContext().getAttribute("minute10");
         }
-        if(!queue.contains(username)){
-            queue.add(username);
+        if(!queue.contains(session)){
+            queue.add(session);
         }
-        HttpSession session = request.getSession();
+
 
         request.setAttribute("time",time);
         request.setAttribute("username",username);
         request.setAttribute("queue",queue);
+
         session.setAttribute("queue",queue);
+
         dispatcher = request.getRequestDispatcher("waiting.jsp");
         dispatcher.forward(request, response);
     }

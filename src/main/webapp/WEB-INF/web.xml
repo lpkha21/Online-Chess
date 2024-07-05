@@ -74,6 +74,11 @@
     <servlet-class>javaClasses.LeaveQueueServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>JoinGameServlet</servlet-name>
+    <servlet-class>javaClasses.JoinGameServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -140,6 +145,11 @@
   <servlet-mapping>
     <servlet-name>LeaveQueueServlet</servlet-name>
     <url-pattern>/LeaveQueueServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>JoinGameServlet</servlet-name>
+    <url-pattern>/JoinGameServlet</url-pattern>
   </servlet-mapping>
 
 </web-app>

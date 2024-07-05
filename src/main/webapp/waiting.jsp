@@ -73,7 +73,7 @@
                 dataType: 'json',
                 success: function(data) {
                     if (data.queueSize >= 2) {
-                        window.location.href = '/Game';
+                        window.location.href = '/JoinGameServlet';
                     } else {
                         setTimeout(checkQueue, 1000);
                     }
