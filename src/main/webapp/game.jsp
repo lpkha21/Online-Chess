@@ -56,7 +56,7 @@
 
     <script type="text/javascript">
         var timer1, timer2;
-        var count1 = 600, count2 = 600; // Example countdown times in seconds
+        var count1 = 600, count2 = 600;
 
         function formatTime(count) {
             var minutes = Math.floor(count / 60);
@@ -107,12 +107,12 @@
             if (timerNum === 1) {
                 clearInterval(timer1);
                 timer1 = null;
-                count1 = 300; // Reset countdown time in seconds
+                count1 = 300;
                 updateTimerDisplay(1);
             } else if (timerNum === 2) {
                 clearInterval(timer2);
                 timer2 = null;
-                count2 = 180; // Reset countdown time in seconds
+                count2 = 180;
                 updateTimerDisplay(2);
             }
         }

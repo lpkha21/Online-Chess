@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 7/4/2024
-  Time: 17:12
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -39,7 +33,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px; /* Adjust spacing as needed */
+            gap: 20px;
         }
 
         label {

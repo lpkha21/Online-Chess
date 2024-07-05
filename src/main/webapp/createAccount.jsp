@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 6/30/2024
-  Time: 17:15
-  To change this template use File | Settings | File Templates.
---%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +34,9 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         input[type="text"],
@@ -49,6 +46,7 @@
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
+            text-align: center;
         }
 
         input[type="submit"] {

@@ -22,10 +22,10 @@
         }
 
         .logo {
-            width: 100px; /* Adjust size as needed */
+            width: 100px;
             height: auto;
             margin-bottom: 20px;
-            animation: rotate 2s linear infinite; /* Animation properties */
+            animation: rotate 2s linear infinite;
         }
 
         h1 {
@@ -57,10 +57,10 @@
 
         @keyframes rotate {
             from {
-                transform: rotate(0deg); /* Start rotation from 0 degrees */
+                transform: rotate(0deg);
             }
             to {
-                transform: rotate(360deg); /* Rotate 360 degrees */
+                transform: rotate(360deg);
             }
         }
     </style>
@@ -73,39 +73,33 @@
                 dataType: 'json',
                 success: function(data) {
                     if (data.queueSize >= 2) {
-                        // Redirect to the game page or perform additional logic
                         window.location.href = '/Game';
                     } else {
-                        // Continue checking
-                        setTimeout(checkQueue, 1000); // Check again after 1 second
+                        setTimeout(checkQueue, 1000);
                     }
                 },
                 error: function() {
-                    setTimeout(checkQueue, 1000); // Retry after 1 second on error
+                    setTimeout(checkQueue, 1000);
                 }
             });
         }
 
         function leaveQueue() {
-            // Perform AJAX call to remove user from the queue
             $.ajax({
                 url: '/LeaveQueueServlet',
-                type: 'POST', // Use POST for actions that modify data
+                type: 'POST',
                 success: function() {
-                    // Redirect or handle leaving the queue
-                    window.location.href = '/BackToProfileServlet'; // Redirect to home or another page
+                    window.location.href = '/BackToProfileServlet';
                 },
                 error: function() {
-                    // Handle error, if needed
                     alert('Failed to leave the queue.');
                 }
             });
         }
 
         $(document).ready(function() {
-            checkQueue(); // Initial call to start checking queue
+            checkQueue();
 
-            // Bind click event to leave button
             $('.leave-button').click(function() {
                 leaveQueue();
             });
