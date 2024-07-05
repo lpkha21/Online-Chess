@@ -37,29 +37,31 @@ public class Queen implements Piece{
         if ( !(abs(dx) == abs(dy) || c.i == cord.i || c.j == cord.j) )
             return false;
 
+        if(abs(dx) == abs(dy)){
         // check the paths to c
-        if(dx > 0 && dy > 0) { // 1. bottom right
-            for (int i = 1; i < abs(dx); i++) {
-                if (!board.isEmpty(cord.i + i, cord.j + i)) {
-                    return false;
+            if(dx > 0 && dy > 0) { // 1. bottom right
+                for (int i = 1; i < abs(dx); i++) {
+                    if (!board.isEmpty(cord.i + i, cord.j + i)) {
+                        return false;
+                    }
                 }
-            }
-        } else if(dx > 0 && dy < 0) { // 2. top right
-            for (int i = 1; i < abs(dx); i++) {
-                if (!board.isEmpty(cord.i - i, cord.j + i)) {
-                    return false;
+            } else if(dx > 0 && dy < 0) { // 2. top right
+                for (int i = 1; i < abs(dx); i++) {
+                    if (!board.isEmpty(cord.i - i, cord.j + i)) {
+                        return false;
+                    }
                 }
-            }
-        } else if(dx < 0 && dy > 0) { // 3. bottom left
-            for (int i = 1; i < abs(dx); i++) {
-                if (!board.isEmpty(cord.i + i, cord.j - i)) {
-                    return false;
+            } else if(dx < 0 && dy > 0) { // 3. bottom left
+                for (int i = 1; i < abs(dx); i++) {
+                    if (!board.isEmpty(cord.i + i, cord.j - i)) {
+                        return false;
+                    }
                 }
-            }
-        } else { // 4. top left
-            for (int i = 1; i < abs(dx); i++) {
-                if (!board.isEmpty(cord.i - i, cord.j - i)) {
-                    return false;
+            } else { // 4. top left
+                for (int i = 1; i < abs(dx); i++) {
+                    if (!board.isEmpty(cord.i - i, cord.j - i)) {
+                        return false;
+                    }
                 }
             }
         }
