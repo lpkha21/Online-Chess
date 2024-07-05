@@ -22,9 +22,8 @@ public class JoinGameServlet extends HttpServlet {
             opponentSession = queue.get(0);
         }
 
-        Game game = new Game();
-
         if(session.getAttribute("game") == null){
+            Game game = new Game(session,opponentSession);
             session.setAttribute("game",game);
             opponentSession.setAttribute("game",game);
         }else{

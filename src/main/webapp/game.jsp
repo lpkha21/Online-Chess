@@ -150,7 +150,6 @@
     <input type="hidden" name="fromj" id="fromj" value="">
     <input type="hidden" name="toi" id="toi" value="">
     <input type="hidden" name="toj" id="toj" value="">
-    <input type="hidden" name="col" id="col" value="">
 </form>
 <script>
 
@@ -171,7 +170,6 @@
 
             document.getElementById("toi").value = i;
             document.getElementById("toj").value = j;
-            document.getElementById("col").value = <%=((Player) request.getAttribute("currTurn")).getColor() %>;
 
             var squares = document.querySelectorAll('.square');
             squares.forEach(function (square){
@@ -195,22 +193,22 @@
     <p>time:  <span id="timerDisplay1">10 : 0</span></p>
 </div>
 
-<div>
-    <%
-        String message = "";
-        if(((Player) request.getAttribute("currTurn")).getColor() == pieceEnum.END){
-            int winner = ((Integer) request.getAttribute("winner"));
-            if(winner == pieceEnum.BLACK)
-                message = "BLACK WINS!!!";
-            else if(winner == pieceEnum.WHITE)
-                message = "WHITE WINS!!!";
-            else
-                message = "DRAW";
-        }
+<%--<div>--%>
+<%--    <%--%>
+<%--        String message = "";--%>
+<%--        if(((Player) request.getAttribute("currTurn")).getColor() == pieceEnum.END){--%>
+<%--            int winner = ((Integer) request.getAttribute("winner"));--%>
+<%--            if(winner == pieceEnum.BLACK)--%>
+<%--                message = "BLACK WINS!!!";--%>
+<%--            else if(winner == pieceEnum.WHITE)--%>
+<%--                message = "WHITE WINS!!!";--%>
+<%--            else--%>
+<%--                message = "DRAW";--%>
+<%--        }--%>
 
-    %>
-    <h1><%= message %></h1>
-</div>
+<%--    %>--%>
+<%--    <h1><%= message %></h1>--%>
+<%--</div>--%>
 
 </body>
 </html>
