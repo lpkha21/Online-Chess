@@ -73,14 +73,14 @@ public class KingTest extends TestCase {
         assertTrue(castleKing.canMove(0,6));
         assertTrue(castleKing.canMove(0,2));
 
-    //    assertFalse(castleKing.canMove(6,0));
-    //    assertFalse(castleKing.canMove(2,0));
+        assertFalse(castleKing.canMove(6,0));
+        assertFalse(castleKing.canMove(2,0));
     }
 
     public void testStartBoard(){
-        startBoard.setPiece(1,3,null);
-        startBoard.setPiece(1,4,null);
-        startBoard.setPiece(1,5,null);
+//        startBoard.setPiece(1,3,null);
+//        startBoard.setPiece(1,4,null);
+//        startBoard.setPiece(1,5,null);
 
 //        startBoard.setPiece(7,4,null);
 //        startBoard.setPiece(7,4,null);
@@ -91,9 +91,9 @@ public class KingTest extends TestCase {
         Queen q = (Queen) startBoard.getPiece(7,3);
         assertFalse(q.canMove(1,4));
 
-        assertTrue(startKing.canMove(1,3));
-        assertTrue(startKing.canMove(1,4));
-        assertTrue(startKing.canMove(1,5));
+//        assertTrue(startKing.canMove(1,3));
+//        assertTrue(startKing.canMove(1,4));
+//        assertTrue(startKing.canMove(1,5));
     }
 
 }

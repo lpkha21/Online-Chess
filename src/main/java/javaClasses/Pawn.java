@@ -72,6 +72,13 @@ public class Pawn implements Piece {
         this.cord = c;
         moved = true;
     }
+
+    @Override
+    public boolean moved() { return moved; }
+
+    @Override
+    public void setMoved(boolean b) { moved = b;}
+
     public void updateCoordinate(int i, int j){
         this.updateCoordinate(new Coordinate(i,j));
 

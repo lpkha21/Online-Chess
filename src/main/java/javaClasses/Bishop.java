@@ -88,6 +88,13 @@ public class Bishop implements Piece{
     public void updateCoordinate(Coordinate c) {
         this.cord = c;
     }
+
+    @Override
+    public boolean moved() { return false; }
+
+    @Override
+    public void setMoved(boolean b) {}
+
     public void updateCoordinate(int i, int j) { this.cord = new Coordinate(i,j); }
 
 }

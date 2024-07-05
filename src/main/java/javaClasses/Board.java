@@ -82,17 +82,32 @@ public class Board {
         if(curr == null)
             return false;
 
-        if(curr.color() == color && curr.canMove(to)){
+        if(curr.color() == color && curr.canMove(to)){ // Check right player is making a move
 
             Piece temp = board[to.i][to.j];
             board[to.i][to.j] = curr;
             board[from.i][from.j] = null;
+
+            boolean prevMoved = false;
+            if(curr instanceof Rook || curr instanceof Pawn || curr instanceof King)
+                prevMoved = curr.moved();
 
             if(curr.getType() == pieceEnum.KING){
                 if(color == pieceEnum.BLACK)
                     blackKing = to;
                 else
                     whiteKing = to;
+
+                // Check for Castling
+                if(to.j - from.j == 2   ){
+                    this.removePiece(from.i,SIZE-1);
+                    Rook rook = new Rook(from.i, from.j+1, this, color);
+                    rook.setMoved(true);
+                }else if(to.j - from.j == -2){
+                    this.removePiece(from.i, 0);
+                    Rook rook = new Rook(from.i, from.j-1, this, color);
+                    rook.setMoved(true);
+                }
             }
 
             curr.updateCoordinate(to);
@@ -110,6 +125,9 @@ public class Board {
                 }
 
                 curr.updateCoordinate(from);
+                if(curr instanceof Rook || curr instanceof Pawn || curr instanceof King)
+                    curr.setMoved(prevMoved);
+
 
                 return false;
             }
@@ -120,7 +138,7 @@ public class Board {
         return false;
     }
 
-    private boolean isCheck(int color){
+    public boolean isCheck(int color){
         Coordinate king;
 
         if(color == pieceEnum.WHITE)

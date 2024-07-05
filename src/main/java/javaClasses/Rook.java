@@ -87,8 +87,11 @@ public class Rook implements Piece{
         cord = c;
         moved = true;
     }
-    public boolean moved(){
-        return moved;
-    }
+
+    @Override
+    public boolean moved() { return moved; }
+
+    @Override
+    public void setMoved(boolean b) { moved = b;}
 
 }

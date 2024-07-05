@@ -104,4 +104,11 @@ public class King implements Piece{
         cord = c;
         moved = true;
     }
+
+    @Override
+    public boolean moved() { return moved; }
+
+    @Override
+    public void setMoved(boolean b) { moved = b;}
+
 }

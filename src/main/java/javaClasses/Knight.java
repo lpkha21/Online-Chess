@@ -47,4 +47,10 @@ public class Knight implements Piece{
     public void updateCoordinate(Coordinate c) {
         cord = c;
     }
+
+    @Override
+    public boolean moved() {return false;}
+
+    @Override
+    public void setMoved(boolean b) {}
 }
