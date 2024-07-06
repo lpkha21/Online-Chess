@@ -84,6 +84,36 @@
     <servlet-class>javaClasses.BoardStateServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>CheckFriendlyMatchServlet</servlet-name>
+    <servlet-class>javaClasses.CheckFriendlyMatchServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>RemoveFriendlyMatchServlet</servlet-name>
+    <servlet-class>javaClasses.RemoveFriendlyMatchServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>JoinFriendlyMatchServlet</servlet-name>
+    <servlet-class>javaClasses.JoinFriendlyMatchServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>CheckFriendlyMatchRequestServlet</servlet-name>
+    <servlet-class>javaClasses.CheckFriendlyMatchRequestServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>AcceptFriendlyMatchServlet</servlet-name>
+    <servlet-class>javaClasses.AcceptFriendlyMatchServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>RejectFriendlyMatchServlet</servlet-name>
+    <servlet-class>javaClasses.RejectFriendlyMatchServlet</servlet-class>
+  </servlet>
+
 
 
   <servlet-mapping>
@@ -159,6 +189,36 @@
   <servlet-mapping>
     <servlet-name>BoardStateServlet</servlet-name>
     <url-pattern>/BoardStateServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>CheckFriendlyMatchServlet</servlet-name>
+    <url-pattern>/CheckFriendlyMatchServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>RemoveFriendlyMatchServlet</servlet-name>
+    <url-pattern>/RemoveFriendlyMatchServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>JoinFriendlyMatchServlet</servlet-name>
+    <url-pattern>/JoinFriendlyMatchServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>CheckFriendlyMatchRequestServlet</servlet-name>
+    <url-pattern>/CheckFriendlyMatchRequestServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>AcceptFriendlyMatchServlet</servlet-name>
+    <url-pattern>/AcceptFriendlyMatchServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>RejectFriendlyMatchServlet</servlet-name>
+    <url-pattern>/RejectFriendlyMatchServlet</url-pattern>
   </servlet-mapping>
 
 </web-app>

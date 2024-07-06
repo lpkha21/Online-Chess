@@ -9,11 +9,6 @@ import java.io.IOException;
 
 public class GameServlet extends HttpServlet {
 
-    Board board;
-    Player whitePlayer;
-    Player blackPlayer;
-    Player gameOver;
-    int currTurn;
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
         HttpSession session = httpServletRequest.getSession();

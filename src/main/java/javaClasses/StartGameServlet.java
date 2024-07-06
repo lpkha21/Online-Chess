@@ -12,7 +12,6 @@ public class StartGameServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
 
-        DataBase dataBase = (DataBase) getServletContext().getAttribute("dataBase");
         RequestDispatcher dispatcher;
 
         request.setAttribute("username",username);

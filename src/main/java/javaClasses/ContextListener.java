@@ -21,6 +21,8 @@ public class ContextListener implements ServletContextListener{
         ArrayList<HttpSession> minute10 = new ArrayList<HttpSession>();
         ArrayList<HttpSession> minute5 = new ArrayList<HttpSession>();
         ArrayList<HttpSession> minute3 = new ArrayList<HttpSession>();
+        ArrayList<FriendlyMatch> friendlyMatches = new ArrayList<FriendlyMatch>();
+        servletContextEvent.getServletContext().setAttribute("friendlyMatches",friendlyMatches);
         servletContextEvent.getServletContext().setAttribute("minute10",minute10);
         servletContextEvent.getServletContext().setAttribute("minute5",minute5);
         servletContextEvent.getServletContext().setAttribute("minute3",minute3);

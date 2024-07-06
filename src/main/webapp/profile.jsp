@@ -100,6 +100,31 @@
             justify-content: center;
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function checkFriendlyMatchRequest() {
+            $.ajax({
+                url: '/CheckFriendlyMatchRequestServlet',
+                type: 'POST',
+                dataType: 'json',
+                success: function(data) {
+                    if (data.isRequest === 1) {
+                        window.location.href = 'answerFriendlyMatchRequest.jsp';
+                    }else{
+                        setTimeout(checkFriendlyMatchRequest, 1000);
+                    }
+                },
+                error: function() {
+                    setTimeout(checkFriendlyMatchRequest, 1000);
+                }
+            });
+        }
+
+
+        $(document).ready(function() {
+            checkFriendlyMatchRequest();
+        });
+    </script>
 </head>
 <body>
 <div class="container">
