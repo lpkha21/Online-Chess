@@ -49,7 +49,7 @@
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
-            text-align: left; /* Align text to the left inside the text fields */
+            text-align: left;
         }
 
         input[type="submit"] {
