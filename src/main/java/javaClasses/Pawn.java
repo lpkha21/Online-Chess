@@ -20,6 +20,11 @@ public class Pawn implements Piece {
         this.board = board;
         this.cord = cord;
         board.setPiece(getCoordinate().i, getCoordinate().j,this);
+
+        if(color == pieceEnum.WHITE)
+            board.whitePieces.add(this);
+        else
+            board.blackPieces.add(this);
     }
     public Pawn(int i, int j, Board board, int color){
         this(new Coordinate(i,j), board, color);

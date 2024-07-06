@@ -12,6 +12,11 @@ public class Rook implements Piece{
         this.color = color;
         this.cord = cord;
         board.setPiece(getCoordinate().i, getCoordinate().j,this);
+
+        if(color == pieceEnum.WHITE)
+            board.whitePieces.add(this);
+        else
+            board.blackPieces.add(this);
     }
     public Rook(int i, int j, Board board, int color){
         this(new Coordinate(i,j), board, color);

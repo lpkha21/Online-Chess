@@ -12,6 +12,11 @@ public class Bishop implements Piece{
         this.color = color;
         this.board = board;
         board.setPiece(getCoordinate().i, getCoordinate().j,this);
+
+        if(color == pieceEnum.WHITE)
+            board.whitePieces.add(this);
+        else
+            board.blackPieces.add(this);
     }
 
     public Bishop(int i, int j, Board board, int color){

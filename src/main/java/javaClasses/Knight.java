@@ -12,6 +12,11 @@ public class Knight implements Piece{
         this.board = board;
         this.color = color;
         board.setPiece(getCoordinate().i, getCoordinate().j,this);
+
+        if(color == pieceEnum.WHITE)
+            board.whitePieces.add(this);
+        else
+            board.blackPieces.add(this);
     }
 
     public Knight(int i, int j, Board board, int color){

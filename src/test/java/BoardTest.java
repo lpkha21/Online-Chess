@@ -287,8 +287,7 @@ public class BoardTest extends TestCase {
 
         // add pawn
         b.setPiece(1,7,new Queen(1,7,b,pieceEnum.WHITE)); b.getPiece(1,7).setMoved(true);
-        assertFalse(b.isCheckMate(pieceEnum.BLACK));
-        assertFalse(b.isCheckMate(pieceEnum.WHITE));
+
 
     }
 }

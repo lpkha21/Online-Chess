@@ -16,6 +16,11 @@ public class Queen implements Piece{
         this.board = board;
         this.color = col;
         board.setPiece(getCoordinate().i, getCoordinate().j,this);
+
+        if(color == pieceEnum.WHITE)
+            board.whitePieces.add(this);
+        else
+            board.blackPieces.add(this);
     }
     public Queen(int i, int j, Board board, int col){
         this(new Coordinate(i,j), board, col);
