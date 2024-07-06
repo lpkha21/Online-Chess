@@ -15,10 +15,20 @@ public class PlayWithFriendServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String myUsername = (String) session.getAttribute("username");
         String friendUsername = request.getParameter("friendName");
+        String time = request.getParameter("time");
+        String color = request.getParameter("color");
+        int pieceColor = 0;
+        if(color.equals("white")){
+            pieceColor = pieceEnum.WHITE;
+        }else if(color.equals("black")){
+            pieceColor = pieceEnum.BLACK;
+        }else{
+            pieceColor = -1;
+        }
 
         ArrayList<FriendlyMatch> friendlyMatches = (ArrayList<FriendlyMatch>) request.getServletContext().getAttribute("friendlyMatches");
 
-        FriendlyMatch friendlyMatch = new FriendlyMatch(myUsername,session,friendUsername);
+        FriendlyMatch friendlyMatch = new FriendlyMatch(myUsername,session,friendUsername,time,pieceColor);
         friendlyMatches.add(friendlyMatch);
         session.setAttribute("friendlyMatch",friendlyMatch);
 

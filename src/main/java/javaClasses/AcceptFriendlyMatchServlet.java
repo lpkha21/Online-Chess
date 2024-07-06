@@ -19,7 +19,13 @@ public class AcceptFriendlyMatchServlet extends HttpServlet {
         HttpSession opponentSession = null;
         opponentSession = friendlyMatch.getFirstSession();
         if(session.getAttribute("game") == null){
-            Game game = new Game(session,opponentSession);
+            int color = -1;
+            if(friendlyMatch.color == (pieceEnum.WHITE)){
+                color = pieceEnum.BLACK;
+            }else if(friendlyMatch.color == pieceEnum.BLACK){
+                color = pieceEnum.WHITE;
+            }
+            Game game = new Game(session,opponentSession,friendlyMatch.time,color);
             session.setAttribute("game",game);
             opponentSession.setAttribute("game",game);
         }else{

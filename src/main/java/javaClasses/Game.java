@@ -13,23 +13,37 @@ public class Game {
 
     int update;
 
+    String time;
 
 
-    public Game(HttpSession session1, HttpSession session2){
+
+    public Game(HttpSession session1, HttpSession session2, String time, int color){
         board = new Board();
         Random random = new Random();
         current = pieceEnum.WHITE;
         update = -1;
-        if(random.nextBoolean()){
+        if(color == pieceEnum.WHITE){
             whitePlayer = new Player((String) session1.getAttribute("username"),pieceEnum.WHITE);
             blackPlayer = new Player((String) session2.getAttribute("username"),pieceEnum.BLACK);
             session1.setAttribute("player",whitePlayer);
             session2.setAttribute("player",blackPlayer);
-        }else{
+        }else if(color == pieceEnum.BLACK){
             whitePlayer = new Player((String) session2.getAttribute("username"),pieceEnum.WHITE);
             blackPlayer = new Player((String) session1.getAttribute("username"),pieceEnum.BLACK);
             session1.setAttribute("player",blackPlayer);
             session2.setAttribute("player",whitePlayer);
+        }else{
+            if(random.nextBoolean()){
+                whitePlayer = new Player((String) session1.getAttribute("username"),pieceEnum.WHITE);
+                blackPlayer = new Player((String) session2.getAttribute("username"),pieceEnum.BLACK);
+                session1.setAttribute("player",whitePlayer);
+                session2.setAttribute("player",blackPlayer);
+            }else{
+                whitePlayer = new Player((String) session2.getAttribute("username"),pieceEnum.WHITE);
+                blackPlayer = new Player((String) session1.getAttribute("username"),pieceEnum.BLACK);
+                session1.setAttribute("player",blackPlayer);
+                session2.setAttribute("player",whitePlayer);
+            }
         }
     }
 

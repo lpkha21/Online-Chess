@@ -19,7 +19,7 @@ public class JoinFriendlyMatchServlet extends HttpServlet {
         HttpSession opponentSession = null;
         opponentSession = friendlyMatch.getSecondSession();
         if(session.getAttribute("game") == null){
-            Game game = new Game(session,opponentSession);
+            Game game = new Game(session,opponentSession,friendlyMatch.time,friendlyMatch.color);
             session.setAttribute("game",game);
             opponentSession.setAttribute("game",game);
         }else{

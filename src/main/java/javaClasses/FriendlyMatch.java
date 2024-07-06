@@ -10,8 +10,13 @@ public class FriendlyMatch {
     private HttpSession secondSession;
     private  String secondUsername;
 
+    String time;
+    int color;
 
-    public FriendlyMatch(String firstUsername, HttpSession session, String secondUsername){
+
+    public FriendlyMatch(String firstUsername, HttpSession session, String secondUsername, String time, int color){
+        this.time = time;
+        this.color = color;
         this.firstUsername = firstUsername;
         this.firstSession = session;
         this.secondUsername = secondUsername;

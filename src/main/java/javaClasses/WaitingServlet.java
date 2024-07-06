@@ -34,11 +34,12 @@ public class WaitingServlet extends HttpServlet {
         }
 
 
-        request.setAttribute("time",time);
+
         request.setAttribute("username",username);
         request.setAttribute("queue",queue);
 
         session.setAttribute("queue",queue);
+        session.setAttribute("time",time);
 
         dispatcher = request.getRequestDispatcher("waiting.jsp");
         dispatcher.forward(request, response);

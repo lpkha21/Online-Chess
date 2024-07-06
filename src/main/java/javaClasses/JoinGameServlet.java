@@ -14,6 +14,7 @@ public class JoinGameServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         ArrayList<HttpSession> queue = (ArrayList<HttpSession>) session.getAttribute("queue");
+        String time = (String) session.getAttribute("time");
 
         HttpSession opponentSession;
         if(queue.get(0).equals(session)){
@@ -23,7 +24,7 @@ public class JoinGameServlet extends HttpServlet {
         }
 
         if(session.getAttribute("game") == null){
-            Game game = new Game(session,opponentSession);
+            Game game = new Game(session,opponentSession,time,-1);
             session.setAttribute("game",game);
             opponentSession.setAttribute("game",game);
         }else{
