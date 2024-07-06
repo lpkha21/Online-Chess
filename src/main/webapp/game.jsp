@@ -151,7 +151,30 @@
     <input type="hidden" name="toi" id="toi" value="">
     <input type="hidden" name="toj" id="toj" value="">
 </form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+    function updateBoardState() {
+        $.ajax({
+            url: '/BoardStateServlet',
+            type: 'POST',
+            dataType: 'json',
+            success: function(data) {
+                if(data.repaint === 1){
+                    window.location.href = '/Game';
+                }else{
+                    setTimeout(updateBoardState, 1000);
+                }
+
+            },
+            error: function() {
+                setTimeout(updateBoardState, 1000);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        updateBoardState();
+    });
 
     var flag = false;
 

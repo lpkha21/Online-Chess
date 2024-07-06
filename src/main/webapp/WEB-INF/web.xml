@@ -79,6 +79,12 @@
     <servlet-class>javaClasses.JoinGameServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>BoardStateServlet</servlet-name>
+    <servlet-class>javaClasses.BoardStateServlet</servlet-class>
+  </servlet>
+
+
 
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
@@ -148,6 +154,11 @@
   <servlet-mapping>
     <servlet-name>JoinGameServlet</servlet-name>
     <url-pattern>/JoinGameServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>BoardStateServlet</servlet-name>
+    <url-pattern>/BoardStateServlet</url-pattern>
   </servlet-mapping>
 
 </web-app>

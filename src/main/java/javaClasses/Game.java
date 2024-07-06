@@ -11,12 +11,15 @@ public class Game {
 
     int current;
 
+    int update;
+
 
 
     public Game(HttpSession session1, HttpSession session2){
         board = new Board();
         Random random = new Random();
         current = pieceEnum.WHITE;
+        update = -1;
         if(random.nextBoolean()){
             whitePlayer = new Player((String) session1.getAttribute("username"),pieceEnum.WHITE);
             blackPlayer = new Player((String) session2.getAttribute("username"),pieceEnum.BLACK);
@@ -43,8 +46,10 @@ public class Game {
         if (board.makeMove(from, to, current)) {
            if(p.getColor() == pieceEnum.WHITE){
                current = pieceEnum.BLACK;
+               update = pieceEnum.BLACK;
            }else{
                current = pieceEnum.WHITE;
+               update = pieceEnum.WHITE;
            }
         }
     }
