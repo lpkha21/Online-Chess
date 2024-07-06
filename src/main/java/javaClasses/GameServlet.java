@@ -16,6 +16,11 @@ public class GameServlet extends HttpServlet {
 
         httpServletRequest.setAttribute("board", game.getBoard());
 
+        String t = game.time;
+        int time = Integer.parseInt(t);
+        time = time*60;
+        httpServletRequest.setAttribute("myTimer",time);
+        httpServletRequest.setAttribute("opponentTimer",time);
         httpServletRequest.getRequestDispatcher("game.jsp").forward(httpServletRequest, httpServletResponse);
     }
 
@@ -34,6 +39,10 @@ public class GameServlet extends HttpServlet {
         Game game = (Game) session.getAttribute("game");
         game.changeBoard(session,from,to);
 
+        String myTimer = httpServletRequest.getParameter("myTimer");
+        String opponentTimer = httpServletRequest.getParameter("opponentTimer");
+        httpServletRequest.setAttribute("myTimer",Integer.parseInt(myTimer));
+        httpServletRequest.setAttribute("opponentTimer",Integer.parseInt(opponentTimer));
         httpServletRequest.setAttribute("board", game.getBoard());
         httpServletRequest.getRequestDispatcher("game.jsp").forward(httpServletRequest, httpServletResponse);
 

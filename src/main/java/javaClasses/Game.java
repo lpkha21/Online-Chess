@@ -9,7 +9,7 @@ public class Game {
     Player whitePlayer;
     Player blackPlayer;
 
-    int current;
+    public int current;
 
     int update;
 
@@ -22,6 +22,7 @@ public class Game {
         Random random = new Random();
         current = pieceEnum.WHITE;
         update = -1;
+        this.time = time;
         if(color == pieceEnum.WHITE){
             whitePlayer = new Player((String) session1.getAttribute("username"),pieceEnum.WHITE);
             blackPlayer = new Player((String) session2.getAttribute("username"),pieceEnum.BLACK);
