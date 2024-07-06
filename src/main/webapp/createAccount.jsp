@@ -46,7 +46,7 @@
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
-            text-align: center;
+            text-align: left;
         }
 
         input[type="submit"] {

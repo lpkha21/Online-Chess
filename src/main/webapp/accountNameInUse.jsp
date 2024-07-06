@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,6 +36,12 @@
             text-align: center;
         }
 
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         input[type="text"],
         input[type="password"] {
             width: 100%;
@@ -44,6 +49,7 @@
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
+            text-align: left; /* Align text to the left inside the text fields */
         }
 
         input[type="submit"] {
@@ -83,13 +89,17 @@
     <h1>The Name <%= request.getAttribute("username") %> is Already In Use</h1>
     <p>Please enter another name and password.</p>
     <form action="CreateAccountServlet" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username"><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password"><br>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+        </div>
         <input type="submit" value="Create Account">
     </form>
-    <a href="login.jsp">Back to Login</a>
+    <a href="index.jsp">Back to Login</a>
 </div>
 </body>
 </html>
