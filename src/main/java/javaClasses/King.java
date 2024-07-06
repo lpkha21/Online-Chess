@@ -72,7 +72,8 @@ public class King implements Piece{
                         Coordinate temp = curr.getCoordinate();
                         if ( abs(temp.i - c.i) <= 1  && abs(temp.j - c.j) <= 1)
                             return true;
-                    }else if(curr.canMove(c))
+                    }
+                    else if(curr.canMove(c))
                         return true;
                 }
             }

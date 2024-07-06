@@ -274,5 +274,21 @@ public class BoardTest extends TestCase {
         assertTrue(b.makeMove(new Coordinate(2,4),new Coordinate(0,4),pieceEnum.WHITE));
         assertTrue(b.isCheckMate(pieceEnum.BLACK));
         assertFalse(b.isCheckMate(pieceEnum.WHITE));
+
+        // add pawn
+        b.setPiece(1,5,new Pawn(1,5,b,pieceEnum.WHITE)); b.getPiece(1,5).setMoved(true);
+        assertTrue(b.isCheckMate(pieceEnum.BLACK));
+        assertFalse(b.isCheckMate(pieceEnum.WHITE));
+
+        // remove pieces
+        b.removePiece(2,6);
+        assertFalse(b.isCheckMate(pieceEnum.BLACK));
+        assertFalse(b.isCheckMate(pieceEnum.WHITE));
+
+        // add pawn
+        b.setPiece(1,7,new Queen(1,7,b,pieceEnum.WHITE)); b.getPiece(1,7).setMoved(true);
+        assertFalse(b.isCheckMate(pieceEnum.BLACK));
+        assertFalse(b.isCheckMate(pieceEnum.WHITE));
+
     }
 }

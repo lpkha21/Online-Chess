@@ -180,14 +180,105 @@ public class Board {
             king = blackKing;
 
         if(isCheck(color)){
-            for (int i = 0; i < SIZE; i++) {
-                for (int j = 0; j < SIZE; j++) {
-                    if(((King)getPiece(king)).canMove(new Coordinate(i,j))){
-                        return false;
+//            for (int i = 0; i < SIZE; i++) {
+//                for (int j = 0; j < SIZE; j++) {
+//                    if(((King)getPiece(king)).canMove(new Coordinate(i,j))){
+//                        return false;
+//                    }
+//                }
+//            }
+
+            for( int i=-1; i<=1; i++ ){
+                for( int j=-1; j<=1; j++ ){
+                    if( (king.i+i < 0 || king.i+i > SIZE-1 || king.j+j < 0 || king.j+j > SIZE-1) || (i==0 && j==0) )
+                        continue;
+                    if(isEmpty(king.i+i, king.j+j)) { // Moving to empty Spot
+                        boolean prevMoved = getPiece(king.i,king.j).moved();
+                        moveKingManually(king, i, j, color); // move King to king.i+i, king.j+j
+
+                        if( !isCheck(color) && !nearOtherKing(new Coordinate(king.i+i, king.j+j)) ) {
+                            returnKingManually(king, i, j, prevMoved, color);
+                            return false;
+                        }
+                        returnKingManually(king, i, j, prevMoved, color);
+
+                    } else if (!isEmpty(king.i+i, king.j+j) && color != getPiece(king.i+i, king.j+j).color()){
+                        // save this Piece
+                        int pieceColor = getPiece(king.i+i,king.j+j).color();
+                        int pieceType = getPiece(king.i+i,king.j+j).getType();
+                        boolean pieceMoved = getPiece(king.i+i,king.j+j).moved();
+
+                        // kill piece - move king Manually
+                        boolean prevMoved = getPiece(king.i,king.j).moved();
+                        moveKingManually(king, i, j, color); // move King to king.i+i, king.j+j
+
+                        // see !isCheck || !nearOtherKing
+                        if(!isCheck(color) && !nearOtherKing(new Coordinate(king.i+i, king.j+j)) ) {
+                            returnKingManually(king, i, j, prevMoved, color);
+                            returnPieceManually(king.i+i, king.j+j, pieceMoved, pieceColor, pieceType);
+                            return false;
+                        }
+                        returnKingManually(king, i, j, prevMoved, color);
+                        returnPieceManually(king.i+i, king.j+j, pieceMoved, pieceColor, pieceType);
+
                     }
+
                 }
             }
+
             return true;
+        }
+        return false;
+    }
+
+
+    private void moveKingManually(Coordinate king, int i, int j, int color){
+        removePiece(king.i, king.j);
+        setPiece(king.i+i, king.j+j, new King(king.i+i, king.j+j, this, color));
+
+        if(color == pieceEnum.WHITE)
+            whiteKing = new Coordinate(king.i+i, king.j+j);
+        else
+            blackKing = new Coordinate(king.i+i, king.j+j);
+    }
+
+
+    private void returnKingManually(Coordinate king, int i, int j, boolean prevMoved, int color){
+        removePiece(king.i + i, king.j + j);
+        setPiece(king.i, king.j, new King(king.i, king.j, this, color));
+        getPiece(king.i,king.j).setMoved(prevMoved);
+
+        if(color == pieceEnum.WHITE)
+            whiteKing = new Coordinate(king.i, king.j);
+        else
+            blackKing = new Coordinate(king.i, king.j);
+    }
+
+    private void returnPieceManually(int i, int j, boolean prevMoved, int color, int type){
+        Piece p;
+        if(type == pieceEnum.ROOK){
+            p = new Rook(i,j,this,color);
+            p.setMoved(prevMoved);
+        } else if(type == pieceEnum.QUEEN ){
+            p = new Queen(i,j,this,color);
+        } else if(type == pieceEnum.BISHOP){
+            p = new Bishop(i,j,this,color);
+        } else if(type == pieceEnum.KNIGHT){
+            p = new Knight(i,j,this,color);
+        } else if(type == pieceEnum.PAWN){
+            p = new Pawn(i,j,this,color);
+        }
+        return;
+    }
+
+    private boolean nearOtherKing(Coordinate c){
+        for( int i=-1; i<=1; i++ ) {
+            for (int j = -1; j <= 1; j++) {
+                if ((c.i + i < 0 || c.i + i > SIZE - 1 || c.j + j < 0 || c.j + j > SIZE - 1) || (i == 0 && j == 0))
+                    continue;
+                if(!isEmpty(c.i+i, c.j+j) && getPiece(c.i+i,c.j+j) instanceof King)
+                    return true;
+            }
         }
         return false;
     }
