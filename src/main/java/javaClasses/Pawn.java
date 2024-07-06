@@ -39,8 +39,12 @@ public class Pawn implements Piece {
                 return false;
         }
 
-        if(!moved && abs(c.i-this.cord.i) == 2 && abs(c.j - this.cord.j) == 0 && board.isEmpty(c))
-            return true;
+        if(!moved && abs(c.i-this.cord.i) == 2 && abs(c.j - this.cord.j) == 0 && board.isEmpty(c)) {
+            if(color == pieceEnum.WHITE && board.isEmpty(cord.i-1,c.j))
+                return true;
+            else if(color == pieceEnum.BLACK && board.isEmpty(cord.i+1,c.j))
+                return true;
+        }
 
         if(abs(c.i - this.cord.i) != 1 || abs(c.j - this.cord.j) > 1)
             return false;
@@ -76,6 +80,14 @@ public class Pawn implements Piece {
     public void updateCoordinate(Coordinate c) {
         this.cord = c;
         moved = true;
+
+        if(this.color == pieceEnum.BLACK){
+            if(this.cord.i == board.SIZE-1)
+                this.promoted = true;
+        } else {
+            if(this.cord.i == 0)
+                this.promoted = true;
+        }
     }
 
     @Override
@@ -86,20 +98,13 @@ public class Pawn implements Piece {
 
     public void updateCoordinate(int i, int j){
         this.updateCoordinate(new Coordinate(i,j));
-
-        if(this.color == pieceEnum.BLACK){
-           if(this.cord.i == board.SIZE-1)
-               this.promoted = true;
-        } else {
-            if(this.cord.i == 0)
-                this.promoted = true;
-        }
     }
 
     public boolean isPromoted(){
         return this.promoted;
     }
 
+    public void depromote(){ this.promoted = false; }
     @Override
     public boolean isStuck() {
         for(int i=0; i<board.SIZE-1; i++){

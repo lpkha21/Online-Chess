@@ -1,6 +1,7 @@
 package javaClasses;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Board {
     public final int SIZE = 8;
@@ -100,7 +101,6 @@ public class Board {
 
         if (curr.color() == color && curr.canMove(to)) { // Check that the right player is making a move
 
-
             Piece temp = board[to.i][to.j];
             if(temp != null){
                 if(temp.color() == pieceEnum.WHITE)
@@ -111,7 +111,6 @@ public class Board {
 
             board[to.i][to.j] = curr;
             board[from.i][from.j] = null;
-
 
             boolean prevMoved = false;
             if (curr instanceof Rook || curr instanceof Pawn || curr instanceof King)
@@ -128,10 +127,18 @@ public class Board {
                     this.removePiece(from.i, SIZE - 1);
                     Rook rook = new Rook(from.i, from.j + 1, this, color);
                     rook.setMoved(true);
+                    if(color == pieceEnum.WHITE)
+                        whitePieces.remove(whitePieces.size()-1);
+                    else
+                        blackPieces.remove(blackPieces.size()-1);
                 } else if (to.j - from.j == -2) {
                     this.removePiece(from.i, 0);
                     Rook rook = new Rook(from.i, from.j - 1, this, color);
                     rook.setMoved(true);
+                    if(color == pieceEnum.WHITE)
+                        whitePieces.remove(whitePieces.size()-1);
+                    else
+                        blackPieces.remove(blackPieces.size()-1);
                 }
             }
 
@@ -156,6 +163,8 @@ public class Board {
                 }
 
                 curr.updateCoordinate(from);
+                if(curr instanceof Pawn)
+                    ((Pawn)getPiece(from.i,from.j)).depromote();
                 if (curr instanceof Rook || curr instanceof Pawn || curr instanceof King)
                     curr.setMoved(prevMoved);
 
@@ -279,6 +288,11 @@ public class Board {
         removePiece(king.i, king.j);
         setPiece(king.i + i, king.j + j, new King(king.i + i, king.j + j, this, color));
 
+        if(color == pieceEnum.WHITE)
+            whitePieces.remove(whitePieces.size()-1);
+        else
+            blackPieces.remove(blackPieces.size()-1);
+
         if (color == pieceEnum.WHITE)
             whiteKing = new Coordinate(king.i + i, king.j + j);
         else
@@ -290,10 +304,13 @@ public class Board {
         setPiece(king.i, king.j, new King(king.i, king.j, this, color));
         getPiece(king.i, king.j).setMoved(prevMoved);
 
-        if (color == pieceEnum.WHITE)
+        if (color == pieceEnum.WHITE) {
             whiteKing = new Coordinate(king.i, king.j);
-        else
+            whitePieces.remove(whitePieces.size() - 1);
+        } else{
             blackKing = new Coordinate(king.i, king.j);
+            blackPieces.remove(blackPieces.size()-1);
+        }
     }
 
 /*    private void returnPieceManually(int i, int j, boolean prevMoved, int color, int type){

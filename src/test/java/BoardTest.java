@@ -287,7 +287,116 @@ public class BoardTest extends TestCase {
 
         // add pawn
         b.setPiece(1,7,new Queen(1,7,b,pieceEnum.WHITE)); b.getPiece(1,7).setMoved(true);
+    }
+
+    public void testDraw1(){
+        Board b = new Board(true);
+        assertFalse(b.isDraw(pieceEnum.BLACK));
+        assertFalse(b.isDraw(pieceEnum.WHITE));
+
+        b = new Board(false);
+        b.setPiece(1,1, new King(1, 1, b, pieceEnum.WHITE));
+        b.setPiece(4,4, new King(4, 4, b, pieceEnum.BLACK));
+        assertTrue(b.isDraw(pieceEnum.WHITE));
+        assertTrue(b.isDraw(pieceEnum.BLACK));
+
+        // 2 kings + bishop/knight
+        b.setPiece(0,5, new Bishop(0, 5, b, pieceEnum.BLACK));
+        assertTrue(b.isDraw(pieceEnum.BLACK));
+        assertTrue(b.isDraw(pieceEnum.WHITE));
+
+        b.removePiece(0,5); b.blackPieces.remove(b.blackPieces.size()-1);
+        b.setPiece(0,5, new Knight(0, 5, b, pieceEnum.BLACK));
+        assertTrue(b.isDraw(pieceEnum.BLACK));
+        assertTrue(b.isDraw(pieceEnum.WHITE));
+
+        // 2 kings + 2 knights
+        b.setPiece(6,5, new Knight(6, 5, b, pieceEnum.WHITE));
+        assertFalse(b.isDraw(pieceEnum.WHITE));
+        assertFalse(b.isDraw(pieceEnum.BLACK));
+
+        b.removePiece(6,5); b.whitePieces.remove(b.whitePieces.size()-1);
+        b.setPiece(6,5, new Knight(6,5,b,pieceEnum.BLACK));
+        assertTrue(b.isDraw(pieceEnum.WHITE));
+        assertTrue(b.isDraw(pieceEnum.BLACK));
 
 
+    }
+
+
+    public void testDraw2(){
+        Board b = new Board(false);
+
+        b.setPiece(new King(0,0,b,pieceEnum.BLACK));
+        b.setPiece(new King(1,3,b,pieceEnum.WHITE));
+        b.setPiece(new Queen(1,2,b,pieceEnum.WHITE));
+
+        assertFalse(b.isDraw(pieceEnum.WHITE));
+        assertTrue(b.isDraw(pieceEnum.BLACK));
+
+        // add pieces
+        b.setPiece(new Pawn(2,5,b,pieceEnum.BLACK));
+        b.setPiece(new Pawn(3,5,b,pieceEnum.WHITE));
+
+        assertFalse(b.isDraw(pieceEnum.WHITE));
+        assertTrue(b.isDraw(pieceEnum.BLACK));
+
+        b.setPiece(new Knight(0,6,b,pieceEnum.BLACK));
+        assertFalse(b.isDraw(pieceEnum.WHITE));
+        assertFalse(b.isDraw(pieceEnum.BLACK));
+
+    }
+
+    public void testCastle(){
+        Board b = new Board(false);
+
+        b.setPiece(new King(0,4,b,pieceEnum.BLACK));
+        b.setPiece(new King(7,4,b,pieceEnum.WHITE));
+        b.setPiece(new Rook(0,7,b,pieceEnum.BLACK));
+        b.setPiece(new Rook(7,0,b,pieceEnum.WHITE));
+
+        assertTrue(b.makeMove(new Coordinate(0,4), new Coordinate(0,6), pieceEnum.BLACK));
+        assertTrue(b.makeMove(new Coordinate(7,4), new Coordinate(7,2), pieceEnum.WHITE));
+
+        assertTrue(b.getPiece(0,5) instanceof Rook);
+        assertTrue(b.getPiece(7,3) instanceof Rook);
+
+        assertEquals(2, b.whitePieces.size());
+        assertEquals(2, b.blackPieces.size());
+    }
+
+    public void testPromotion1(){
+        Board b = new Board(false);
+
+        b.setPiece(new Pawn(1,4, b, pieceEnum.WHITE));
+        b.setPiece(new King(1,5, b, pieceEnum.WHITE));
+        b.setPiece(new Pawn(6,4, b, pieceEnum.BLACK));
+        b.setPiece(new King(5,2, b, pieceEnum.BLACK));
+
+        assertFalse(((Pawn)b.getPiece(1,4)).isPromoted());
+        assertFalse(((Pawn)b.getPiece(6,4)).isPromoted());
+
+        b.makeMove(new Coordinate(1,4), new Coordinate(0,4), pieceEnum.WHITE );
+        b.makeMove(new Coordinate(6,4), new Coordinate(7,4), pieceEnum.BLACK );
+
+        assertTrue(((Pawn)b.getPiece(0,4)).isPromoted());
+        assertTrue(((Pawn)b.getPiece(7,4)).isPromoted());
+    }
+
+    public void testPromotion2(){
+        Board b = new Board(false);
+
+        b.setPiece(new Pawn(1,4, b, pieceEnum.WHITE));
+        b.setPiece(new King(1,5, b, pieceEnum.WHITE));
+        b.setPiece(new Pawn(6,4, b, pieceEnum.BLACK));
+        b.setPiece(new King(5,3, b, pieceEnum.BLACK));
+        b.setPiece(new Rook(1,2,b,pieceEnum.BLACK));
+        b.setPiece(new Bishop(7,5,b,pieceEnum.WHITE));
+
+        assertFalse(b.makeMove(new Coordinate(1,4), new Coordinate(0,4), pieceEnum.WHITE ));
+        assertFalse(b.makeMove(new Coordinate(6,4), new Coordinate(7,4), pieceEnum.BLACK ));
+
+        assertFalse(((Pawn)b.getPiece(1,4)).isPromoted());
+        assertFalse(((Pawn)b.getPiece(6,4)).isPromoted());
     }
 }
