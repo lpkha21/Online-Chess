@@ -12,6 +12,8 @@ public class Board {
     public ArrayList<Piece> whitePieces;
     public ArrayList<Piece> blackPieces;
 
+    private static final int DRAW_INT = 5;
+
 
     public Board(boolean doInit) {
         board = new Piece[SIZE][SIZE];
@@ -348,42 +350,64 @@ public class Board {
     }
     public boolean isDraw(int color) {
 
-        if(blackPieces.size() == 1 && whitePieces.size() == 1) // Only 2 Kings Left
+        if (blackPieces.size() == 1 && whitePieces.size() == 1) // Only 2 Kings Left
             return true;
+        else if (blackPieces.size() + whitePieces.size() == 3) { // 2 Kings + 1 Bishop/Knight
+            ArrayList<Piece> ar;
+            if (blackPieces.size() > whitePieces.size())
+                ar = blackPieces;
+            else ar = whitePieces;
 
-        if(blackPieces.size() < 5 || whitePieces.size() < 5) { // Number of pieces is small
-            Coordinate king;
-            if (color == pieceEnum.WHITE)
-                king = whiteKing;
-            else
-                king = blackKing;
-
-            boolean kingCantMove = false;
-            if (!isCheck(color)) {
-                kingCantMove = moveKingAndSeeIfChecked(king, color);
-            }
-
-            if(kingCantMove){ // King is Stuck
-                ArrayList<Piece> myPieces;
-                ArrayList<Piece> enemyPieces;
-                if(color == pieceEnum.WHITE){
-                    myPieces = whitePieces;
-                    enemyPieces = blackPieces;
-                } else {
-                    myPieces = blackPieces;
-                    enemyPieces = whitePieces;
-                }
-
-                if(myPieces.size() == 1) // only King left
+            for (Piece p : ar) {
+                if (p instanceof Bishop || p instanceof Knight)
                     return true;
-                else if(myPieces.size() == 2){
-                    return false; ///dasdasdasdasd
-                }
-
             }
+        } else if (blackPieces.size() + whitePieces.size() == 4) { // 2 Kings + 2 Knights
+            ArrayList<Piece> ar;
+            if (blackPieces.size() >= whitePieces.size())
+                ar = blackPieces;
+            else ar = whitePieces;
 
+            int knightCount = 0;
+            for (Piece p : ar) {
+                if (p instanceof Knight)
+                    knightCount++;
+            }
+            if (knightCount == 2)
+                return true;
         }
 
+        if (!isCheck(color) && (blackPieces.size() < DRAW_INT || whitePieces.size() < DRAW_INT) ) { // Number of pieces is small
+
+                Coordinate king;
+                if (color == pieceEnum.WHITE)
+                    king = whiteKing;
+                else
+                    king = blackKing;
+
+                boolean kingCantMove = false;
+                kingCantMove = moveKingAndSeeIfChecked(king, color);
+
+                if (kingCantMove) { // King is Stuck
+                    ArrayList<Piece> myPieces;
+
+                    if (color == pieceEnum.WHITE)
+                        myPieces = whitePieces;
+                    else
+                        myPieces = blackPieces;
+
+
+                    if (myPieces.size() == 1) // only King left
+                        return true;
+
+                    // iterate over myPieces and see if any piece can move anywhere
+                    for(Piece p : myPieces){
+                        if(!p.isStuck())
+                            return false;
+                    }
+                    return true;
+                }
+        }
         return false;
     }
 

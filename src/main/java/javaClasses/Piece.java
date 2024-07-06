@@ -9,4 +9,5 @@ public interface Piece {
 
     public boolean moved();
     public void setMoved(boolean b);
+    public boolean isStuck();
 }

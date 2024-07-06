@@ -99,4 +99,16 @@ public class Pawn implements Piece {
     public boolean isPromoted(){
         return this.promoted;
     }
+
+    @Override
+    public boolean isStuck() {
+        for(int i=0; i<board.SIZE-1; i++){
+            for(int j=0; j<board.SIZE-1; j++){
+                if(this.canMove(i,j))
+                    return false;
+            }
+        }
+        return true;
+    }
+
 }

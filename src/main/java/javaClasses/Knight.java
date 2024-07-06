@@ -33,6 +33,8 @@ public class Knight implements Piece{
         return true;
     }
 
+    public boolean canMove(int i, int j){ return canMove(new Coordinate(i,j));}
+
     @Override
     public int color() {
         return this.color;
@@ -58,4 +60,7 @@ public class Knight implements Piece{
 
     @Override
     public void setMoved(boolean b) {}
+
+    @Override
+    public boolean isStuck() { return true; }
 }

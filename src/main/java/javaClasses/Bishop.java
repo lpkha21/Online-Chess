@@ -100,6 +100,17 @@ public class Bishop implements Piece{
     @Override
     public void setMoved(boolean b) {}
 
+
     public void updateCoordinate(int i, int j) { this.cord = new Coordinate(i,j); }
 
+    @Override
+    public boolean isStuck() {
+        for(int i=0; i<board.SIZE-1; i++){
+            for(int j=0; j<board.SIZE-1; j++){
+                if(this.canMove(i,j))
+                    return false;
+            }
+        }
+        return true;
+    }
 }
