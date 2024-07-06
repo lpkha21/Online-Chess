@@ -123,26 +123,43 @@
 <body>
 <div class="chessboard">
     <%
+        Player player = (Player) session.getAttribute("player");
         Board b = (Board) request.getAttribute("board");
+
+        boolean isWhitePlayer = (player != null && player.getColor() == pieceEnum.WHITE);
+
+        boolean rotateBoard = !isWhitePlayer;
+
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
+                int rowIndex = i;
+                int colIndex = j;
 
-                Piece p = b.getPiece(i, j);
+                if (rotateBoard) {
+                    rowIndex = 7 - i;
+                    colIndex = 7 - j;
+                }
+
+                Piece p = b.getPiece(rowIndex, colIndex);
                 String id = p != null ? Integer.toString(p.color() * 10 + p.getType()) : null;
                 String imgSrc = id != null ? "pieceImages/" + id + ".png" : null;
-                String squareClass = ((i + j) % 2 == 0) ? "light" : "dark";
+                String squareClass = ((rowIndex + colIndex) % 2 == 0) ? "light" : "dark";
+
+                boolean isBottomPlayerPiece = (isWhitePlayer && p != null && p.color() == pieceEnum.WHITE) ||
+                        (!isWhitePlayer && p != null && p.color() == pieceEnum.BLACK);
+
     %>
-            <div class="<%= squareClass %>" onclick="clicked(this, <%= i%>, <%= j%>)">
-                <div class="square">
-                    <% if (imgSrc != null) { %>
-                    <img src="<%= imgSrc %>" alt="<%= id %>" class="img">
-                    <% } %>
-                </div>
-            </div>
-
-            <% }
-         } %>
-
+    <div class="<%= squareClass %>" onclick="clicked(this, <%= rowIndex %>, <%= colIndex %>)">
+        <div class="square">
+            <% if (imgSrc != null) { %>
+            <img src="<%= imgSrc %>" alt="<%= id %>" class="img">
+            <% } %>
+        </div>
+    </div>
+    <%
+            }
+        }
+    %>
 
 </div>
 <form id="form" action="Game" method="POST">
