@@ -75,8 +75,6 @@
 
     <% Game game = (Game) session.getAttribute("game");
         Player pl =  (Player) session.getAttribute("player");
-        Integer myT = (Integer) request.getAttribute("myTimer");
-        Integer oppT = (Integer) request.getAttribute("opponentTimer");
     %>
 
     <script type="text/javascript">
@@ -198,8 +196,6 @@
     <input type="hidden" name="fromj" id="fromj" value="">
     <input type="hidden" name="toi" id="toi" value="">
     <input type="hidden" name="toj" id="toj" value="">
-    <input type="hidden" name="myTimer" id="myTimer" value="">
-    <input type="hidden" name="opponentTimer" id="opponentTimer" value="">
 </form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -244,8 +240,6 @@
 
             document.getElementById("toi").value = i;
             document.getElementById("toj").value = j;
-            document.getElementById("myTimer").value = <%= myT %>
-            document.getElementById("opponentTimer").value = <%= oppT %>
 
 
             var squares = document.querySelectorAll('.square');

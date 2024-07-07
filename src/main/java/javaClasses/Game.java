@@ -15,8 +15,6 @@ public class Game {
 
     String time;
 
-
-
     public Game(HttpSession session1, HttpSession session2, String time, int color){
         board = new Board();
         Random random = new Random();
@@ -67,5 +65,23 @@ public class Game {
                update = pieceEnum.WHITE;
            }
         }
+    }
+
+    public boolean win(HttpSession session){
+        Player p = (Player) session.getAttribute("player");
+        if(p.getColor() == pieceEnum.WHITE){
+            return board.isCheckMate(pieceEnum.BLACK);
+        }else{
+            return board.isCheckMate(pieceEnum.WHITE);
+        }
+    }
+
+    public boolean lose(HttpSession session){
+        Player p = (Player) session.getAttribute("player");
+        return board.isCheckMate(p.getColor());
+    }
+
+    public boolean draw(int color){
+        return board.isDraw(color);
     }
 }
