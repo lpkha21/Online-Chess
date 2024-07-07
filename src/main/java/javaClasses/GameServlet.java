@@ -25,7 +25,6 @@ public class GameServlet extends HttpServlet {
             session.removeAttribute("myTimer");
             session.removeAttribute("opponentTimer");
             session.removeAttribute("game");
-            session.removeAttribute("player");
             httpServletRequest.setAttribute("result","Lose");
             httpServletRequest.getRequestDispatcher("resultGame.jsp").forward(httpServletRequest, httpServletResponse);
             return;
@@ -35,7 +34,6 @@ public class GameServlet extends HttpServlet {
             session.removeAttribute("myTimer");
             session.removeAttribute("opponentTimer");
             session.removeAttribute("game");
-            session.removeAttribute("player");
             httpServletRequest.setAttribute("result","Draw");
             httpServletRequest.getRequestDispatcher("resultGame.jsp").forward(httpServletRequest, httpServletResponse);
             return;
@@ -78,7 +76,6 @@ public class GameServlet extends HttpServlet {
             session.removeAttribute("myTimer");
             session.removeAttribute("opponentTimer");
             session.removeAttribute("game");
-            session.removeAttribute("player");
             httpServletRequest.setAttribute("result","Win");
             httpServletRequest.getRequestDispatcher("resultGame.jsp").forward(httpServletRequest, httpServletResponse);
             return;
@@ -89,7 +86,6 @@ public class GameServlet extends HttpServlet {
                 session.removeAttribute("myTimer");
                 session.removeAttribute("opponentTimer");
                 session.removeAttribute("game");
-                session.removeAttribute("player");
                 httpServletRequest.setAttribute("result","Draw");
                 httpServletRequest.getRequestDispatcher("resultGame.jsp").forward(httpServletRequest, httpServletResponse);
                 return;
@@ -99,7 +95,6 @@ public class GameServlet extends HttpServlet {
                 session.removeAttribute("myTimer");
                 session.removeAttribute("opponentTimer");
                 session.removeAttribute("game");
-                session.removeAttribute("player");
                 httpServletRequest.setAttribute("result","Draw");
                 httpServletRequest.getRequestDispatcher("resultGame.jsp").forward(httpServletRequest, httpServletResponse);
                 return;

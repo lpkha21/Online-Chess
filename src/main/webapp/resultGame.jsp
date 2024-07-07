@@ -1,13 +1,7 @@
 <%@ page import="javaClasses.pieceEnum" %>
 <%@ page import="javaClasses.Player" %>
 <%@ page import="javaClasses.Board" %>
-<%@ page import="javaClasses.Piece" %><%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 7/7/2024
-  Time: 17:09
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="javaClasses.Piece" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -100,6 +94,9 @@
                     String id = p != null ? Integer.toString(p.color() * 10 + p.getType()) : null;
                     String imgSrc = id != null ? "pieceImages/" + id + ".png" : null;
                     String squareClass = ((rowIndex + colIndex) % 2 == 0) ? "light" : "dark";
+
+                    boolean isBottomPlayerPiece = (isWhitePlayer && p != null && p.color() == pieceEnum.WHITE) ||
+                            (!isWhitePlayer && p != null && p.color() == pieceEnum.BLACK);
 
         %>
         <div class="<%= squareClass %>">
