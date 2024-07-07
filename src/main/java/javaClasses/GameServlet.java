@@ -22,12 +22,16 @@ public class GameServlet extends HttpServlet {
         time = time*60;
 
         if(game.lose(session)){
+            session.removeAttribute("myTimer");
+            session.removeAttribute("opponentTimer");
             httpServletRequest.setAttribute("result","Lose");
             httpServletRequest.getRequestDispatcher("resultGame.jsp").forward(httpServletRequest, httpServletResponse);
             return;
         }
 
         if(game.draw(player.getColor())){
+            session.removeAttribute("myTimer");
+            session.removeAttribute("opponentTimer");
             httpServletRequest.setAttribute("result","Draw");
             httpServletRequest.getRequestDispatcher("resultGame.jsp").forward(httpServletRequest, httpServletResponse);
             return;
@@ -67,19 +71,25 @@ public class GameServlet extends HttpServlet {
         httpServletRequest.setAttribute("board", game.getBoard());
 
         if(game.win(session)){
-           httpServletRequest.setAttribute("result","Win");
+            session.removeAttribute("myTimer");
+            session.removeAttribute("opponentTimer");
+            httpServletRequest.setAttribute("result","Win");
             httpServletRequest.getRequestDispatcher("resultGame.jsp").forward(httpServletRequest, httpServletResponse);
-           return;
+            return;
         }
 
         if(player.getColor() == pieceEnum.WHITE){
             if(game.draw(pieceEnum.BLACK)){
+                session.removeAttribute("myTimer");
+                session.removeAttribute("opponentTimer");
                 httpServletRequest.setAttribute("result","Draw");
                 httpServletRequest.getRequestDispatcher("resultGame.jsp").forward(httpServletRequest, httpServletResponse);
                 return;
             }
         }else{
             if(game.draw(pieceEnum.WHITE)){
+                session.removeAttribute("myTimer");
+                session.removeAttribute("opponentTimer");
                 httpServletRequest.setAttribute("result","Draw");
                 httpServletRequest.getRequestDispatcher("resultGame.jsp").forward(httpServletRequest, httpServletResponse);
                 return;
