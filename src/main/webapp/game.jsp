@@ -8,6 +8,8 @@
     <title>Chessboard</title>
     <link rel="stylesheet" href="styles.css">
     <style>
+
+
         body {
             display: flex;
             justify-content: center;
@@ -73,6 +75,7 @@
             background-color: #b5b163;
         }
 
+
         .messaging-container {
             display: flex;
             flex-direction: column;
@@ -126,14 +129,16 @@
         }
     </style>
 
-    <%
-        Game game = (Game) session.getAttribute("game");
-        Player pl = (Player) session.getAttribute("player");
+    <% Game game = (Game) session.getAttribute("game");
+        Player pl =  (Player) session.getAttribute("player");
+
     %>
 
     <script type="text/javascript">
         var myTimer = <%= (request.getAttribute("myTimer")) %>;
         var opponentTimer = <%= (request.getAttribute("opponentTimer")) %>;
+
+
 
         function startTimer(timerId, countdownTime) {
             var timer = document.getElementById(timerId);
@@ -155,6 +160,7 @@
                 }
             }, 1000);
         }
+
 
         window.onload = function() {
             if (<%= game.current == pl.getColor() %>) {
@@ -187,6 +193,7 @@
             });
         }
     </script>
+
 </head>
 
 <body>
@@ -201,6 +208,7 @@
             Board b = (Board) request.getAttribute("board");
 
             boolean isWhitePlayer = (player != null && player.getColor() == pieceEnum.WHITE);
+
             boolean rotateBoard = !isWhitePlayer;
 
             for (int i = 0; i < 8; i++) {
@@ -220,6 +228,7 @@
 
                     boolean isBottomPlayerPiece = (isWhitePlayer && p != null && p.color() == pieceEnum.WHITE) ||
                             (!isWhitePlayer && p != null && p.color() == pieceEnum.BLACK);
+
         %>
         <div class="<%= squareClass %>" onclick="clicked(this, <%= rowIndex %>, <%= colIndex %>)">
             <div class="square">
@@ -237,37 +246,37 @@
         <div class="timer-label">Your Timer</div>
         <div id="timer2"></div> <!-- Your timer -->
     </div>
-
-    <!-- Messaging section -->
-    <div class="messaging-container">
-        <div class="message-box" id="messageBox">
-            <%
-                ArrayList<Message> messages = game.messageGet();
-
-                for (Message msg : messages) {
-                    String messageClass = msg.getColor() == pieceEnum.WHITE ? "white-message" : "black-message";
-                    String messageContent = msg.getMessage();
-            %>
-            <div class="message <%= messageClass %>">
-                <%= messageContent %>
-            </div>
-            <%
-                }
-            %>
-        </div>
-        <div class="input-container">
-            <input type="text" id="messageInput" class="message-input" placeholder="Type your message here...">
-            <button class="send-button" onclick="sendMessage()">Send</button>
-        </div>
-    </div>
 </div>
 
 <form id="form" action="Game" method="POST">
     <input type="hidden" name="fromi" id="fromi" value="">
     <input type="hidden" name="fromj" id="fromj" value="">
     <input type="hidden" name="toi" id="toi" value="">
-    <input type="hidden" name="toj" value="">
+    <input type="hidden" name="toj" id="toj" value="">
 </form>
+
+
+<div class="messaging-container">
+    <div class="message-box" id="messageBox">
+        <%
+            ArrayList<Message> messages = game.messageGet();
+
+            for (Message msg : messages) {
+                String messageClass = msg.getColor() == pieceEnum.WHITE ? "white-message" : "black-message";
+                String messageContent = msg.getMessage();
+        %>
+        <div class="message <%= messageClass %>">
+            <%= messageContent %>
+        </div>
+        <%
+            }
+        %>
+    </div>
+    <div class="input-container">
+        <input type="text" id="messageInput" class="message-input" placeholder="Type your message here...">
+        <button class="send-button" onclick="sendMessage()">Send</button>
+    </div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -282,6 +291,7 @@
                 }else{
                     setTimeout(updateBoardState, 1000);
                 }
+
             },
             error: function() {
                 setTimeout(updateBoardState, 1000);
@@ -296,6 +306,7 @@
     var flag = false;
 
     function clicked(square, i, j){
+
         let img = square.querySelector('img');
         if(!flag){
             if(img !== null) {
@@ -306,8 +317,10 @@
             }
         }else{
             flag = !flag;
+
             document.getElementById("toi").value = i;
             document.getElementById("toj").value = j;
+
 
             var squares = document.querySelectorAll('.square');
             squares.forEach(function (square){
@@ -315,8 +328,10 @@
             });
 
             document.getElementById("form").submit();
+
         }
     }
+
 
     function sendMessage() {
         var message = document.getElementById('messageInput').value;
@@ -328,6 +343,7 @@
                     message: message
                 },
                 success: function(response) {
+                    // Clear the input field and update the message box
                     document.getElementById('messageInput').value = '';
                     updateMessages();
                 }
@@ -345,22 +361,24 @@
                 messageBox.innerHTML = '';
 
                 data.forEach(function(msg) {
-                    var messageClass = msg.color == <%=pieceEnum.WHITE%> ? 'white-message' : 'black-message';
+                    var messageClass = msg.color == 0 ? 'white-message' : 'black-message'; // Assuming 0 is white and 1 is black
                     var messageDiv = document.createElement('div');
                     messageDiv.className = 'message ' + messageClass;
                     messageDiv.textContent = msg.message;
                     messageBox.appendChild(messageDiv);
                 });
 
-                messageBox.scrollTop = messageBox.scrollHeight;
+                messageBox.scrollTop = messageBox.scrollHeight; // Auto-scroll to the bottom
             }
         });
     }
 
     $(document).ready(function() {
         updateMessages();
-        setInterval(updateMessages, 5000);
+        setInterval(updateMessages, 3000);
     });
+
 </script>
+
 </body>
 </html>
