@@ -302,6 +302,10 @@ public class BoardTest extends TestCase {
         assertTrue(b.isCheck(pieceEnum.BLACK));
         assertTrue(b.isCheckMate(pieceEnum.BLACK));
 
+        b.removePiece(0,6); b.setPiece(new Knight(3,6,b,pieceEnum.BLACK));
+        assertTrue(b.isCheck(pieceEnum.BLACK));
+        assertFalse(b.isCheckMate(pieceEnum.BLACK));
+
     }
 
     public void testDraw1(){

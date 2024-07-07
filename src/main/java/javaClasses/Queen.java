@@ -1,5 +1,7 @@
 package javaClasses;
 
+import java.util.ArrayList;
+
 import static java.lang.Math.abs;
 
 public class Queen implements Piece{
@@ -145,5 +147,55 @@ public class Queen implements Piece{
             }
         }
         return true;
+    }
+
+    @Override
+    public ArrayList<Coordinate> getCheckPath(Coordinate kingCord) {
+        int dx = kingCord.j - this.cord.j;
+        int dy = kingCord.i - this.cord.i;
+        if(abs(dx) < 2 && abs(dy) < 2) // no path
+            return new ArrayList<Coordinate>();
+
+        ArrayList<Coordinate> pathCords = new ArrayList<Coordinate>();
+
+        if(dx > 0 && dy > 0) { // 1. bottom right
+            for (int i = 1; i < abs(dx); i++) {
+                pathCords.add(new Coordinate(cord.i+i,cord.j+i));
+            }
+        } else if(dx > 0 && dy < 0) { // 2. top right
+            for (int i = 1; i < abs(dx); i++) {
+                pathCords.add(new Coordinate(cord.i-i,cord.j+i));
+            }
+        } else if(dx < 0 && dy > 0) { // 3. bottom left
+            for (int i = 1; i < abs(dx); i++) {
+                pathCords.add(new Coordinate(cord.i+i,cord.j-i));
+            }
+        } else if (dx < 0 && dy < 0){ // 4. top left
+            for (int i = 1; i < abs(dx); i++) {
+                pathCords.add(new Coordinate(cord.i-i,cord.j-i));
+            }
+        } else if(cord.i == kingCord.i) {
+            if (cord.j > kingCord.j) {
+                for(int j = cord.j-1; j > kingCord.j; j--){
+                    pathCords.add(new Coordinate(cord.i, j));
+                }
+            }else{
+                for(int j = cord.j+1; j < kingCord.j; j++){
+                    pathCords.add(new Coordinate(cord.i, j));
+                }
+            }
+        } else {
+            if(cord.i > kingCord.i){
+                for (int i = cord.i-1; i > kingCord.i; i--) {
+                    pathCords.add(new Coordinate(i,cord.j));
+                }
+            }else{
+                for(int i = cord.i+1; i < kingCord.i; i++){
+                    pathCords.add(new Coordinate(i,cord.j));
+                }
+            }
+        }
+
+        return pathCords;
     }
 }

@@ -1,5 +1,7 @@
 package javaClasses;
 
+import java.util.ArrayList;
+
 import static java.lang.Math.abs;
 public class Bishop implements Piece{
 
@@ -112,5 +114,35 @@ public class Bishop implements Piece{
             }
         }
         return true;
+    }
+
+    @Override
+    public ArrayList<Coordinate> getCheckPath(Coordinate kingCord) {
+        int dx = kingCord.j - this.cord.j;
+        int dy = kingCord.i - this.cord.i;
+        if(abs(dx) == 1) // no path
+            return new ArrayList<Coordinate>();
+
+        ArrayList<Coordinate> pathCords = new ArrayList<Coordinate>();
+
+        if(dx > 0 && dy > 0) { // 1. bottom right
+            for (int i = 1; i < abs(dx); i++) {
+                pathCords.add(new Coordinate(cord.i+i,cord.j+i));
+            }
+        } else if(dx > 0 && dy < 0) { // 2. top right
+            for (int i = 1; i < abs(dx); i++) {
+                pathCords.add(new Coordinate(cord.i-i,cord.j+i));
+            }
+        } else if(dx < 0 && dy > 0) { // 3. bottom left
+            for (int i = 1; i < abs(dx); i++) {
+                pathCords.add(new Coordinate(cord.i+i,cord.j-i));
+            }
+        } else { // 4. top left
+            for (int i = 1; i < abs(dx); i++) {
+                pathCords.add(new Coordinate(cord.i-i,cord.j-i));
+            }
+        }
+
+        return pathCords;
     }
 }

@@ -1,5 +1,8 @@
 import junit.framework.TestCase;
 import javaClasses.*;
+
+import java.util.ArrayList;
+
 public class RookTest extends TestCase {
 
     private Board emptyBoard;
@@ -75,7 +78,21 @@ public class RookTest extends TestCase {
         assertTrue(rookB1.canMove(6,1));
     }
 
-    public void testBoardSetup(){
+    public void testCheckPath(){
+        Board b = new Board(false);
+        b.setPiece(new Rook(0,0,b,pieceEnum.WHITE));
+        b.setPiece(new King(1,0,b,pieceEnum.WHITE));
+        b.setPiece(new King(0,7,b,pieceEnum.BLACK));
+        assertTrue(b.makeMove(new Coordinate(0,0), new Coordinate(0,1), pieceEnum.WHITE));
+        assertTrue(b.isCheck(pieceEnum.BLACK));
 
+        ArrayList<Coordinate> a = b.getPiece(0,1).getCheckPath(new Coordinate(0,7));
+        assertFalse(a.isEmpty());
+        assertEquals(5, a.size());
+        assertTrue(a.get(0).equals(new Coordinate(0,2)));
+        assertTrue(a.get(1).equals(new Coordinate(0,3)));
+        assertTrue(a.get(2).equals(new Coordinate(0,4)));
+        assertTrue(a.get(3).equals(new Coordinate(0,5)));
+        assertTrue(a.get(4).equals(new Coordinate(0,6)));
     }
 }

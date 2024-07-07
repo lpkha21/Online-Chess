@@ -1,5 +1,9 @@
 package javaClasses;
 
+import java.util.ArrayList;
+
+import static java.lang.Math.abs;
+
 public class Rook implements Piece{
     int color;
     final int type = pieceEnum.ROOK;
@@ -108,6 +112,40 @@ public class Rook implements Piece{
             }
         }
         return true;
+    }
+
+    @Override
+    public ArrayList<Coordinate> getCheckPath(Coordinate kingCord) {
+        if( abs(cord.j - kingCord.j) < 2 && abs(cord.j - kingCord.j) < 2 ) // no path
+            return new ArrayList<Coordinate>();
+
+        ArrayList<Coordinate> pathCords = new ArrayList<Coordinate>();
+
+        if(cord.i == kingCord.i) {
+            if (cord.j > kingCord.j) {
+                for(int j = cord.j-1; j > kingCord.j; j--){
+                        pathCords.add(new Coordinate(cord.i, j));
+                }
+            }else{
+                for(int j = cord.j+1; j < kingCord.j; j++){
+                        pathCords.add(new Coordinate(cord.i, j));
+                }
+            }
+        }
+
+        else {
+            if(cord.i > kingCord.i){
+                for (int i = cord.i-1; i > kingCord.i; i--) {
+                        pathCords.add(new Coordinate(i,cord.j));
+                }
+            }else{
+                for(int i = cord.i+1; i < kingCord.i; i++){
+                        pathCords.add(new Coordinate(i,cord.j));
+                }
+            }
+        }
+
+        return pathCords;
     }
 
 }

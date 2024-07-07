@@ -1,5 +1,7 @@
 package javaClasses;
 
+import java.util.ArrayList;
+
 import static java.lang.Math.abs;
 
 public class Knight implements Piece{
@@ -71,4 +73,7 @@ public class Knight implements Piece{
         }
         return true;
     }
+
+    @Override
+    public ArrayList<Coordinate> getCheckPath(Coordinate kingCord) { return null; }
 }

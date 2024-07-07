@@ -1,4 +1,6 @@
 package javaClasses;
+import java.util.ArrayList;
+
 import static java.lang.Math.abs;
 
 public class King implements Piece{
@@ -119,4 +121,7 @@ public class King implements Piece{
 
     @Override
     public boolean isStuck() { return true; }
+
+    @Override
+    public ArrayList<Coordinate> getCheckPath(Coordinate kingCord) { return null; }
 }

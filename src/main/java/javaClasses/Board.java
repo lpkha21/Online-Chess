@@ -1,7 +1,7 @@
 package javaClasses;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Board {
     public final int SIZE = 8;
@@ -14,6 +14,9 @@ public class Board {
     public ArrayList<Piece> blackPieces;
 
     private static final int DRAW_INT = 5;
+
+    private Piece whiteKingChecker;
+    private Piece blackKingChecker;
 
 
     public Board(boolean doInit) {
@@ -179,10 +182,29 @@ public class Board {
                 return false;
             }
 
+            checkForCheckers(color);
             return true;
         }
 
         return false;
+    }
+
+    private void checkForCheckers(int color){
+        if(color == pieceEnum.WHITE){
+            for(Piece p : whitePieces){
+                if(p.canMove(blackKing)) {
+                    blackKingChecker = p;
+                    whiteKingChecker = null;
+                }
+            }
+        } else {
+            for(Piece p : blackPieces){
+                if(p.canMove(whiteKing)) {
+                    whiteKingChecker = p;
+                    blackKingChecker = null;
+                }
+            }
+        }
     }
 
     public boolean isCheck(int color) {
@@ -222,74 +244,67 @@ public class Board {
     public boolean isCheckMate(int color) {
 
         Coordinate king;
-
         if (color == pieceEnum.WHITE)
             king = whiteKing;
         else
             king = blackKing;
 
         if (isCheck(color)) {
-            return moveKingAndSeeIfChecked(king, color);
-//            for (int i = 0; i < SIZE; i++) {
-//                for (int j = 0; j < SIZE; j++) {
-//                    if(((King)getPiece(king)).canMove(new Coordinate(i,j))){
-//                        return false;
-//                    }
-//                }
-//            }
+            assert(blackKingChecker != null || whiteKingChecker != null);
 
-//            for (int i = -1; i <= 1; i++) {
-//                for (int j = -1; j <= 1; j++) {
-//                    if ((king.i + i < 0 || king.i + i > SIZE - 1 || king.j + j < 0 || king.j + j > SIZE - 1) || (i == 0 && j == 0))
-//                        continue;
-                /*    if (isEmpty(king.i + i, king.j + j)) { // Moving to empty Spot
-                        boolean prevMoved = getPiece(king.i, king.j).moved();
-                        moveKingManually(king, i, j, color); // move King to king.i+i, king.j+j
+            boolean kingStuck =  moveKingAndSeeIfChecked(king, color);
+            if(!kingStuck)
+                return false;
 
-                        if (!isCheck(color) && !nearOtherKing(new Coordinate(king.i + i, king.j + j))) {
-                            returnKingManually(king, i, j, prevMoved, color);
-                            return false;
-                        }
-                        returnKingManually(king, i, j, prevMoved, color);
+            boolean checkerCantBeKilled = !checkerKillable(color);
+            if(!checkerCantBeKilled)
+                return false;
 
-                    } else if (!isEmpty(king.i + i, king.j + j) && color != getPiece(king.i + i, king.j + j).color()) {
-                        // save this Piece
-                        Piece killedPiece = getPiece(king.i + i, king.j + j);
+            boolean kingCantBeCovered = !kingCoverable(color);
+            if(!kingCantBeCovered)
+                return false;
 
-                        // kill piece - move king Manually
-                        boolean prevMoved = getPiece(king.i, king.j).moved();
-                        moveKingManually(king, i, j, color); // move King to king.i+i, king.j+j
-
-                        // see !isCheck || !nearOtherKing
-                        if (!isCheck(color) && !nearOtherKing(new Coordinate(king.i + i, king.j + j))) {
-                            returnKingManually(king, i, j, prevMoved, color);
-                            this.board[king.i + i][king.j + j] = killedPiece;
-                            return false;
-                        }
-                        returnKingManually(king, i, j, prevMoved, color);
-                        this.board[king.i + i][king.j + j] = killedPiece;
-                    } */
-
-/*                    Piece killedPiece = getPiece(king.i + i, king.j + j);
-                    boolean prevMoved = getPiece(king.i, king.j).moved();
-                    moveKingManually(king, i, j, color); // move King to king.i+i, king.j+j
-
-                    if (!isCheck(color) && !nearOtherKing(new Coordinate(king.i + i, king.j + j))) {
-                        returnKingManually(king, i, j, prevMoved, color);
-                        this.board[king.i + i][king.j + j] = killedPiece;
-                        return false;
-                    }
-                    returnKingManually(king, i, j, prevMoved, color);
-                    this.board[king.i + i][king.j + j] = killedPiece;
-
-                }
-            }
-
-            return true;  */
-
+            return true;
         }
         return false;
     }
+
+    private boolean checkerKillable(int color){
+        if(color == pieceEnum.WHITE){
+            for(Piece p : whitePieces){
+                if(p.canMove(whiteKingChecker.getCoordinate()) && p.getType() != pieceEnum.KING)
+                    return true;
+            }
+        } else {
+            for(Piece p : blackPieces){
+                if(p.canMove(blackKingChecker.getCoordinate()) && p.getType() != pieceEnum.KING)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean kingCoverable(int color){
+        if(color == pieceEnum.WHITE){
+            ArrayList<Coordinate> paths = whiteKingChecker.getCheckPath(whiteKing);
+            for(Piece p : whitePieces){
+                for(Coordinate c : paths){
+                    if(p.canMove(c))
+                        return true;
+                }
+            }
+        } else {
+            ArrayList<Coordinate> paths = blackKingChecker.getCheckPath(blackKing);
+            for(Piece p : blackPieces){
+                for(Coordinate c : paths){
+                    if(p.canMove(c))
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
 
     private void moveKingManually(Coordinate king, int i, int j, int color) {
