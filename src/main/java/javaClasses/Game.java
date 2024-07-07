@@ -1,6 +1,7 @@
 package javaClasses;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Game {
@@ -14,8 +15,11 @@ public class Game {
     int update;
 
     String time;
+    private ArrayList<Message> messages;
 
     public Game(HttpSession session1, HttpSession session2, String time, int color){
+        messages = new ArrayList<>();
+
         board = new Board();
         Random random = new Random();
         current = pieceEnum.WHITE;
@@ -44,6 +48,14 @@ public class Game {
                 session2.setAttribute("player",whitePlayer);
             }
         }
+    }
+
+    public void messageSent(Player p, String str){
+        messages.add(new Message(p.getColor(), str));
+    }
+
+    public ArrayList<Message> messageGet(){
+        return messages;
     }
 
     public Board getBoard(){
