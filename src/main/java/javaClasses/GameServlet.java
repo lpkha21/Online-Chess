@@ -19,9 +19,18 @@ public class GameServlet extends HttpServlet {
         String t = game.time;
         int time = Integer.parseInt(t);
         time = time*60;
-        httpServletRequest.setAttribute("myTimer",time);
-        httpServletRequest.setAttribute("opponentTimer",time);
+
+        if(session.getAttribute("myTimer") != null){
+            int myTimer = (int) session.getAttribute("myTimer");
+            int opponentTimer = (int) session.getAttribute("opponentTimer");
+            httpServletRequest.setAttribute("myTimer",myTimer);
+            httpServletRequest.setAttribute("opponentTimer",opponentTimer);
+        }else{
+            httpServletRequest.setAttribute("myTimer", time);
+            httpServletRequest.setAttribute("opponentTimer", time);
+        }
         httpServletRequest.getRequestDispatcher("game.jsp").forward(httpServletRequest, httpServletResponse);
+
     }
 
     @Override
@@ -39,10 +48,10 @@ public class GameServlet extends HttpServlet {
         Game game = (Game) session.getAttribute("game");
         game.changeBoard(session,from,to);
 
-        String myTimer = httpServletRequest.getParameter("myTimer");
-        String opponentTimer = httpServletRequest.getParameter("opponentTimer");
-        httpServletRequest.setAttribute("myTimer",Integer.parseInt(myTimer));
-        httpServletRequest.setAttribute("opponentTimer",Integer.parseInt(opponentTimer));
+        int myTimer = (int) session.getAttribute("myTimer");
+        int opponentTimer = (int) session.getAttribute("opponentTimer");
+        httpServletRequest.setAttribute("myTimer",myTimer);
+        httpServletRequest.setAttribute("opponentTimer",opponentTimer);
         httpServletRequest.setAttribute("board", game.getBoard());
         httpServletRequest.getRequestDispatcher("game.jsp").forward(httpServletRequest, httpServletResponse);
 

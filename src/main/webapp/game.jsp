@@ -75,22 +75,20 @@
 
     <% Game game = (Game) session.getAttribute("game");
         Player pl =  (Player) session.getAttribute("player");
-//        int myT = Integer.parseInt(request.getParameter("myTimer"));
-//        int oppT = Integer.parseInt(request.getParameter("opponentTimer"));
+        Integer myT = (Integer) request.getAttribute("myTimer");
+        Integer oppT = (Integer) request.getAttribute("opponentTimer");
     %>
 
     <script type="text/javascript">
-        // Get the countdown time from the request attribute
         var myTimer = <%= (request.getAttribute("myTimer")) %>;
         var opponentTimer = <%= (request.getAttribute("opponentTimer")) %>;
 
 
 
-        // Function to start the countdown timer
         function startTimer(timerId, countdownTime) {
             var timer = document.getElementById(timerId);
             var minutes, seconds;
-            var interval = setInterval(function() {
+            interval = setInterval(function() {
                 minutes = parseInt(countdownTime / 60, 10);
                 seconds = parseInt(countdownTime % 60, 10);
 
@@ -99,29 +97,46 @@
 
                 timer.textContent = minutes + ":" + seconds;
                 countdownTime--;
-                if (timerId === "timer2") {
-                    myTimer = countdownTime;
+                if (countdownTime >= 0) {
+                    updateTimers()
                 } else {
-                    opponentTimer = countdownTime;
-                }
-
-                if (countdownTime < 0) {
                     clearInterval(interval);
                     alert("Time's up for " + timerId + "!");
                 }
             }, 1000);
         }
 
+
         window.onload = function() {
-            <%
-                if(game.current == pl.getColor()){
-                    %>
-                    startTimer("timer2", myTimer); // Start your timer next
-                <%}else{
-                    %>
-                    startTimer("timer1", opponentTimer); // Start opponent's timer first
-                <%}%>
+            if (<%= game.current == pl.getColor() %>) {
+                startTimer("timer2", myTimer); // Start your timer
+            } else {
+                startTimer("timer1", opponentTimer); // Start opponent's timer
+            }
         };
+
+        function updateTimers() {
+            if (<%= game.current == pl.getColor() %>) {
+                myTimer--;
+            } else {
+                opponentTimer--;
+            }
+
+            $.ajax({
+                url: '/UpdateTimersServlet',
+                type: 'POST',
+                data: {
+                    myTimer: myTimer,
+                    opponentTimer: opponentTimer
+                },
+                success: function (data) {
+                    // Handle success response if needed
+                },
+                error: function () {
+                    // Handle error if needed
+                }
+            });
+        }
     </script>
 
 </head>
@@ -229,8 +244,8 @@
 
             document.getElementById("toi").value = i;
             document.getElementById("toj").value = j;
-            document.getElementById("myTimer").value = myTimer;
-            document.getElementById("opponentTimer").value = opponentTimer;
+            document.getElementById("myTimer").value = <%= myT %>
+            document.getElementById("opponentTimer").value = <%= oppT %>
 
 
             var squares = document.querySelectorAll('.square');

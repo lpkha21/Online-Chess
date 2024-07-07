@@ -94,6 +94,7 @@
         <configuration>
           <port>8082</port>
           <path>/</path>
+          <contextFile>src/main/webapp/WEB-INF/context.xml</contextFile>
         </configuration>
       </plugin>
       </plugins>

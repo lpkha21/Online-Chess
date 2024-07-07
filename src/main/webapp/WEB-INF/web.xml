@@ -114,6 +114,11 @@
     <servlet-class>javaClasses.RejectFriendlyMatchServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>UpdateTimersServlet</servlet-name>
+    <servlet-class>javaClasses.UpdateTimersServlet</servlet-class>
+  </servlet>
+
 
 
   <servlet-mapping>
@@ -219,6 +224,11 @@
   <servlet-mapping>
     <servlet-name>RejectFriendlyMatchServlet</servlet-name>
     <url-pattern>/RejectFriendlyMatchServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>UpdateTimersServlet</servlet-name>
+    <url-pattern>/UpdateTimersServlet</url-pattern>
   </servlet-mapping>
 
 </web-app>
