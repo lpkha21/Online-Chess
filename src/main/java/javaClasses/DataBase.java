@@ -71,6 +71,7 @@ public class DataBase {
             friends = rs.getString("friends_list");
         }
         if(friends == null){
+            friends = "";
             friends += name2;
         }else{
             friends += "," + name2;
