@@ -115,6 +115,9 @@
         %>
     </div>
 </div>
+<form action="BackToProfileServlet" method="Get">
+    <input type="submit" value="Back To Profile">
+</form>
 
 </body>
 </html>

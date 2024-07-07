@@ -24,6 +24,8 @@ public class GameServlet extends HttpServlet {
         if(game.lose(session)){
             session.removeAttribute("myTimer");
             session.removeAttribute("opponentTimer");
+            session.removeAttribute("game");
+            session.removeAttribute("player");
             httpServletRequest.setAttribute("result","Lose");
             httpServletRequest.getRequestDispatcher("resultGame.jsp").forward(httpServletRequest, httpServletResponse);
             return;
@@ -32,6 +34,8 @@ public class GameServlet extends HttpServlet {
         if(game.draw(player.getColor())){
             session.removeAttribute("myTimer");
             session.removeAttribute("opponentTimer");
+            session.removeAttribute("game");
+            session.removeAttribute("player");
             httpServletRequest.setAttribute("result","Draw");
             httpServletRequest.getRequestDispatcher("resultGame.jsp").forward(httpServletRequest, httpServletResponse);
             return;
@@ -73,6 +77,8 @@ public class GameServlet extends HttpServlet {
         if(game.win(session)){
             session.removeAttribute("myTimer");
             session.removeAttribute("opponentTimer");
+            session.removeAttribute("game");
+            session.removeAttribute("player");
             httpServletRequest.setAttribute("result","Win");
             httpServletRequest.getRequestDispatcher("resultGame.jsp").forward(httpServletRequest, httpServletResponse);
             return;
@@ -82,6 +88,8 @@ public class GameServlet extends HttpServlet {
             if(game.draw(pieceEnum.BLACK)){
                 session.removeAttribute("myTimer");
                 session.removeAttribute("opponentTimer");
+                session.removeAttribute("game");
+                session.removeAttribute("player");
                 httpServletRequest.setAttribute("result","Draw");
                 httpServletRequest.getRequestDispatcher("resultGame.jsp").forward(httpServletRequest, httpServletResponse);
                 return;
@@ -90,6 +98,8 @@ public class GameServlet extends HttpServlet {
             if(game.draw(pieceEnum.WHITE)){
                 session.removeAttribute("myTimer");
                 session.removeAttribute("opponentTimer");
+                session.removeAttribute("game");
+                session.removeAttribute("player");
                 httpServletRequest.setAttribute("result","Draw");
                 httpServletRequest.getRequestDispatcher("resultGame.jsp").forward(httpServletRequest, httpServletResponse);
                 return;
