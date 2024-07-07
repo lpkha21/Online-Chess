@@ -345,21 +345,21 @@
                 messageBox.innerHTML = '';
 
                 data.forEach(function(msg) {
-                    var messageClass = msg.color == 0 ? 'white-message' : 'black-message'; // Assuming 0 is white and 1 is black
+                    var messageClass = msg.color == <%=pieceEnum.WHITE%> ? 'white-message' : 'black-message';
                     var messageDiv = document.createElement('div');
                     messageDiv.className = 'message ' + messageClass;
                     messageDiv.textContent = msg.message;
                     messageBox.appendChild(messageDiv);
                 });
 
-                messageBox.scrollTop = messageBox.scrollHeight; // Auto-scroll to the bottom
+                messageBox.scrollTop = messageBox.scrollHeight;
             }
         });
     }
 
     $(document).ready(function() {
         updateMessages();
-        setInterval(updateMessages, 5000); // Update messages every 5 seconds
+        setInterval(updateMessages, 5000);
     });
 </script>
 </body>

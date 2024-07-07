@@ -119,7 +119,27 @@
     <servlet-class>javaClasses.UpdateTimersServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>GetMessagesServlet</servlet-name>
+    <servlet-class>javaClasses.GetMessagesServlet</servlet-class>
+  </servlet>
 
+  <servlet>
+    <servlet-name>SendMessageServlet</servlet-name>
+    <servlet-class>javaClasses.SendMessageServlet</servlet-class>
+  </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>SendMessageServlet</servlet-name>
+    <url-pattern>/sendMessage</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet-mapping>
+    <servlet-name>GetMessagesServlet</servlet-name>
+    <url-pattern>/getMessage</url-pattern>
+  </servlet-mapping>
 
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
