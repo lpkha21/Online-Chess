@@ -285,6 +285,8 @@ public class Board {
 
 
     private void moveKingManually(Coordinate king, int i, int j, int color) {
+        if(!isEmpty(king.i+i, king.j+j) && getPiece(king.i+i, king.j+j).color() == getPiece(king.i,king.j).color())
+            return;
         removePiece(king.i, king.j);
         setPiece(king.i + i, king.j + j, new King(king.i + i, king.j + j, this, color));
 

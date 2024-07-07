@@ -256,7 +256,7 @@ public class BoardTest extends TestCase {
 
     }
 
-    public void testCheckMate(){
+    public void testCheckMate1(){
         Board b = new Board(false);
 
 
@@ -287,6 +287,21 @@ public class BoardTest extends TestCase {
 
         // add pawn
         b.setPiece(1,7,new Queen(1,7,b,pieceEnum.WHITE)); b.getPiece(1,7).setMoved(true);
+    }
+
+    public void testCheckMate2(){
+        Board b = new Board(true);
+        assertTrue(b.makeMove(new Coordinate(6,4), new Coordinate(4,4), pieceEnum.WHITE));
+        assertTrue(b.makeMove(new Coordinate(1,4), new Coordinate(3,4), pieceEnum.BLACK));
+        assertTrue(b.makeMove(new Coordinate(7,5), new Coordinate(4,2), pieceEnum.WHITE));
+        assertTrue(b.makeMove(new Coordinate(1,0), new Coordinate(2,0), pieceEnum.BLACK));
+        assertTrue(b.makeMove(new Coordinate(7,3), new Coordinate(5,5), pieceEnum.WHITE));
+        assertTrue(b.makeMove(new Coordinate(1,1), new Coordinate(2,1), pieceEnum.BLACK));
+        assertTrue(b.makeMove(new Coordinate(5,5), new Coordinate(1,5), pieceEnum.WHITE));
+
+        assertTrue(b.isCheck(pieceEnum.BLACK));
+        assertTrue(b.isCheckMate(pieceEnum.BLACK));
+
     }
 
     public void testDraw1(){
@@ -399,4 +414,6 @@ public class BoardTest extends TestCase {
         assertFalse(((Pawn)b.getPiece(1,4)).isPromoted());
         assertFalse(((Pawn)b.getPiece(6,4)).isPromoted());
     }
+
+
 }
