@@ -8,6 +8,76 @@
     <title>Chessboard</title>
     <link rel="stylesheet" href="styles.css">
     <style>
+        /* Popup container - can be anything you want */
+        .popup {
+            position: fixed;
+            display: none;
+            width: 300px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid #000;
+            background-color: #fff;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        /* Popup background overlay */
+        .popup-overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .button-group button {
+            padding: 10px 15px;
+            font-size: 14px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button-group img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+    <form id="promotion" action="Game" method="POST">
+        <input type="hidden" name="coordinate" id="coordinate" value=""/>
+        <input type="hidden" name="type" id="type" value=""/>
+    </form>
+    <script>
+
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('popupOverlay').style.display = 'block';
+        }
+
+        function hidePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('popupOverlay').style.display = 'none';
+        }
+
+        function choosePiece(piece) {
+            document.getElementById("coordinate").value = piece;
+            document.getElementById("promotion").submit();
+            hidePopup();
+        }
+
+    </script>
+    <style>
 
 
         body {
@@ -163,10 +233,16 @@
 
 
         window.onload = function() {
+
             if (<%= game.current == pl.getColor() %>) {
                 startTimer("timer2", myTimer); // Start your timer
             } else {
                 startTimer("timer1", opponentTimer); // Start opponent's timer
+            }
+            <%Coordinate coordinate = (Coordinate) session.getAttribute("promotion");%>
+            if (<%=coordinate != null%>) {
+                document.getElementById("coordinate").value = <%=coordinate%>;
+                showPopup();
             }
         };
 
@@ -197,6 +273,45 @@
 </head>
 
 <body>
+<%
+    String queenImage;
+    String rookImage;
+    String bishopImage;
+    String knightImage;
+    if(((Player) session.getAttribute("player")).getColor() == pieceEnum.BLACK){
+        queenImage = "pieceImages/5.png";
+        rookImage = "pieceImages/4.png";
+        bishopImage = "pieceImages/3.png";
+        knightImage = "pieceImages/2.png";
+    }else{
+        queenImage = "pieceImages/15.png";
+        rookImage = "pieceImages/14.png";
+        bishopImage = "pieceImages/13.png";
+        knightImage = "pieceImages/12.png";
+    }
+%>
+
+<div id="popupOverlay" class="popup-overlay"></div>
+
+<!-- Popup content -->
+<div id="popup" class="popup">
+    <h3>Choose a Piece</h3>
+    <div class="button-group">
+        <button onclick="choosePiece('Queen')">
+            <img src=<%=queenImage%> alt="Queen">
+        </button>
+        <button onclick="choosePiece('Rook')">
+            <img src=<%=rookImage%> alt="Rook">
+        </button>
+        <button onclick="choosePiece('Bishop')">
+            <img src=<%=bishopImage%> alt="Bishop">
+        </button>
+        <button onclick="choosePiece('Knight')">
+            <img src=<%=knightImage%> alt="Knight">
+        </button>
+    </div>
+</div>
+
 <div class="chessboard-container">
     <div class="timer" style="position: absolute; top: 20px; left: 20px;">
         <div class="timer-label">Opponent's Timer</div>

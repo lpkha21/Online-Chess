@@ -56,21 +56,45 @@ public class GameServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        int fi = Integer.parseInt(httpServletRequest.getParameter("fromi"));
-        int fj = Integer.parseInt(httpServletRequest.getParameter("fromj"));
-
-        int ti = Integer.parseInt(httpServletRequest.getParameter("toi"));
-        int tj = Integer.parseInt(httpServletRequest.getParameter("toj"));
-        Coordinate from = new Coordinate(fi, fj);
-        Coordinate to = new Coordinate(ti, tj);
-
 
         HttpSession session = httpServletRequest.getSession();
         Game game = (Game) session.getAttribute("game");
         Player player = (Player) session.getAttribute("player");
-        game.changeBoard(session,from,to);
 
-        httpServletRequest.setAttribute("board", game.getBoard());
+        if(httpServletRequest.getAttribute("coordinate") != null){
+            game.changeColor(session);
+            Coordinate c = (Coordinate) (httpServletRequest.getAttribute("coordinate"));
+            Piece promoted;
+            String type = (String) httpServletRequest.getAttribute("type");
+            if(type.equals("Queen")){
+                promoted = new Queen(c.i,c.j,game.getBoard(),game.current);
+            } else if (type.equals("Rook")) {
+                promoted = new Rook(c.i,c.j,game.getBoard(),game.current);
+            } else if (type.equals("Bishop")) {
+                promoted = new Bishop(c.i,c.j,game.getBoard(),game.current);
+            }else {
+                promoted = new Knight(c.i,c.j,game.getBoard(),game.current);
+            }
+            game.getBoard().setPiece(c.i,c.j,promoted);
+        }else {
+
+            int fi = Integer.parseInt(httpServletRequest.getParameter("fromi"));
+            int fj = Integer.parseInt(httpServletRequest.getParameter("fromj"));
+
+            int ti = Integer.parseInt(httpServletRequest.getParameter("toi"));
+            int tj = Integer.parseInt(httpServletRequest.getParameter("toj"));
+            Coordinate from = new Coordinate(fi, fj);
+            Coordinate to = new Coordinate(ti, tj);
+
+
+            game.changeBoard(session, from, to);
+
+            httpServletRequest.setAttribute("board", game.getBoard());
+
+            if (game.getBoard().promotion(to)) {
+                session.setAttribute("promotion", to);
+            }
+        }
 
         if(game.win(session)){
             session.removeAttribute("myTimer");

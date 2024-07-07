@@ -91,6 +91,14 @@ public class Board {
         return board[i][j];
     }
 
+    public boolean promotion(Coordinate c){
+
+        if(getPiece(c) == null || getPiece(c).getType() != pieceEnum.PAWN)
+            return false;
+
+        return ((Pawn) getPiece(c)).isPromoted();
+    }
+
     //tu shedzlo moqmedeba true, tu ver shedzlo moqmedeba false
     // gadaecema saidan sad unda gadavides figura da ra feris motamashe cdilobs svlis gaketebas
     public boolean makeMove(Coordinate from, Coordinate to, int color) {

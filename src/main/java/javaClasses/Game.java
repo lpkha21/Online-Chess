@@ -68,14 +68,19 @@ public class Game {
             return;
         }
 
-        if (board.makeMove(from, to, current)) {
-           if(p.getColor() == pieceEnum.WHITE){
-               current = pieceEnum.BLACK;
-               update = pieceEnum.BLACK;
-           }else{
-               current = pieceEnum.WHITE;
-               update = pieceEnum.WHITE;
-           }
+        if (board.makeMove(from, to, current) && !board.promotion(to)) {
+           changeColor(session);
+        }
+    }
+
+    public void changeColor(HttpSession session){
+        Player p = (Player) session.getAttribute("player");
+        if(p.getColor() == pieceEnum.WHITE){
+            current = pieceEnum.BLACK;
+            update = pieceEnum.BLACK;
+        }else{
+            current = pieceEnum.WHITE;
+            update = pieceEnum.WHITE;
         }
     }
 
