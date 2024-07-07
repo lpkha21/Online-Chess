@@ -61,11 +61,11 @@ public class GameServlet extends HttpServlet {
         Game game = (Game) session.getAttribute("game");
         Player player = (Player) session.getAttribute("player");
 
-        if(httpServletRequest.getAttribute("coordinate") != null){
-            game.changeColor(session);
-            Coordinate c = (Coordinate) (httpServletRequest.getAttribute("coordinate"));
+        if(httpServletRequest.getParameter("coordinate") != null){
+            Coordinate c = (Coordinate) session.getAttribute("promotion");
+            session.removeAttribute("promotion");
             Piece promoted;
-            String type = (String) httpServletRequest.getAttribute("type");
+            String type = httpServletRequest.getParameter("type");
             if(type.equals("Queen")){
                 promoted = new Queen(c.i,c.j,game.getBoard(),game.current);
             } else if (type.equals("Rook")) {
@@ -75,6 +75,7 @@ public class GameServlet extends HttpServlet {
             }else {
                 promoted = new Knight(c.i,c.j,game.getBoard(),game.current);
             }
+            game.changeColor(session);
             game.getBoard().setPiece(c.i,c.j,promoted);
         }else {
 
@@ -88,8 +89,6 @@ public class GameServlet extends HttpServlet {
 
 
             game.changeBoard(session, from, to);
-
-            httpServletRequest.setAttribute("board", game.getBoard());
 
             if (game.getBoard().promotion(to)) {
                 session.setAttribute("promotion", to);
@@ -129,6 +128,7 @@ public class GameServlet extends HttpServlet {
         int opponentTimer = (int) session.getAttribute("opponentTimer");
         httpServletRequest.setAttribute("myTimer",myTimer);
         httpServletRequest.setAttribute("opponentTimer",opponentTimer);
+        httpServletRequest.setAttribute("board", game.getBoard());
         httpServletRequest.getRequestDispatcher("game.jsp").forward(httpServletRequest, httpServletResponse);
 
     }

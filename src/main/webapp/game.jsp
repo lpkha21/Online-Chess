@@ -58,25 +58,7 @@
         <input type="hidden" name="coordinate" id="coordinate" value=""/>
         <input type="hidden" name="type" id="type" value=""/>
     </form>
-    <script>
 
-        function showPopup() {
-            document.getElementById('popup').style.display = 'block';
-            document.getElementById('popupOverlay').style.display = 'block';
-        }
-
-        function hidePopup() {
-            document.getElementById('popup').style.display = 'none';
-            document.getElementById('popupOverlay').style.display = 'none';
-        }
-
-        function choosePiece(piece) {
-            document.getElementById("coordinate").value = piece;
-            document.getElementById("promotion").submit();
-            hidePopup();
-        }
-
-    </script>
     <style>
 
 
@@ -201,14 +183,12 @@
 
     <% Game game = (Game) session.getAttribute("game");
         Player pl =  (Player) session.getAttribute("player");
-
+     Coordinate coordinate = (Coordinate) session.getAttribute("promotion");
     %>
 
     <script type="text/javascript">
         var myTimer = <%= (request.getAttribute("myTimer")) %>;
         var opponentTimer = <%= (request.getAttribute("opponentTimer")) %>;
-
-
 
         function startTimer(timerId, countdownTime) {
             var timer = document.getElementById(timerId);
@@ -231,20 +211,37 @@
             }, 1000);
         }
 
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('popupOverlay').style.display = 'block';
+        }
 
-        window.onload = function() {
+        function hidePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('popupOverlay').style.display = 'none';
+        }
+
+        function choosePiece(piece) {
+            document.getElementById("coordinate").value = piece;
+            document.getElementById("type").value = piece;
+            document.getElementById("promotion").submit();
+            hidePopup();
+        }
+
+        function handlePageLoad() {
+            if (<%= coordinate != null %>) {
+                document.getElementById("coordinate").value = "<%= coordinate %>";
+                showPopup();
+            }
 
             if (<%= game.current == pl.getColor() %>) {
                 startTimer("timer2", myTimer); // Start your timer
             } else {
                 startTimer("timer1", opponentTimer); // Start opponent's timer
             }
-            <%Coordinate coordinate = (Coordinate) session.getAttribute("promotion");%>
-            if (<%=coordinate != null%>) {
-                document.getElementById("coordinate").value = <%=coordinate%>;
-                showPopup();
-            }
-        };
+        }
+
+        window.onload = handlePageLoad;
 
         function updateTimers() {
             if (<%= game.current == pl.getColor() %>) {
