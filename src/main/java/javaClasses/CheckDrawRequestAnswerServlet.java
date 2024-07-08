@@ -18,10 +18,12 @@ public class CheckDrawRequestAnswerServlet extends HttpServlet {
         if(p.getColor() == pieceEnum.WHITE){
             if(game.answerDrawBlack){
                 answerDraw = 1;
+                game.answerDrawBlack = false;
             };
         }else{
             if(game.answerDrawWhite){
                 answerDraw = 1;
+                game.answerDrawWhite = false;
             }
 
         }
