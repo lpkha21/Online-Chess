@@ -122,6 +122,7 @@ public class DataBase {
             }
         }
         if(requests == null){
+            requests = "";
             requests += name2;
         }else{
             requests += "," + name2;
