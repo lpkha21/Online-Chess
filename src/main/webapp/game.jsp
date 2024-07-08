@@ -83,14 +83,14 @@
 
         function acceptAction() {
             document.getElementById('answer').value = 'yes';
-            document.getElementById('Draw').submit();
             hideDraw();
+            document.getElementById('Draw').submit();
         }
 
         function declineAction() {
             document.getElementById('answer').value = 'no';
-            document.getElementById('Draw').submit();
             hideDraw();
+            document.getElementById('Draw').submit();
         }
     </script>
     <style>
