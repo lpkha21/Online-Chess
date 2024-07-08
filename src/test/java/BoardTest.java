@@ -438,5 +438,34 @@ public class BoardTest extends TestCase {
         assertEquals(1, b.whitePieces.size());
     }
 
+    public void testTrickyCheckmate(){
+        Board b = new Board(false);
+
+        // set board
+        b.setPiece(new Bishop(0,2, b, pieceEnum.BLACK));
+        b.setPiece(new Pawn(1,2, b, pieceEnum.BLACK));
+        b.setPiece(new Pawn(1,3, b, pieceEnum.BLACK));
+        b.setPiece(new King(0,3,b,pieceEnum.BLACK));
+        b.setPiece(new Queen(0,4,b,pieceEnum.BLACK));
+
+        b.setPiece(new King(7,0,b,pieceEnum.WHITE));
+        b.setPiece(new Queen(0,7,b,pieceEnum.WHITE));
+        b.setPiece(new Bishop(3,4,b,pieceEnum.WHITE));
+
+        // tests
+        assertEquals(5, b.blackPieces.size());
+        assertEquals(3, b.whitePieces.size());
+        assertFalse(b.isCheck(pieceEnum.WHITE));
+        assertFalse(b.isCheck(pieceEnum.BLACK));
+
+        // give trickyCheckMate
+        assertTrue(b.getPiece(3,4) instanceof Bishop);
+        assertTrue(b.makeMove(new Coordinate(3,4), new Coordinate(2,5), pieceEnum.WHITE));
+
+        assertFalse(b.isCheck(pieceEnum.WHITE));
+        assertTrue(b.isCheck(pieceEnum.BLACK));
+        assertTrue(b.isCheckMate(pieceEnum.BLACK));
+    }
+
 
 }

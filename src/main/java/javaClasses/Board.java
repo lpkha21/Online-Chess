@@ -154,7 +154,7 @@ public class Board {
             }
 
             curr.updateCoordinate(to);
-
+            /*
             if (isCheck(color)) {
 
                 board[from.i][from.j] = curr;
@@ -180,7 +180,7 @@ public class Board {
                     curr.setMoved(prevMoved);
 
                 return false;
-            }
+            } */
 
             checkForCheckers(color);
 

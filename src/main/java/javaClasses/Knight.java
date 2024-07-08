@@ -39,6 +39,7 @@ public class Knight implements Piece{
 
         this.updateCoordinate(c);
         this.board.setPiece(c.i,c.j,this);
+        this.board.setPiece(prevCord.i,prevCord.j,null);
 
         if(this.board.isCheck(this.color)){
             updateCoordinate(prevCord);

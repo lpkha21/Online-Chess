@@ -51,6 +51,7 @@ public class Pawn implements Piece {
 
                 this.updateCoordinate(c);
                 this.board.setPiece(c.i,c.j,this);
+                this.board.setPiece(prevCord.i, prevCord.j, null);
 
                 if(this.board.isCheck(this.color)){
                     updateCoordinate(prevCord);
@@ -75,6 +76,7 @@ public class Pawn implements Piece {
 
                 this.updateCoordinate(c);
                 this.board.setPiece(c.i,c.j,this);
+                this.board.setPiece(prevCord.i, prevCord.j, null);
 
                 if(this.board.isCheck(this.color)){
                     updateCoordinate(prevCord);
@@ -105,14 +107,17 @@ public class Pawn implements Piece {
         // Move and see if Checked
         Coordinate prevCord = cord;
         boolean prevMoved = this.moved;
+        boolean prevPromotion = this.isPromoted();
         Piece killedPiece = this.board.getPiece(c);
 
         this.updateCoordinate(c);
         this.board.setPiece(c.i,c.j,this);
+        this.board.setPiece(prevCord.i,prevCord.j,null);
 
         if(this.board.isCheck(this.color)){
             updateCoordinate(prevCord);
             this.moved = prevMoved;
+            this.promoted = prevPromotion;
             this.board.setPiece(cord.i,cord.j,this);
             this.board.setPiece(c.i,c.j,killedPiece);
             return false;
@@ -120,6 +125,7 @@ public class Pawn implements Piece {
 
         updateCoordinate(prevCord);
         this.moved = prevMoved;
+        this.promoted = prevPromotion;
         this.board.setPiece(cord.i,cord.j,this);
         this.board.setPiece(c.i,c.j,killedPiece);
 
