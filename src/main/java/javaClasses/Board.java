@@ -13,7 +13,7 @@ public class Board {
     public ArrayList<Piece> whitePieces;
     public ArrayList<Piece> blackPieces;
 
-    private static final int DRAW_INT = 5;
+    private static final int DRAW_INT = 16;
 
     private Piece whiteKingChecker;
     private Piece blackKingChecker;

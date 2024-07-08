@@ -7,69 +7,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Chessboard</title>
-    <link rel="stylesheet" href="styles.css">
-
+    <link rel="stylesheet" type="text/css" href="style.css">
     <form id="Draw" action="Game" method="get">
         <input type="hidden" name="answer" id="answer" value=""/>
     </form>
 
-    <style>
-        /* Draw container - can be anything you want */
-        .draw {
-            position: fixed;
-            display: none;
-            width: 300px;
-            height: 200px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 2px solid #000;
-            background-color: #fff;
-            z-index: 1000;
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        /* Draw background overlay */
-        .draw-overlay {
-            position: fixed;
-            display: none;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
-
-        .draw-content {
-            margin-top: 20px;
-        }
-
-        .draw-group {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .draw-group button {
-            padding: 10px 20px;
-            font-size: 14px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-        }
-
-        .draw-group button.accept {
-            background-color: #4CAF50; /* Green */
-        }
-
-        .draw-group button.decline {
-            background-color: #f44336; /* Red */
-        }
-    </style>
     <script>
         function showDraw() {
             document.getElementById('draw').style.display = 'block';
@@ -92,80 +34,7 @@
             hideDraw();
             document.getElementById('Draw').submit();
         }
-    </script>
-    <style>
-        .result {
-            position: fixed;
-            display: none;
-            width: 300px;
-            height: 300px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 2px solid #000;
-            background-color: #fff;
-            z-index: 1000;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        /* Popup background overlay */
-        .result-overlay {
-            position: fixed;
-            display: none;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
 
-        .result{
-            height: 200px;
-        }
-
-        .result-content {
-            text-align: center;
-        }
-
-        .result-content img {
-            width: 70px;
-            height: 65px;
-        }
-
-        .result-content .image-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        .result-content .image-container img {
-            width: 45%;
-            text-align: center;
-        }
-
-        .result-content .text-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        .result-content .text-container div {
-            width: 45%;
-            text-align: center;
-        }
-
-        .close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
-    <script>
         function showResult() {
             document.getElementById('result').style.display = 'block';
             document.getElementById('resultOverlay').style.display = 'block';
@@ -176,179 +45,12 @@
             document.getElementById('resultOverlay').style.display = 'none';
         }
     </script>
-    <style>
-        /* Popup container - can be anything you want */
-        .popup {
-            position: fixed;
-            display: none;
-            width: 300px;
-            height: 200px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 2px solid #000;
-            background-color: #fff;
-            z-index: 1000;
-            padding: 20px;
-        }
 
-        /* Popup background overlay */
-        .popup-overlay {
-            position: fixed;
-            display: none;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
-
-        .button-group {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-
-        .button-group button {
-            padding: 10px 15px;
-            font-size: 14px;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .button-group img {
-            width: 50px;
-            height: 50px;
-        }
-    </style>
     <form id="promotion" action="Game" method="POST">
         <input type="hidden" name="coordinate" id="coordinate" value=""/>
         <input type="hidden" name="type" id="type" value=""/>
     </form>
 
-    <style>
-
-
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; /* Align items at the top of the screen */
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-
-        .chessboard-container {
-            display: flex;
-            justify-content: flex-start; /* Align items to the left */
-            align-items: flex-start; /* Align items at the top of the container */
-            margin-left: 20px; /* Adjust left margin for spacing */
-        }
-
-        .timer {
-            font-size: 24px;
-            font-weight: bold;
-            padding: 10px;
-            border: 2px solid #333;
-            background-color: #fff;
-            margin-right: 20px; /* Adjust right margin for spacing */
-            text-align: center;
-        }
-
-        .timer-label {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .chessboard {
-            display: grid;
-            grid-template-columns: repeat(8, 80px);
-            grid-template-rows: repeat(8, 80px);
-            border: 5px solid #333;
-        }
-
-        .square {
-            width: 80px;
-            height: 80px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .light {
-            background-color: #f0d9b5;
-        }
-
-        .dark {
-            background-color: #b58863;
-        }
-
-        .img {
-            width: 80px;
-            height: auto;
-        }
-
-        .selected {
-            background-color: #b5b163;
-        }
-
-
-        .messaging-container {
-            display: flex;
-            flex-direction: column;
-            width: 300px;
-            margin-left: 20px;
-        }
-
-        .message-box {
-            height: 400px;
-            overflow-y: auto;
-            border: 2px solid #333;
-            background-color: #fff;
-            padding: 10px;
-        }
-
-        .message {
-            margin: 5px 0;
-            padding: 5px;
-            border-radius: 5px;
-        }
-
-        .white-message {
-            background-color: #f0d9b5;
-            align-self: flex-start;
-        }
-
-        .black-message {
-            background-color: #b58863;
-            align-self: flex-end;
-        }
-
-        .input-container {
-            display: flex;
-            margin-top: 10px;
-        }
-
-        .message-input {
-            flex: 1;
-            padding: 10px;
-            font-size: 16px;
-        }
-
-        .send-button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-        }
-    </style>
 
     <% Game game = (Game) session.getAttribute("game");
         Player pl =  (Player) session.getAttribute("player");
@@ -531,8 +233,8 @@
 </div>
 
 <div class="chessboard-container">
-    <div class="timer" style="position: absolute; top: 20px; left: 20px;">
-        <div class="timer-label">Opponent's Timer</div>
+    <div class="timer" style="position: absolute; top: 30px; left: 100px;">
+
         <div id="timer1"></div> <!-- Opponent's timer -->
     </div>
     <div class="chessboard">
@@ -575,8 +277,8 @@
             }
         %>
     </div>
-    <div class="timer" style="position: absolute; bottom: 20px; left: 20px;">
-        <div class="timer-label">Your Timer</div>
+    <div class="timer" style="position: absolute; bottom: 60px; left: 100px;">
+
         <div id="timer2"></div> <!-- Your timer -->
     </div>
 </div>
@@ -588,12 +290,10 @@
     <input type="hidden" name="toj" id="toj" value="">
 </form>
 
-
 <div class="messaging-container">
     <div class="message-box" id="messageBox">
         <%
             ArrayList<Message> messages = game.messageGet();
-
             for (Message msg : messages) {
                 String messageClass = msg.getColor() == pieceEnum.WHITE ? "white-message" : "black-message";
                 String messageContent = msg.getMessage();
@@ -601,15 +301,26 @@
         <div class="message <%= messageClass %>">
             <%= messageContent %>
         </div>
-        <%
-            }
-        %>
+        <% } %>
     </div>
+
     <div class="input-container">
         <input type="text" id="messageInput" class="message-input" placeholder="Type your message here...">
         <button class="send-button" onclick="sendMessage()">Send</button>
     </div>
+
+    <div class="rd">
+        <form action="Game" method="get">
+            <input type="hidden" name="resign" value="resign">
+            <input type="submit"  value="🏳️ Resign">
+        </form>
+        <form action="Game" method="get">
+            <input type="hidden" name="dr" value="dr">
+            <input type="submit" value="🤝🏻 Draw">
+        </form>
+    </div>
 </div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -655,7 +366,7 @@
         });
     }
 
-    $(document).ready(function() {
+    $(document).ready(function() {+
         checkDrawRequest();
     });
 
@@ -761,14 +472,9 @@
 
 </script>
 
-<form action="Game" method="get">
-    <input type="hidden" name="resign" value="resign">
-    <input type="submit" value="Resign">
-</form>
-<form action="Game" method="get">
-    <input type="hidden" name="dr" value="dr">
-    <input type="submit" value="Draw">
-</form>
+
+
+
 <form id="acceptDr"  action="Game" method="get">
     <input type="hidden" name="acceptDraw" value="accept">
 </form>
