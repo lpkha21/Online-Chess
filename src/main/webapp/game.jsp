@@ -101,19 +101,20 @@
         }
 
         function handlePageLoad() {
-            if (<%= coordinate != null %>) {
-                document.getElementById("coordinate").value = "<%= coordinate %>";
-                showPopup();
-            }
-
             if(<%=result != null%>){
                 showResult();
             }
+            if(<%= session.getAttribute("end") == null %>){
+                if (<%= coordinate != null %>) {
+                    document.getElementById("coordinate").value = "<%= coordinate %>";
+                    showPopup();
+                }
 
-            if (<%= game.current == pl.getColor() %>) {
-                startTimer("timer2", myTimer); // Start your timer
-            } else {
-                startTimer("timer1", opponentTimer); // Start opponent's timer
+                if (<%= game.current == pl.getColor() %>) {
+                    startTimer("timer2", myTimer); // Start your timer
+                } else {
+                    startTimer("timer1", opponentTimer); // Start opponent's timer
+                }
             }
         }
 
@@ -310,14 +311,20 @@
     </div>
 
     <div class="rd">
-        <form action="Game" method="get">
-            <input type="hidden" name="resign" value="resign">
-            <input type="submit"  value="🏳️ Resign">
-        </form>
-        <form action="Game" method="get">
-            <input type="hidden" name="dr" value="dr">
-            <input type="submit" value="🤝🏻 Draw">
-        </form>
+        <% if(session.getAttribute("end") == null){%>
+            <form action="Game" method="get">
+                <input type="hidden" name="resign" value="resign">
+                <input type="submit"  value="🏳️ Resign">
+            </form>
+            <form action="Game" method="get">
+                <input type="hidden" name="dr" value="dr">
+                <input type="submit" value="🤝🏻 Draw">
+            </form>
+        <%}else{%>
+            <form action="BackToProfileServlet" method="get">
+                <input type="submit" value="Exit">
+            </form>
+        <%}%>
     </div>
 </div>
 
