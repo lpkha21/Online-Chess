@@ -272,11 +272,15 @@ public class Board {
     private boolean checkerKillable(int color){
         if(color == pieceEnum.WHITE){
             for(Piece p : whitePieces){
+                if(p.getType() == pieceEnum.KING)
+                    continue;
                 if(p.canMove(whiteKingChecker.getCoordinate()) && p.getType() != pieceEnum.KING)
                     return true;
             }
         } else {
             for(Piece p : blackPieces){
+                if(p.getType() == pieceEnum.KING)
+                    continue;
                 if(p.canMove(blackKingChecker.getCoordinate()) && p.getType() != pieceEnum.KING)
                     return true;
             }
