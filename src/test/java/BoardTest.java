@@ -419,5 +419,24 @@ public class BoardTest extends TestCase {
         assertFalse(((Pawn)b.getPiece(6,4)).isPromoted());
     }
 
+    public void testPromotion3(){
+        Board b = new Board(false);
+
+        b.setPiece(new Pawn(1,4, b, pieceEnum.WHITE));
+        b.setPiece(new Bishop(0,5, b, pieceEnum.BLACK));
+        b.setPiece(new King(5,5, b, pieceEnum.WHITE));
+        b.setPiece(new Pawn(6,0, b, pieceEnum.BLACK));
+        b.setPiece(new King(2,0, b, pieceEnum.BLACK));
+
+        assertTrue(b.makeMove(new Coordinate(1,4), new Coordinate(0,5), pieceEnum.WHITE ));
+        assertTrue(b.makeMove(new Coordinate(6,0), new Coordinate(7,0), pieceEnum.BLACK ));
+
+        assertTrue(((Pawn)b.getPiece(0,5)).isPromoted());
+        assertTrue(((Pawn)b.getPiece(7,0)).isPromoted());
+
+        assertEquals(2, b.whitePieces.size());
+        assertEquals(2, b.whitePieces.size());
+    }
+
 
 }

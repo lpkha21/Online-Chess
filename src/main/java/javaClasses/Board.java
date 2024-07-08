@@ -183,6 +183,15 @@ public class Board {
             }
 
             checkForCheckers(color);
+
+            if(curr.getType() == pieceEnum.PAWN && ((Pawn)curr).isPromoted() ){ // Remove promoted Pawn from whitePieces/blackPieces
+                if(curr.color() == pieceEnum.WHITE)
+                    whitePieces.remove(curr);
+                else
+                    blackPieces.remove(curr);
+
+            }
+
             return true;
         }
 
