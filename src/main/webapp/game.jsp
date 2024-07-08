@@ -1,5 +1,6 @@
 <%@ page import="javaClasses.*" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.sql.SQLOutput" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,6 +8,89 @@
     <meta charset="UTF-8">
     <title>Chessboard</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .result {
+            position: fixed;
+            display: none;
+            width: 300px;
+            height: 300px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid #000;
+            background-color: #fff;
+            z-index: 1000;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        /* Popup background overlay */
+        .result-overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .result{
+            height: 200px;
+        }
+
+        .result-content {
+            text-align: center;
+        }
+
+        .result-content img {
+            width: 70px;
+            height: 65px;
+        }
+
+        .result-content .image-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .result-content .image-container img {
+            width: 45%;
+            text-align: center;
+        }
+
+        .result-content .text-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .result-content .text-container div {
+            width: 45%;
+            text-align: center;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function showResult() {
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('resultOverlay').style.display = 'block';
+        }
+
+        function hideResult() {
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('resultOverlay').style.display = 'none';
+        }
+    </script>
     <style>
         /* Popup container - can be anything you want */
         .popup {
@@ -183,7 +267,8 @@
 
     <% Game game = (Game) session.getAttribute("game");
         Player pl =  (Player) session.getAttribute("player");
-     Coordinate coordinate = (Coordinate) session.getAttribute("promotion");
+        Coordinate coordinate = (Coordinate) session.getAttribute("promotion");
+        String result = (String) request.getAttribute("result");
     %>
 
     <script type="text/javascript">
@@ -234,6 +319,10 @@
                 showPopup();
             }
 
+            if(<%=result != null%>){
+                showResult();
+            }
+
             if (<%= game.current == pl.getColor() %>) {
                 startTimer("timer2", myTimer); // Start your timer
             } else {
@@ -270,6 +359,41 @@
 </head>
 
 <body>
+<%
+    String res = (String) request.getAttribute("result");
+    String winner = ((Player) session.getAttribute("player")).getName();
+    String loser = ((Player) session.getAttribute("opponent")).getName();
+    String winnerImage = "pieceImages/win.jpg";
+    String text = "Winner: " + winner;
+    if(res != null) {
+        if (res.equals("Lose")){
+            String temp = winner;
+            winner = loser;
+            loser = temp;
+            text = "Winner: " + winner;
+        }else if (res.equals("Draw")) {
+            winnerImage = "pieceImages/lose.jpg";
+            text = "Draw";
+        }
+    }
+%>
+<div id="resultOverlay" class="result-overlay"></div>
+<!-- Popup content -->
+<div id="result" class="result">
+    <button class="close-button" onclick="hideResult()">X</button>
+    <div class="result-content">
+        <div class="image-container">
+            <img src=<%=winnerImage%>>
+            <img src="pieceImages/lose.jpg">
+        </div>
+        <div class="text-container">
+            <div id="leftText"><%=winner%></div>
+            <div id="rightText"><%=loser%></div>
+        </div>
+        <div id="Text"><%=text%></div>
+    </div>
+</div>
+
 <%
     String queenImage;
     String rookImage;
@@ -540,7 +664,7 @@
 
 </script>
 
-<form action="Game" method="post">
+<form action="Game" method="get">
     <input type="hidden" name="resign" value="resign">
     <input type="submit" value="Resign">
 </form>
