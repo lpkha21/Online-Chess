@@ -665,8 +665,8 @@
             type: 'POST',
             dataType: 'json',
             success: function(data) {
-                if(data.drawReqeust === 1){
-                    // call popUp
+                if(data.answerDraw === 1){
+                    document.getElementById("acceptDr").submit();
                 }else{
                     setTimeout(checkDrawRequestAnswer, 1000);
                 }
@@ -768,6 +768,9 @@
 <form action="Game" method="get">
     <input type="hidden" name="dr" value="dr">
     <input type="submit" value="Draw">
+</form>
+<form id="acceptDr"  action="Game" method="get">
+    <input type="hidden" name="acceptDraw" value="accept">
 </form>
 
 

@@ -16,6 +16,9 @@ public class Game {
     boolean requestDrawBlack;
     boolean requestDrawWhite;
 
+    boolean answerDrawBlack;
+    boolean answerDrawWhite;
+
     public int current;
 
     int update;
@@ -133,6 +136,25 @@ public class Game {
             requestDrawBlack = true;
         }else{
             requestDrawWhite = true;
+        }
+    }
+
+    public void AnswerDraw(HttpSession session, String answer){
+        Player p = (Player) session.getAttribute("player");
+        if(p.getColor() == pieceEnum.WHITE){
+            if(answer.equals("yes")){
+                answerDrawWhite = true;
+            }else{
+                answerDrawWhite = false;
+                requestDrawWhite = false;
+            }
+        }else{
+            if(answer.equals("yes")){
+                answerDrawBlack = true;
+            }else{
+                answerDrawBlack = false;
+                requestDrawBlack = false;
+            }
         }
     }
 }

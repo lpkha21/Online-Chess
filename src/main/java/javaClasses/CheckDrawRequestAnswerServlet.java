@@ -14,21 +14,21 @@ public class CheckDrawRequestAnswerServlet extends HttpServlet {
         Game game = (Game) session.getAttribute("game");
         Player p = (Player) session.getAttribute("player");
 
-        int drawRequest = 0;
+        int answerDraw = 0;
         if(p.getColor() == pieceEnum.WHITE){
-            if(game.requestDrawWhite){
-                drawRequest = 1;
+            if(game.answerDrawBlack){
+                answerDraw = 1;
             };
         }else{
-            if(game.requestDrawBlack){
-                drawRequest = 1;
+            if(game.answerDrawWhite){
+                answerDraw = 1;
             }
 
         }
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"drawRequest\": " + drawRequest + "}");
+        response.getWriter().write("{\"answerDraw\": " + answerDraw + "}");
 
 
 
