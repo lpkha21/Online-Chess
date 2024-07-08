@@ -21,12 +21,19 @@ public class GameServlet extends HttpServlet {
         int time = Integer.parseInt(t);
         time = time*60;
 
+        if(session.getAttribute("end") != null){
+            httpServletRequest.getRequestDispatcher("game.jsp").forward(httpServletRequest, httpServletResponse);
+            return;
+        }
+
         if(httpServletRequest.getParameter("acceptDraw") != null){
+            session.setAttribute("end","end");
             httpServletRequest.setAttribute("result","Draw");
         }
 
         if(httpServletRequest.getParameter("answer") != null){
             if(httpServletRequest.getParameter("answer").equals("yes")){
+                session.setAttribute("end","end");
                 httpServletRequest.setAttribute("result","Draw");
             }
             game.AnswerDraw(session,httpServletRequest.getParameter("answer"));
@@ -39,18 +46,22 @@ public class GameServlet extends HttpServlet {
         if(httpServletRequest.getParameter("resign") != null){
             game.Resign(session);
             game.changeColor(session);
+            session.setAttribute("end","end");
             httpServletRequest.setAttribute("result","Lose");
         }
 
         if((player.getColor() == pieceEnum.WHITE && game.blackResign) || (player.getColor() == pieceEnum.BLACK && game.whiteResign)){
+            session.setAttribute("end","end");
             httpServletRequest.setAttribute("result","Win");
         }
 
         if(game.lose(session)){
+            session.setAttribute("end","end");
             httpServletRequest.setAttribute("result","Lose");
         }
 
         if(game.draw(player.getColor())){
+            session.setAttribute("end","end");
             httpServletRequest.setAttribute("result","Draw");
         }
 
@@ -76,6 +87,11 @@ public class GameServlet extends HttpServlet {
         Game game = (Game) session.getAttribute("game");
         Player player = (Player) session.getAttribute("player");
         httpServletRequest.setAttribute("board", game.getBoard());
+
+        if(session.getAttribute("end") != null){
+            httpServletRequest.getRequestDispatcher("game.jsp").forward(httpServletRequest, httpServletResponse);
+            return;
+        }
 
         if(httpServletRequest.getParameter("coordinate") != null){
             Coordinate c = (Coordinate) session.getAttribute("promotion");
@@ -112,15 +128,18 @@ public class GameServlet extends HttpServlet {
         }
 
         if(game.win(session)){
+            session.setAttribute("end","end");
             httpServletRequest.setAttribute("result","Win");
         }
 
         if(player.getColor() == pieceEnum.WHITE){
             if(game.draw(pieceEnum.BLACK)){
+                session.setAttribute("end","end");
                 httpServletRequest.setAttribute("result","Draw");
             }
         }else{
             if(game.draw(pieceEnum.WHITE)){
+                session.setAttribute("end","end");
                 httpServletRequest.setAttribute("result","Draw");
             }
         }

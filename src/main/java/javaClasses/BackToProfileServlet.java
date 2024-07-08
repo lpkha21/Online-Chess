@@ -15,6 +15,12 @@ public class BackToProfileServlet extends HttpServlet {
         String username = (String) session.getAttribute("username");
         DataBase dataBase = (DataBase) getServletContext().getAttribute("dataBase");
         RequestDispatcher dispatcher;
+        session.removeAttribute("game");
+        session.removeAttribute("player");
+        session.removeAttribute("opponent");
+        session.removeAttribute("myTimer");
+        session.removeAttribute("opponentTimer");
+        session.removeAttribute("end");
 
         try {
             request.setAttribute("username", username);
