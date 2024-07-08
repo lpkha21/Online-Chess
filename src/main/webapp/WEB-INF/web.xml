@@ -129,6 +129,16 @@
     <servlet-class>javaClasses.SendMessageServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>CheckDrawRequestServlet</servlet-name>
+    <servlet-class>javaClasses.CheckDrawRequestServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>CheckDrawRequestAnswerServlet</servlet-name>
+    <servlet-class>javaClasses.CheckDrawRequestAnswerServlet</servlet-class>
+  </servlet>
+
 
   <servlet-mapping>
     <servlet-name>SendMessageServlet</servlet-name>
@@ -249,6 +259,16 @@
   <servlet-mapping>
     <servlet-name>UpdateTimersServlet</servlet-name>
     <url-pattern>/UpdateTimersServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>CheckDrawRequestServlet</servlet-name>
+    <url-pattern>/CheckDrawRequestServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>CheckDrawRequestAnswerServlet</servlet-name>
+    <url-pattern>/CheckDrawRequestAnswerServlet</url-pattern>
   </servlet-mapping>
 
 </web-app>

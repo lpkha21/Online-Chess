@@ -415,6 +415,54 @@
         updateBoardState();
     });
 
+    function checkDrawRequest() {
+        $.ajax({
+            url: '/CheckDrawRequestServlet',
+            type: 'POST',
+            dataType: 'json',
+            success: function(data) {
+                if(data.drawReqeust === 1){
+                    // call popUp
+                }else{
+                    setTimeout(checkDrawRequest, 1000);
+                }
+
+            },
+            error: function() {
+                setTimeout(checkDrawRequest, 1000);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        checkDrawRequest();
+    });
+
+    function checkDrawRequestAnswer() {
+        $.ajax({
+            url: '/CheckDrawRequestAnswerServlet',
+            type: 'POST',
+            dataType: 'json',
+            success: function(data) {
+                if(data.drawReqeust === 1){
+                    // call popUp
+                }else{
+                    setTimeout(checkDrawRequestAnswer, 1000);
+                }
+
+            },
+            error: function() {
+                setTimeout(checkDrawRequestAnswer, 1000);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        checkDrawRequestAnswer();
+    });
+
+
+
     var flag = false;
 
     function clicked(square, i, j){
@@ -491,6 +539,16 @@
     });
 
 </script>
+
+<form action="Game" method="post">
+    <input type="hidden" name="resign" value="resign">
+    <input type="submit" value="Resign">
+</form>
+<form action="Game" method="post">
+    <input type="hidden" name="draw" value="draw">
+    <input type="submit" value="Draw">
+</form>
+
 
 </body>
 </html>

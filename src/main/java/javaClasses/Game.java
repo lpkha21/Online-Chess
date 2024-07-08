@@ -10,6 +10,12 @@ public class Game {
     Player whitePlayer;
     Player blackPlayer;
 
+    boolean whiteResign;
+    boolean blackResign;
+
+    boolean requestDrawBlack;
+    boolean requestDrawWhite;
+
     public int current;
 
     int update;
@@ -19,7 +25,8 @@ public class Game {
 
     public Game(HttpSession session1, HttpSession session2, String time, int color){
         messages = new ArrayList<>();
-
+        whiteResign = false;
+        blackResign = false;
         board = new Board();
         Random random = new Random();
         current = pieceEnum.WHITE;
@@ -29,23 +36,32 @@ public class Game {
             whitePlayer = new Player((String) session1.getAttribute("username"),pieceEnum.WHITE);
             blackPlayer = new Player((String) session2.getAttribute("username"),pieceEnum.BLACK);
             session1.setAttribute("player",whitePlayer);
+            session1.setAttribute("opponent",blackPlayer);
             session2.setAttribute("player",blackPlayer);
+            session2.setAttribute("opponent",whitePlayer);
+
         }else if(color == pieceEnum.BLACK){
             whitePlayer = new Player((String) session2.getAttribute("username"),pieceEnum.WHITE);
             blackPlayer = new Player((String) session1.getAttribute("username"),pieceEnum.BLACK);
             session1.setAttribute("player",blackPlayer);
+            session1.setAttribute("opponent",whitePlayer);
             session2.setAttribute("player",whitePlayer);
+            session2.setAttribute("opponent",blackPlayer);
         }else{
             if(random.nextBoolean()){
                 whitePlayer = new Player((String) session1.getAttribute("username"),pieceEnum.WHITE);
                 blackPlayer = new Player((String) session2.getAttribute("username"),pieceEnum.BLACK);
                 session1.setAttribute("player",whitePlayer);
+                session1.setAttribute("opponent",blackPlayer);
                 session2.setAttribute("player",blackPlayer);
+                session2.setAttribute("opponent",whitePlayer);
             }else{
                 whitePlayer = new Player((String) session2.getAttribute("username"),pieceEnum.WHITE);
                 blackPlayer = new Player((String) session1.getAttribute("username"),pieceEnum.BLACK);
                 session1.setAttribute("player",blackPlayer);
+                session1.setAttribute("opponent",whitePlayer);
                 session2.setAttribute("player",whitePlayer);
+                session2.setAttribute("opponent",blackPlayer);
             }
         }
     }
@@ -100,5 +116,23 @@ public class Game {
 
     public boolean draw(int color){
         return board.isDraw(color);
+    }
+
+    public void Resign(HttpSession session){
+        Player p = (Player) session.getAttribute("player");
+        if(p.getColor() == pieceEnum.WHITE){
+            whiteResign = true;
+        }else{
+            blackResign = true;
+        }
+    }
+
+    public void RequestDraw(HttpSession session){
+        Player p = (Player) session.getAttribute("player");
+        if(p.getColor() == pieceEnum.WHITE){
+            requestDrawBlack = true;
+        }else{
+            requestDrawWhite = true;
+        }
     }
 }
