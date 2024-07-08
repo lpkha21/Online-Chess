@@ -21,6 +21,10 @@ public class GameServlet extends HttpServlet {
         int time = Integer.parseInt(t);
         time = time*60;
 
+        if(httpServletRequest.getParameter("acceptDraw") != null){
+            httpServletRequest.setAttribute("result","Draw");
+        }
+
         if(httpServletRequest.getParameter("answer") != null){
             httpServletRequest.setAttribute("result","Draw");
             game.AnswerDraw(session,httpServletRequest.getParameter("answer"));
