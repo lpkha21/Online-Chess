@@ -21,6 +21,10 @@ public class GameServlet extends HttpServlet {
         int time = Integer.parseInt(t);
         time = time*60;
 
+        if(httpServletRequest.getParameter("dr") != null){
+            game.RequestDraw(session);
+        }
+
         if(httpServletRequest.getParameter("resign") != null){
             game.Resign(session);
             game.changeColor(session);
@@ -61,10 +65,6 @@ public class GameServlet extends HttpServlet {
         Game game = (Game) session.getAttribute("game");
         Player player = (Player) session.getAttribute("player");
         httpServletRequest.setAttribute("board", game.getBoard());
-
-        if(httpServletRequest.getParameter("draw") != null){
-            game.RequestDraw(session);
-        }
 
         if(httpServletRequest.getParameter("coordinate") != null){
             Coordinate c = (Coordinate) session.getAttribute("promotion");

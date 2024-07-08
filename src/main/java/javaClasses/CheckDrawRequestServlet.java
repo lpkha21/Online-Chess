@@ -1,5 +1,6 @@
 package javaClasses;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,18 +19,16 @@ public class CheckDrawRequestServlet extends HttpServlet {
         if(p.getColor() == pieceEnum.WHITE){
             if(game.requestDrawWhite){
                 drawRequest = 1;
-            };
+            }
         }else{
             if(game.requestDrawBlack){
                 drawRequest = 1;
             }
-
         }
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write("{\"drawRequest\": " + drawRequest + "}");
-
 
 
     }

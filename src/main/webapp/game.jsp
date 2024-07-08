@@ -8,6 +8,91 @@
     <meta charset="UTF-8">
     <title>Chessboard</title>
     <link rel="stylesheet" href="styles.css">
+
+    <form id="Draw" action="Game" method="get">
+        <input type="hidden" name="answer" id="answer" value=""/>
+    </form>
+
+    <style>
+        /* Draw container - can be anything you want */
+        .draw {
+            position: fixed;
+            display: none;
+            width: 300px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid #000;
+            background-color: #fff;
+            z-index: 1000;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        /* Draw background overlay */
+        .draw-overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .draw-content {
+            margin-top: 20px;
+        }
+
+        .draw-group {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .draw-group button {
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .draw-group button.accept {
+            background-color: #4CAF50; /* Green */
+        }
+
+        .draw-group button.decline {
+            background-color: #f44336; /* Red */
+        }
+    </style>
+    <script>
+        function showDraw() {
+            document.getElementById('draw').style.display = 'block';
+            document.getElementById('drawOverlay').style.display = 'block';
+        }
+
+        function hideDraw() {
+            document.getElementById('draw').style.display = 'none';
+            document.getElementById('drawOverlay').style.display = 'none';
+        }
+
+        function acceptAction() {
+            document.getElementById('answer').value = 'yes';
+            document.getElementById('Draw').submit();
+            hideDraw();
+        }
+
+        function declineAction() {
+            document.getElementById('answer').value = 'no';
+            document.getElementById('Draw').submit();
+            hideDraw();
+        }
+    </script>
     <style>
         .result {
             position: fixed;
@@ -359,6 +444,18 @@
 </head>
 
 <body>
+<div id="drawOverlay" class="draw-overlay"></div>
+
+<!-- Draw content -->
+<div id="draw" class="draw">
+    <div class="draw-content">
+        <p>Draw?</p>
+        <div class="draw-group">
+            <button class="accept" onclick="acceptAction()">Accept</button>
+            <button class="decline" onclick="declineAction()">Decline</button>
+        </div>
+    </div>
+</div>
 <%
     String res = (String) request.getAttribute("result");
     String winner = ((Player) session.getAttribute("player")).getName();
@@ -545,8 +642,8 @@
             type: 'POST',
             dataType: 'json',
             success: function(data) {
-                if(data.drawReqeust === 1){
-                    // call popUp
+                if(data.drawRequest === 1){
+                    showDraw();
                 }else{
                     setTimeout(checkDrawRequest, 1000);
                 }
@@ -668,8 +765,8 @@
     <input type="hidden" name="resign" value="resign">
     <input type="submit" value="Resign">
 </form>
-<form action="Game" method="post">
-    <input type="hidden" name="draw" value="draw">
+<form action="Game" method="get">
+    <input type="hidden" name="dr" value="dr">
     <input type="submit" value="Draw">
 </form>
 
