@@ -146,15 +146,15 @@ public class Game {
                 answerDrawWhite = true;
             }else{
                 answerDrawWhite = false;
-                requestDrawWhite = false;
             }
+            requestDrawWhite = false;
         }else{
             if(answer.equals("yes")){
                 answerDrawBlack = true;
             }else{
                 answerDrawBlack = false;
-                requestDrawBlack = false;
             }
+            requestDrawBlack = false;
         }
     }
 }
