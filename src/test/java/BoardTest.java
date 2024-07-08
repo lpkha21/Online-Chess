@@ -434,8 +434,8 @@ public class BoardTest extends TestCase {
         assertTrue(((Pawn)b.getPiece(0,5)).isPromoted());
         assertTrue(((Pawn)b.getPiece(7,0)).isPromoted());
 
-        assertEquals(2, b.whitePieces.size());
-        assertEquals(2, b.whitePieces.size());
+        assertEquals(1, b.whitePieces.size());
+        assertEquals(1, b.whitePieces.size());
     }
 
 

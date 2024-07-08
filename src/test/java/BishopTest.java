@@ -24,6 +24,9 @@ public class BishopTest extends TestCase {
     }
 
     private void placePieces(Board board) {
+        board.setPiece(new King(7,3, board, pieceEnum.BLACK));
+        board.setPiece(new King(0,0, board, pieceEnum.WHITE));
+
         board.setPiece(1, 0,new Pawn(new Coordinate(1,0), board, pieceEnum.WHITE));
         board.setPiece(1, 1,new Pawn(new Coordinate(1,1), board, pieceEnum.WHITE));
         board.setPiece(1, 2,new Pawn(new Coordinate(1,2), board, pieceEnum.WHITE));

@@ -30,6 +30,9 @@ public class PawnTest extends TestCase {
     private void setLonePawns() {
         emptyBoard = new Board(false);
 
+        emptyBoard.setPiece(new King(0,7, emptyBoard, pieceEnum.BLACK));
+        emptyBoard.setPiece(new King(7,7, emptyBoard, pieceEnum.WHITE));
+
         lonePawnW = new Pawn(6,1,emptyBoard, pieceEnum.WHITE);
         loneiW = lonePawnW.getCoordinate().i;
         lonejW = lonePawnW.getCoordinate().j;

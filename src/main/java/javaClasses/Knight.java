@@ -32,6 +32,25 @@ public class Knight implements Piece{
             return false;
         if(!board.isEmpty(c) && board.getPiece(c.i, c.j).color() == this.color)
             return false;
+
+        // Move and see if Checked
+        Coordinate prevCord = cord;
+        Piece killedPiece = this.board.getPiece(c);
+
+        this.updateCoordinate(c);
+        this.board.setPiece(c.i,c.j,this);
+
+        if(this.board.isCheck(this.color)){
+            updateCoordinate(prevCord);
+            this.board.setPiece(cord.i,cord.j,this);
+            this.board.setPiece(c.i,c.j,killedPiece);
+            return false;
+        }
+
+        updateCoordinate(prevCord);
+        this.board.setPiece(cord.i,cord.j,this);
+        this.board.setPiece(c.i,c.j,killedPiece);
+
         return true;
     }
 

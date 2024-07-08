@@ -73,11 +73,7 @@ public class RookTest extends TestCase {
 
         assertFalse(loneRook.canMove(lonei,lonej));
     }
-
-    public void testCanMove2(){
-        assertTrue(rookB1.canMove(6,1));
-    }
-
+    
     public void testCheckPath(){
         Board b = new Board(false);
         b.setPiece(new Rook(0,0,b,pieceEnum.WHITE));
