@@ -68,6 +68,24 @@ public class Bishop implements Piece{
             }
         }
 
+        // Move and see if Checked
+        Coordinate prevCord = cord;
+        Piece killedPiece = this.board.getPiece(c);
+
+        this.updateCoordinate(c);
+        this.board.setPiece(c.i,c.j,this);
+
+        if(this.board.isCheck(this.color)){
+            updateCoordinate(prevCord);
+            this.board.setPiece(cord.i,cord.j,this);
+            this.board.setPiece(c.i,c.j,killedPiece);
+            return false;
+        }
+
+        updateCoordinate(prevCord);
+        this.board.setPiece(cord.i,cord.j,this);
+        this.board.setPiece(c.i,c.j,killedPiece);
+
         return true;
     }
 

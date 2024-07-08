@@ -42,10 +42,55 @@ public class Pawn implements Piece {
         }
 
         if(!moved && abs(c.i-this.cord.i) == 2 && abs(c.j - this.cord.j) == 0 && board.isEmpty(c)) {
-            if(color == pieceEnum.WHITE && board.isEmpty(cord.i-1,c.j))
+            if(color == pieceEnum.WHITE && board.isEmpty(cord.i-1,c.j)) {
+
+                // Move and see if Checked
+                Coordinate prevCord = cord;
+                boolean prevMoved = this.moved;
+                Piece killedPiece = this.board.getPiece(c);
+
+                this.updateCoordinate(c);
+                this.board.setPiece(c.i,c.j,this);
+
+                if(this.board.isCheck(this.color)){
+                    updateCoordinate(prevCord);
+                    this.moved = prevMoved;
+                    this.board.setPiece(cord.i,cord.j,this);
+                    this.board.setPiece(c.i,c.j,killedPiece);
+                    return false;
+                }
+
+                updateCoordinate(prevCord);
+                this.moved = prevMoved;
+                this.board.setPiece(cord.i,cord.j,this);
+                this.board.setPiece(c.i,c.j,killedPiece);
+
                 return true;
-            else if(color == pieceEnum.BLACK && board.isEmpty(cord.i+1,c.j))
+            }
+            else if(color == pieceEnum.BLACK && board.isEmpty(cord.i+1,c.j)) {
+                // Move and see if Checked
+                Coordinate prevCord = cord;
+                boolean prevMoved = this.moved;
+                Piece killedPiece = this.board.getPiece(c);
+
+                this.updateCoordinate(c);
+                this.board.setPiece(c.i,c.j,this);
+
+                if(this.board.isCheck(this.color)){
+                    updateCoordinate(prevCord);
+                    this.moved = prevMoved;
+                    this.board.setPiece(cord.i,cord.j,this);
+                    this.board.setPiece(c.i,c.j,killedPiece);
+                    return false;
+                }
+
+                updateCoordinate(prevCord);
+                this.moved = prevMoved;
+                this.board.setPiece(cord.i,cord.j,this);
+                this.board.setPiece(c.i,c.j,killedPiece);
+
                 return true;
+            }
         }
 
         if(abs(c.i - this.cord.i) != 1 || abs(c.j - this.cord.j) > 1)
@@ -55,6 +100,28 @@ public class Pawn implements Piece {
             return false;
         if(abs(c.j - this.cord.j) == 0 && board.getPiece(c) != null)
             return false;
+
+
+        // Move and see if Checked
+        Coordinate prevCord = cord;
+        boolean prevMoved = this.moved;
+        Piece killedPiece = this.board.getPiece(c);
+
+        this.updateCoordinate(c);
+        this.board.setPiece(c.i,c.j,this);
+
+        if(this.board.isCheck(this.color)){
+            updateCoordinate(prevCord);
+            this.moved = prevMoved;
+            this.board.setPiece(cord.i,cord.j,this);
+            this.board.setPiece(c.i,c.j,killedPiece);
+            return false;
+        }
+
+        updateCoordinate(prevCord);
+        this.moved = prevMoved;
+        this.board.setPiece(cord.i,cord.j,this);
+        this.board.setPiece(c.i,c.j,killedPiece);
 
         return true;
     }

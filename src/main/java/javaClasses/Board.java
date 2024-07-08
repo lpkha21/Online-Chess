@@ -237,6 +237,8 @@ public class Board {
 
     public void setPiece(int i, int j, Piece piece) {
         board[i][j] = piece;
+        if(piece == null)
+            return;
         if (piece.getType() == pieceEnum.KING) {
             if (piece.color() == pieceEnum.WHITE) {
                 whiteKing = piece.getCoordinate();

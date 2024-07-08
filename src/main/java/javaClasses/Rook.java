@@ -69,6 +69,28 @@ public class Rook implements Piece{
                 }
             }
         }
+
+        // Move and see if Checked
+        Coordinate prevCord = cord;
+        boolean prevMoved = this.moved;
+        Piece killedPiece = this.board.getPiece(c);
+
+        this.updateCoordinate(c);
+        this.board.setPiece(c.i,c.j,this);
+
+        if(this.board.isCheck(this.color)){
+            updateCoordinate(prevCord);
+            this.moved = prevMoved;
+            this.board.setPiece(cord.i,cord.j,this);
+            this.board.setPiece(c.i,c.j,killedPiece);
+            return false;
+        }
+
+        updateCoordinate(prevCord);
+        this.moved = prevMoved;
+        this.board.setPiece(cord.i,cord.j,this);
+        this.board.setPiece(c.i,c.j,killedPiece);
+
         return true;
     }
 
