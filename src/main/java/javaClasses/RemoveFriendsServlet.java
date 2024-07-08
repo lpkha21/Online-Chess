@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class AcceptRequestServlet extends HttpServlet {
+public class RemoveFriendsServlet extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String friendUsername = request.getParameter("friendUsername");
         String username = request.getParameter("username");
@@ -16,16 +17,17 @@ public class AcceptRequestServlet extends HttpServlet {
         DataBase dataBase = (DataBase) getServletContext().getAttribute("dataBase");
         RequestDispatcher dispatcher;
         try {
-            dataBase.addFriends(username,friendUsername);
-            dataBase.addFriends(friendUsername,username);
-            dataBase.removeFromRequests(username,friendUsername);
-            String requests = dataBase.getRequests(username);
-            request.setAttribute("requests",requests);
+            dataBase.removeFriends(username,friendUsername);
+            dataBase.removeFriends(friendUsername,username);
+            String friends = dataBase.getFriends(username);
+            request.setAttribute("friends",friends);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
         request.setAttribute("username",username);
-        dispatcher = request.getRequestDispatcher("requests.jsp");
+        dispatcher = request.getRequestDispatcher("removeFriends.jsp");
+
         dispatcher.forward(request, response);
     }
 }

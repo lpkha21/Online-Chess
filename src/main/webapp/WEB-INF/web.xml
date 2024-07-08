@@ -139,6 +139,18 @@
     <servlet-class>javaClasses.CheckDrawRequestAnswerServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>RemoveFriendsServlet</servlet-name>
+    <servlet-class>javaClasses.RemoveFriendsServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>FriendsServlet</servlet-name>
+    <servlet-class>javaClasses.FriendsServlet</servlet-class>
+  </servlet>
+
+
+
 
   <servlet-mapping>
     <servlet-name>SendMessageServlet</servlet-name>
@@ -269,6 +281,16 @@
   <servlet-mapping>
     <servlet-name>CheckDrawRequestAnswerServlet</servlet-name>
     <url-pattern>/CheckDrawRequestAnswerServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>RemoveFriendsServlet</servlet-name>
+    <url-pattern>/RemoveFriendsServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>FriendsServlet</servlet-name>
+    <url-pattern>/FriendsServlet</url-pattern>
   </servlet-mapping>
 
 </web-app>

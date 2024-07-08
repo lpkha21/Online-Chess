@@ -153,4 +153,25 @@ public class DataBase {
         }
     }
 
+    public void removeFriends(String name1,String name2) throws SQLException {
+        String friends = getFriends(name1);
+        if(friends == null)return;
+        String newFriends = "";
+        String[] f = friends.split(",");
+        for (String s : f) {
+            if (!s.equals(name2)) {
+                newFriends += s + ",";
+            }
+        }
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        if(!newFriends.isEmpty()){
+            newFriends = newFriends.substring(0,newFriends.length()-1);
+            String sql = String.format("update accounts set friends_list = '%s' where username = '%s'",newFriends,name1);
+            stmt.executeUpdate(sql);
+        }else{
+            String sql = String.format("update accounts set friends_list = '%s' where username = '%s'","",name1);
+            stmt.executeUpdate(sql);
+        }
+    }
+
 }

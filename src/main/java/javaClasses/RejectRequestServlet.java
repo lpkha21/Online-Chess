@@ -17,6 +17,8 @@ public class RejectRequestServlet extends HttpServlet {
         RequestDispatcher dispatcher;
         try {
             dataBase.removeFromRequests(username,friendUsername);
+            String requests = dataBase.getRequests(username);
+            request.setAttribute("requests",requests);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
