@@ -32,7 +32,9 @@ public class DataBase {
         }
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         if(!username.isEmpty() && !password.isEmpty()){
-            stmt.executeUpdate(String.format("insert into accounts (username, password, friends_list) values ('%s','%s','%s')", username, password, ""));
+            Cracker cracker = new Cracker(password);
+            String p = cracker.GenerationMode();
+            stmt.executeUpdate(String.format("insert into accounts (username, password, friends_list) values ('%s','%s','%s')", username, p, ""));
         }else{
             return false;
         }
@@ -40,13 +42,16 @@ public class DataBase {
     }
 
     public boolean validLogin(String username, String password) throws SQLException {
+        Cracker cracker = new Cracker(password);
+        String p = cracker.GenerationMode();
+
         String sql = "SELECT * FROM accounts";
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         ResultSet rs = stmt.executeQuery(sql);
         while (rs.next()) {
             String name = rs.getString("username");
             String pw = rs.getString("password");
-            if(username.equals(name) && password.equals(pw))return true;
+            if(username.equals(name) && p.equals(pw))return true;
         }
         return false;
     }

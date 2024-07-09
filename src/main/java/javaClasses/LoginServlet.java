@@ -25,8 +25,6 @@ public class LoginServlet extends HttpServlet {
                 String friends = dataBase.getFriends(username);
                 request.setAttribute("friends",friends);
                 HttpSession session = request.getSession();
-                session.removeAttribute("myTimer");
-                session.removeAttribute("opponentTimer");
                 session.setAttribute("username",username);
                 dispatcher = request.getRequestDispatcher("profile.jsp");
             } else {

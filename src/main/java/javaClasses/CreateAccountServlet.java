@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -22,6 +23,8 @@ public class CreateAccountServlet extends HttpServlet {
                 request.setAttribute("username", username);
                 String friends = dataBase.getFriends(username);
                 request.setAttribute("friends",friends);
+                HttpSession session = request.getSession();
+                session.setAttribute("username",username);
                 dispatcher = request.getRequestDispatcher("profile.jsp");
             } else {
                 request.setAttribute("username", username);
