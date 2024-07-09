@@ -140,7 +140,16 @@ body {
     border: none;
     border-radius: 5px;
 }
+.name1{
+    position: fixed;
+    top: 30px;
 
+}
+
+.name2{
+    position: fixed;
+    bottom: 30px;
+}
 .draw {
     position: fixed;
     display: none;

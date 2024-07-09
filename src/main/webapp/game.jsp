@@ -147,6 +147,10 @@
 </head>
 
 <body>
+
+
+
+
 <div id="drawOverlay" class="draw-overlay"></div>
 
 <!-- Draw content -->
@@ -235,9 +239,10 @@
 
 <div class="chessboard-container">
     <div class="timer" style="position: absolute; top: 30px; left: 100px;">
-
+        <p><%=((Player) session.getAttribute("opponent")).getName()%></p>
         <div id="timer1"></div> <!-- Opponent's timer -->
     </div>
+
     <div class="chessboard">
         <%
             Player player = (Player) session.getAttribute("player");
@@ -278,11 +283,18 @@
             }
         %>
     </div>
+
+
+
     <div class="timer" style="position: absolute; bottom: 60px; left: 100px;">
+        <p><%=((Player) session.getAttribute("player")).getName()%></p>
 
         <div id="timer2"></div> <!-- Your timer -->
     </div>
+
+
 </div>
+
 
 <form id="form" action="Game" method="POST">
     <input type="hidden" name="fromi" id="fromi" value="">
