@@ -78,7 +78,9 @@
                     updateTimers()
                 } else {
                     clearInterval(interval);
-                    alert("Time's up for " + timerId + "!");
+                    if(timerId === "timer2"){
+                      document.getElementById("Resign").submit();
+                    }
                 }
             }, 1000);
         }
@@ -324,7 +326,7 @@
 
     <div class="rd">
         <% if(session.getAttribute("end") == null){%>
-            <form action="Game" method="get">
+            <form id="Resign"  action="Game" method="get">
                 <input type="hidden" name="resign" value="resign">
                 <input type="submit"  value="🏳️ Resign">
             </form>

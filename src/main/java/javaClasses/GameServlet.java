@@ -36,6 +36,18 @@ public class GameServlet extends HttpServlet {
             return;
         }
 
+        if(session.getAttribute("myTimerUp") != null){
+            session.removeAttribute("myTimerUp");
+            session.setAttribute("end","end");
+            httpServletRequest.setAttribute("result","Lose");
+        }
+
+        if(session.getAttribute("oppTimerUp") != null){
+            session.removeAttribute("oppTimerUp");
+            session.setAttribute("end","end");
+            httpServletRequest.setAttribute("result","Win");
+        }
+
         if(httpServletRequest.getParameter("acceptDraw") != null){
             session.setAttribute("end","end");
             httpServletRequest.setAttribute("result","Draw");

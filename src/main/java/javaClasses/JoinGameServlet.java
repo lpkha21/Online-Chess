@@ -28,7 +28,8 @@ public class JoinGameServlet extends HttpServlet {
             session.setAttribute("game",game);
             opponentSession.setAttribute("game",game);
         }else{
-            queue.clear();
+           queue.remove(session);
+           queue.remove(opponentSession);
         }
 
         RequestDispatcher dispatcher;
